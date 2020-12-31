@@ -41,21 +41,6 @@ Initializing hostapd.conf for wlan0:
 cd ~
 sudo hostapd hostapd.conf -B
 ```
-You can also use the interface-y1.sh file to automate the previous steps.
-
-```bash
-# run interface-y1.sh
-sudo interface-y1.sh up
-```
-To stop the script and clean-up environment type CRTL+c or run the command:
-
-```bash
-# run interface-y1.sh
-sudo interface-y1.sh down
-```
-
-
-
 
 To create the wpa_supplicant.conf file:
 ```bash
@@ -74,3 +59,16 @@ If success, the output will look like below:
 <p align="center">
     <img src="docs/figs/success-interface-y1.png" height="200"/> 
 </p>
+
+You can also use the interface-y1.sh file to automate the previous steps.
+
+```bash
+# run interface-y1.sh
+sudo interface-y1.sh up
+```
+To stop the script and clean-up environment type CRTL+c or run the command:
+
+```bash
+# run interface-y1.sh
+sudo interface-y1.sh down
+```
