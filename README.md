@@ -57,5 +57,5 @@ Done! At this point, the virtual interface wlan1 is connected to wlan0 which act
 If success, the output will look like below
 
 <p align="center">
-    <img src="docs/figs/success-interface-y1.png" height="500"/> 
+    <img src="docs/figs/success-interface-y1.png" height="200"/> 
 </p>
