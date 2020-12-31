@@ -39,7 +39,7 @@ if [[ $1 == "up" ]]; then
   echo -e "Complete!"
   #sudo dnsmasq -i wlan0 -p 5353 --dhcp-range=192.168.1.1,192.168.1.253 &
   sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
-  echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > ~/Desktop/hostapd.conf
+  echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
   sleep 5
   
   echo -e "\n-------------------------------------------------------------"
@@ -52,9 +52,9 @@ if [[ $1 == "up" ]]; then
   echo -e "\033[01;32mInitializing wpa_supplicant for wlan1...\033[01;37m"
   echo -e "-------------------------------------------------------------\n"  
   sudo touch $HOME/wpa_supplicant.conf && sudo chmod 666 $HOME/wpa_supplicant.conf
-  echo -e 'network={\nssid="'$SSID'"\nkey_mgmt=WPA-PSK\npsk="'$WPA_PASSPHRASE'"\n}' > ~/Desktop/wpa_supplicant.conf
-  sudo ifconfig wlan1 192.168.1.1
-  sudo wpa_supplicant -i wlan1 -c ~/Desktop/wpa_supplicant.conf && sleep 2
+  echo -e 'network={\nssid="'$SSID'"\nkey_mgmt=WPA-PSK\npsk="'$WPA_PASSPHRASE'"\n}' > $HOME/wpa_supplicant.conf
+  sudo ifconfig wlan1 192.168.1.2
+  sudo wpa_supplicant -i wlan1 -c $HOME/wpa_supplicant.conf && sleep 2
 
  
 elif [[ $1 == "down" ]]; then

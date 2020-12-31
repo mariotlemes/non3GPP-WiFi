@@ -11,7 +11,7 @@ Non-3GPP-IoT-Wifi aims to demonstrate the untrusted non-3GPP access to the my5Gc
     <img src="docs/figs/proposta.png" height="500"/> 
 </p>
 
-## Interface Y1 
+## Interface Y1 - Conection beetween UE and Access Point
 
 On your host, install the necessary packages.
 
@@ -39,10 +39,18 @@ echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nw
 Initializing hostapd.conf for wlan0:
 ```bash
 cd ~
-sudo hostapd hostapd.conf
+sudo hostapd hostapd.conf -B
 ```
 
+Create the wpa_supplicant.conf file:
+```bash
+  sudo touch $HOME/wpa_supplicant.conf && sudo chmod 666 $HOME/wpa_supplicant.conf
+  echo -e 'network={\nssid="'$SSID'"\nkey_mgmt=WPA-PSK\npsk="'$WPA_PASSPHRASE'"\n}' > $HOME/wpa_supplicant.conf
+```
 
-
-
-
+Apply the settings for wlan1 and initialize wpa_supplicant for wlan1:
+```bash
+sudo ifconfig wlan1 192.168.1.2
+sudo wpa_supplicant -i wlan1 -c $HOME/wpa_supplicant.conf && sleep 2
+```
+Done! At this point, the virtual interface wlan1 is connected to wlan0 which acts as a wifi access point.
