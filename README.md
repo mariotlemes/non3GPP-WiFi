@@ -33,7 +33,7 @@ sudo ip addr add 192.168.1.10/24 dev wlan0
 To create the hostapd.conf file:
 ```bash
 sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
-echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > ~/Desktop/hostapd.conf
+echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
 ```
 
 Initializing hostapd.conf for wlan0:
@@ -54,7 +54,7 @@ sudo ifconfig wlan1 192.168.1.2
 sudo wpa_supplicant -i wlan1 -c $HOME/wpa_supplicant.conf && sleep 2
 ```
 Done! At this point, the virtual interface wlan1 is connected to wlan0 which acts as a wifi access point.
-If success, the output will look like below
+If success, the output will look like below:
 
 <p align="center">
     <img src="docs/figs/success-interface-y1.png" height="200"/> 
