@@ -63,12 +63,10 @@ If success, the output will look like below:
 You can also use the interface-y1.sh file to automate the previous steps.
 
 ```bash
-# run interface-y1.sh
 sudo interface-y1.sh up
 ```
 To stop the script and clean-up environment type CRTL+c or run the command:
 
 ```bash
-# run interface-y1.sh
 sudo interface-y1.sh down
 ```
