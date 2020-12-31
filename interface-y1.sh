@@ -11,7 +11,7 @@ echo -e "\n-------------------------------------------------------------"
   echo -e "\033[01;32mRemoving process and modules...\033[01;37m"
   echo -e "-------------------------------------------------------------\n"  
   sudo killall dnsmasq hostapd wpa_supplicant
-  sudo rm -rf ~/Desktop/hostapd.conf ~/Desktop/wpa_supplicant.conf
+  sudo rm -rf $HOME/hostapd.conf $HOME/wpa_supplicant.conf
   sudo rmmod mac80211_hwsim
   exit 2
 }
@@ -38,20 +38,20 @@ if [[ $1 == "up" ]]; then
   sudo ip addr add 192.168.1.10/24 dev wlan0
   echo -e "Complete!"
   #sudo dnsmasq -i wlan0 -p 5353 --dhcp-range=192.168.1.1,192.168.1.253 &
-  sudo touch ~/Desktop/hostapd.conf && sudo chmod 666 ~/Desktop/hostapd.conf
+  sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
   echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > ~/Desktop/hostapd.conf
   sleep 5
   
   echo -e "\n-------------------------------------------------------------"
   echo -e "\033[01;32mInitializing hostapd.conf...\033[01;37m" 
   echo -e "-------------------------------------------------------------\n"
-  cd ~/Desktop
+  cd ~
   sudo hostapd hostapd.conf & sleep 10
   
   echo -e "\n-------------------------------------------------------------"
   echo -e "\033[01;32mInitializing wpa_supplicant for wlan1...\033[01;37m"
   echo -e "-------------------------------------------------------------\n"  
-  sudo touch ~/Desktop/wpa_supplicant.conf && sudo chmod 666 ~/Desktop/wpa_supplicant.conf
+  sudo touch $HOME/wpa_supplicant.conf && sudo chmod 666 $HOME/wpa_supplicant.conf
   echo -e 'network={\nssid="'$SSID'"\nkey_mgmt=WPA-PSK\npsk="'$WPA_PASSPHRASE'"\n}' > ~/Desktop/wpa_supplicant.conf
   sudo ifconfig wlan1 192.168.1.1
   sudo wpa_supplicant -i wlan1 -c ~/Desktop/wpa_supplicant.conf && sleep 2
@@ -62,6 +62,6 @@ elif [[ $1 == "down" ]]; then
   echo -e "\033[01;32mRemoving process and modules...\033[01;37m"
   echo -e "-------------------------------------------------------------\n"  
   sudo killall dnsmasq hostapd wpa_supplicant
-  sudo rm -rf ~/Desktop/hostapd.conf ~/Desktop/wpa_supplicant.conf
+  sudo rm -rf $HOME/hostapd.conf $HOME/wpa_supplicant.conf
   sudo rmmod mac80211_hwsim
 fi
