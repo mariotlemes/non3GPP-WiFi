@@ -11,7 +11,7 @@ Non-3GPP-IoT-WiFi aims to demonstrate the untrusted non-3GPP access to the my5Gc
 
 
 ## Expected result
-This experiment aims to demonstrate a non-3GPP access based on  N3IWF with integrated with a 
+This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a 
 IEEE 802.11 network implemented mac80211_hwsim and using the hostapd and 
 wpa\_supplicant tools. We also use an open-source implementation of the 
 SBA-based 5G core software ([my5gcore](https://github.com/my5G/my5G-core)), and 
@@ -73,8 +73,7 @@ Apply the settings for wlan1 and initialize wpa_supplicant for wlan1:
 sudo ifconfig wlan1 192.168.1.2
 sudo wpa_supplicant -i wlan1 -c $HOME/wpa_supplicant.conf && sleep 2
 ```
-Done! At this point, the virtual interface wlan1 is connected to wlan0 which acts as a wifi access point.
-If success, the output will look like below:
+Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a wifi access point. If success, the output will look like below:
 
 <p align="center">
     <img src="figs/success-interface-y1.png" height="200"/> 
@@ -92,5 +91,7 @@ sudo interface-y1.sh down
 ```
 
 ## Interface Y2 - Conection beetween AP and N3IWF
+
+The connection between AP and N3IWF will be made by a router that knows the UE network and the N3IWF network, being able to route messages between the two components. Virtual interfaces will be established between AP and Router and Router and N3IWF and routes will be created to exchange messages.
 
 
