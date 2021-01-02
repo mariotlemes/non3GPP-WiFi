@@ -50,6 +50,7 @@ To create the hostapd.conf file:
 sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
 echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
 ```
+<br>
 
 Initializing hostapd.conf to wlan0:
 
@@ -64,6 +65,7 @@ To create the wpa_supplicant.conf file:
   sudo touch $HOME/wpa_supplicant.conf && sudo chmod 666 $HOME/wpa_supplicant.conf
   echo -e 'network={\nssid="'$SSID'"\nkey_mgmt=WPA-PSK\npsk="'$WPA_PASSPHRASE'"\n}' > $HOME/wpa_supplicant.conf
 ```
+<br>
 
 Apply the settings for wlan1 and initialize wpa_supplicant for wlan1:
 
