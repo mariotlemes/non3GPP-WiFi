@@ -3,13 +3,22 @@
 </div> 
 
 # Non-3GPP-IoT-WiFi
-Non-3GPP-IoT-Wifi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network simulated by mac802_hwsim and using the hostapd and wpa\_supplicant tools.
+Non-3GPP-IoT-Wifi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network as illustrated by the following image.
+
+<p align="center">
+    <img src="figs/general-architecture.png.png" height="300"/> 
+</p>
+
+
+# Expected result
+This experiment aims to demonstrate a non-3GPP access based on  N3IWF with integrated with a IEEE 802.11 network implemented mac_80211_hwsim 
+and using the hostapd and wpa\_supplicant tools.
+
+We also use an open-source implementation of the SBA-based 5G core software, 
 
 <p align="center">
     <img src="figs/proposal.png" height="500"/> 
 </p>
-
-
 
 ## Interface Y1 - Conection beetween UE and Access Point
 
