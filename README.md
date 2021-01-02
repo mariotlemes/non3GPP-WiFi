@@ -6,7 +6,7 @@
 Non-3GPP-IoT-Wifi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network as illustrated by the following image.
 
 <p align="center">
-    <img src="figs/general-architecture.png" height="400"/> 
+    <img src="figs/general-architecture.png" height="200"/> 
 </p>
 
 
