@@ -6,7 +6,7 @@
 Non-3GPP-IoT-WiFi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network as illustrated by the following image.
 
 <p align="center">
-    <img src="figs/general-architecture.png" height="300"/> 
+    <img src="figs/general-architecture.png" height="250"/> 
 </p>
 
 
@@ -68,7 +68,7 @@ Done! At this point, the virtual interface wlan1 is connected to wlan0 which act
 If success, the output will look like below:
 
 <p align="center">
-    <img src="docs/figs/success-interface-y1.png" height="200"/> 
+    <img src="figs/success-interface-y1.png" height="200"/> 
 </p>
 
 You can also use the interface-y1.sh file to automate the previous steps.
