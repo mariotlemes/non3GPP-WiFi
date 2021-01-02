@@ -16,7 +16,7 @@ IEEE 802.11 network implemented mac80211_hwsim and using the hostapd and
 wpa\_supplicant tools. We also use an open-source implementation of the 
 SBA-based 5G core software ([my5gcore](https://github.com/my5G/my5G-core)), and 
 an open-source implementation to provide untrusted non-3GPP access do 5G core network
-([UE-IoT-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). The Y1 interface is responsible for the connection
+([UE-IoT-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is responsible for the connection
 between User Equipment (UE) and Access Point (AP) and Y2 establishes connection between AP and N3IWF.
 
 <p align="center">
