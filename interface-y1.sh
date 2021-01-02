@@ -53,8 +53,8 @@ if [[ $1 == "up" ]]; then
   echo -e "-------------------------------------------------------------\n"  
   sudo touch $HOME/wpa_supplicant.conf && sudo chmod 666 $HOME/wpa_supplicant.conf
   echo -e 'network={\nssid="'$SSID'"\nkey_mgmt=WPA-PSK\npsk="'$WPA_PASSPHRASE'"\n}' > $HOME/wpa_supplicant.conf
-  sudo ifconfig wlan1 192.168.1.2
-  sudo wpa_supplicant -i wlan1 -c $HOME/wpa_supplicant.conf && sleep 2
+  sudo ifconfig wlan1 192.168.1.1
+  sudo wpa_supplicant -i wlan1 -c $HOME/wpa_supplicant.conf -B
 
  
 elif [[ $1 == "down" ]]; then
