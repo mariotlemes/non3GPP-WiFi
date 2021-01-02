@@ -3,13 +3,24 @@
 </div> 
 
 # Non-3GPP-IoT-WiFi
-Non-3GPP-IoT-Wifi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network simulated by mac802_hwsim and using the hostapd and wpa\_supplicant tools.
+Non-3GPP-IoT-WiFi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network as illustrated by the following image.
+
+<p align="center">
+    <img src="figs/general-architecture.png" height="250"/> 
+</p>
+
+
+# Expected result
+This experiment aims to demonstrate a non-3GPP access based on  N3IWF with integrated with a 
+IEEE 802.11 network implemented mac_80211_hwsim and using the hostapd and 
+wpa\_supplicant tools. We also use an open-source implementation of the 
+SBA-based 5G core software ([my5gcore](https://github.com/my5G/my5G-core)), and 
+an open-source implementation to provide untrusted non-3GPP access do 5G core network
+([UE-IoT-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)).
 
 <p align="center">
     <img src="figs/proposal.png" height="500"/> 
 </p>
-
-
 
 ## Interface Y1 - Conection beetween UE and Access Point
 
@@ -57,7 +68,7 @@ Done! At this point, the virtual interface wlan1 is connected to wlan0 which act
 If success, the output will look like below:
 
 <p align="center">
-    <img src="docs/figs/success-interface-y1.png" height="200"/> 
+    <img src="figs/success-interface-y1.png" height="200"/> 
 </p>
 
 You can also use the interface-y1.sh file to automate the previous steps.
