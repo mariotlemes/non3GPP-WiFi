@@ -1,12 +1,12 @@
 <div align="center">
-    <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="docs/figs/my5g-logo.png" alt="free5GC"/></a>
+    <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
 </div> 
 
 # Non-3GPP-IoT-WiFi
 Non-3GPP-IoT-Wifi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network simulated by mac802_hwsim and using the hostapd and wpa\_supplicant tools.
 
 <p align="center">
-    <img src="docs/figs/proposal.png" height="500"/> 
+    <img src="figs/proposal.png" height="500"/> 
 </p>
 
 
