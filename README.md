@@ -153,7 +153,7 @@ which acts as a wifi access point. If success, the output of the command iwconfi
 below:
 
 <p align="center">
-    <img src="figs/success-interface-y1.png" height="200"/> 
+    <img src="figs/success-interface-y1.png"/> 
 </p>
 
 
