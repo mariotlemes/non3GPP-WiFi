@@ -110,9 +110,10 @@ Or download the hostapd file:
 
 ```bash
 cd ~
-wget -q https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/hostapd.conf?token=ACYGK3XMMLH6SNTIIOEDKJS76MXAA
+wget -q XXXXXXXXX
 ```
 <br>
+
 Initializing hostapd.conf to wlan0:
 
 ```bash
@@ -134,12 +135,13 @@ In the first terminal, type to create the wpa_supplicant.conf file:
 ```
 <br>
 Or download the wpa_supplicant file:
+
 ```bash
 cd ~
-https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/wpa_supplicant.conf?token=ACYGK3VEMOC3DBTF5D3VWVK76MXXE
+wget -q XXXX
 ```
 <br>
-Apply the settings for wlan1 and initialize wpa_supplicant for wlan1:
+Apply the settings for wlan1 and initialize wpa_supplicant:
 
 ```bash
 cd ~
