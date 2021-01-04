@@ -68,7 +68,7 @@ The resulted expected is like below.
 In this tutorial, the bash pid is 3065 (in your case, it will be another number)
 
 <p align="center">
-    <img src="figs/bashpid.png" height="200"/> 
+    <img src="figs/bashpid.png"/> 
 </p>
 
 At the first terminal, type:
