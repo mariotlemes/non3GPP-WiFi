@@ -177,4 +177,50 @@ network and the N3IWF network, being able to route messages between the two comp
 Virtual interfaces will be established between AP and Router and Router and N3IWF and 
 routes will be created to exchange messages.
 
+### Setting-up environment
+
+```bash
+cd ~/my5G-core
+
+# CP config 
+mv -f config config.orig
+cp -R sample/sample1/ config
+
+# UP config
+mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
+cp src/upf/config/upfcfg.sample1.yaml src/upf/build/config/upfcfg.yaml
+
+# Remove expiration/retry timers so that we can take our time debugging
+sed -i "s/t3502:.*/t3502: 0/" config/amfcfg.conf
+sed -i "s/t3512:.*/t3512: 0/" config/amfcfg.conf
+sed -i "s/non3gppDeregistrationTimer:.*/non3gppDeregistrationTimer: 0/" config/amfcfg.conf
+sed -i 's/TimeT3560 time.Duration = .*/TimeT3560 time.Duration = 2 * time.Hour/' src/amf/context/3gpp_types.go
+
+# set UE http bind address 
+sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.1.1/' config/uecfg.conf
+
+# remove database due to previews tests
+mongo free5gc --eval "db.dropDatabase()"
+
+# run webconsole
+cd ~/my5G-core
+go build -o bin/webconsole -x webconsole/server.go
+./bin/webconsole &
+
+# add the UE that will be used in the test
+~/my5G-core/sample/sample1/utils/add_test_ue.sh
+
+# get the env_manager.sh file 
+cd ~/my5G-core/sample/sample1/utils
+mv env_manager.sh env_manager.sh-ori
+#wget env_manager.sh #do github - alterado
+cp ~/Desktop/env_manager.sh ~/my5G-core/sample/sample1/utils
+
+# setup network interfaces and namespaces
+env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
+```
+
+
+
+
 
