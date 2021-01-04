@@ -117,16 +117,16 @@ if [[ $1 == "up" ]]; then
   sudo ip netns exec N3IWFns ip link set lo up
 
   # network and routes - AP
-  sudo ip netns exec APns ifconfig blue0 192.168.1.10 
+  sudo ip netns exec APns ip addr add 192.168.1.20/24 dev blue0
   sudo ip netns exec APns route add default gw 192.168.1.254 blue0  #gw of blue0 - AP
 
   # network and routes - N3IWF
-  sudo ip netns exec N3IWFns ifconfig red0 192.168.127.1  
+  sudo ip netns exec N3IWFns ip addr add 192.168.127.1/24 dev red0
   sudo ip netns exec N3IWFns route add default gw 192.168.127.254 red0  #gw of red0 - N3IWF
  
   # network and routes - ROUTER
-  sudo ip netns exec ROUTERns ifconfig blue1 192.168.1.254/24
-  sudo ip netns exec ROUTERns ifconfig red1 192.168.127.254/24
+  sudo ip netns exec ROUTERns ip addr add 192.168.1.254/24 dev blue1
+  sudo ip netns exec ROUTERns ip addr add 192.168.127.254/24 dev red1
 
   
   #ipsec0 entre UE (192.168.1.1) e N3IWF (192.168.127.1)
