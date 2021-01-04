@@ -145,7 +145,7 @@ cd ~
 sudo killall wpa_supplicant
 sudo wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B
 sudo ip addr add 192.168.1.1/24 dev wlan1
-sudo route add default gw 192.168.1.10 wlan1
+#sudo route add default gw 192.168.1.10 wlan1
 ```
 Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) 
 which acts as a wifi access point. If success, the output of the command iwconfig will be like
