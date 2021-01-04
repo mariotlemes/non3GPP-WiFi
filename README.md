@@ -213,10 +213,13 @@ go build -o bin/webconsole -x webconsole/server.go
 
 ### Set the routes and namespaces
 ```bash
-# get the env_manager.sh file 
+ 
 cd ~/my5G-core/sample/sample1/utils
+
+#backup env_manager.sh file
 mv env_manager.sh env_manager.sh-ori
-#wget env_manager.sh #do github - alterado
+
+#wget env_manager.sh #TODO: get github content
 cp ~/Desktop/env_manager.sh ~/my5G-core/sample/sample1/utils
 
 # setup network interfaces and namespaces
