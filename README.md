@@ -1,3 +1,4 @@
+
 <div align="center">
     <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
 </div> 
@@ -78,17 +79,17 @@ At the first terminal, type:
 sudo iw phy phy0 set netns 3065 # you must have to change the bash pid
 ```
 
-at this point, the first terminal will look like the isolated wlan1 interface 
+At this point, the first terminal will look like the isolated wlan1 interface 
 as in the figure below: 
 
 <p align="center">
-    <img src="figs/first-terminal.png" height="200"/> 
+    <img src="figs/first-terminal.png"/> 
 </p>
 
 The second terminal will be the wifi access point. Note in the figure that wlan0 is isolated
 
 <p align="center">
-    <img src="figs/second-terminal.png" height="200"/> 
+    <img src="figs/second-terminal.png"/> 
 </p>
 
 Apply the settings for wlan0 (in the second terminal):
@@ -109,7 +110,7 @@ Or download the hostapd file:
 
 ```bash
 cd ~
-wget -q https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/hostapd.conf
+wget -q https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/hostapd.conf?token=ACYGK3XMMLH6SNTIIOEDKJS76MXAA
 ```
 
 Initializing hostapd.conf to wlan0:
@@ -135,7 +136,7 @@ In the first terminal, type to create the wpa_supplicant.conf file:
 Or download the wpa_supplicant file:
 ```bash
 cd ~
-wget -q https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/wpa_supplicant.conf
+wget -q https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/hostapd.conf?token=ACYGK3XMMLH6SNTIIOEDKJS76MXAA
 ```
 
 Apply the settings for wlan1 and initialize wpa_supplicant for wlan1:
