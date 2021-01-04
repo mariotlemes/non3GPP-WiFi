@@ -167,7 +167,8 @@ elif [[ $1 == "down" ]]; then
   sudo ip link del red0
   sudo ip link del ipsec0
   sudo ip link del veth0
-  sudo ip netns exec UEns ip link del ipsec0
+  #sudo ip netns exec UEns ip link del ipsec0
+  sudo ip netns exec APns ip link del ipsec0
   #sudo ip netns del UEns
   sudo ip netns del UPFns
   sudo ip netns del APns
