@@ -209,7 +209,10 @@ go build -o bin/webconsole -x webconsole/server.go
 
 # add the UE that will be used in the test
 ~/my5G-core/sample/sample1/utils/add_test_ue.sh
+```
 
+### Set the routes and namespaces
+```bash
 # get the env_manager.sh file 
 cd ~/my5G-core/sample/sample1/utils
 mv env_manager.sh env_manager.sh-ori
@@ -219,6 +222,7 @@ cp ~/Desktop/env_manager.sh ~/my5G-core/sample/sample1/utils
 # setup network interfaces and namespaces
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
+
 
 ### Cleanning-up
 
