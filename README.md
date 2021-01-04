@@ -217,7 +217,7 @@ mv env_manager.sh env_manager.sh-ori
 cp ~/Desktop/env_manager.sh ~/my5G-core/sample/sample1/utils
 
 # setup network interfaces and namespaces
-env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
+./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
 
 
