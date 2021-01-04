@@ -220,6 +220,29 @@ cp ~/Desktop/env_manager.sh ~/my5G-core/sample/sample1/utils
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
 
+### Cleanning-up
+
+```bash
+# removing network interfaces, namespaces and addresses
+~/my5G-core/sample/sample1/utils/env_manager.sh down $(ip route | grep default | cut -d' ' -f5)
+
+# removing DB
+mongo free5gc --eval "db.dropDatabase()"
+
+# restoring original configuration
+cd ~/my5G-core
+rm -rf config
+mv config.orig config
+rm src/upf/build/config/upfcfg.yaml
+mv src/upf/build/config/upfcfg.yaml.orig src/upf/build/config/upfcfg.yaml
+
+# restore T3560 timer
+cd src/amf
+git checkout -- context/3gpp_types.go
+cd ~/my5G-core
+
+```
+
 
 
 
