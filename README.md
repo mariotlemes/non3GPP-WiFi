@@ -178,7 +178,7 @@ Virtual interfaces will be established between AP and Router and Router and N3IW
 routes will be created to exchange messages. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
 <p align="center">
-    <img src="figs/success-interface-y2.png"/> 
+    <img src="figs/interface-y2.png"/> 
 </p>
 
 ### Setting-up environment
