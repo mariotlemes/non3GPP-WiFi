@@ -173,9 +173,13 @@ sudo interface-y1.sh down
 ## Interface Y2 - Conection beetween AP and N3IWF
 
 The connection between AP and N3IWF will be made by a router that knows the UE 
-network and the N3IWF network, being able to route messages between the two components. 
+network (192.168.1.0/24) and the N3IWF network (192.168.127.0/24), being able to route messages between the two components. 
 Virtual interfaces will be established between AP and Router and Router and N3IWF and 
-routes will be created to exchange messages.
+routes will be created to exchange messages. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
+
+<p align="center">
+    <img src="figs/success-interface-y2.png"/> 
+</p>
 
 ### Setting-up environment
 

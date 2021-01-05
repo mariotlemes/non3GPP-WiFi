@@ -90,61 +90,57 @@ if [[ $1 == "up" ]]; then
   #sudo ip netns exec UEns ip link set lo up
   #sudo ip netns exec UEns ip link set veth3 up
   
+ #sudo ip netns add APns
+ sudo ip netns add N3IWFns
+ sudo ip netns add ROUTERns
 
-  # interconnection between AP and N3IWF
-  #sudo ip netns add APns # ja vai ter do interface y1
-  sudo ip netns add N3IWFns # N2
-  sudo ip netns add ROUTERns # ROUTER
+ sudo ip link add dev blue0 type veth peer name blue1
+ sudo ip link add dev red0 type veth peer name red1
 
-  sudo ip link add dev blue0 type veth peer name blue1 # virtual interface between AP and router
-  sudo ip link add dev red0 type veth peer name red1 # virtual interface between AP and N3IWF
+ sudo ip link set dev blue0 netns APns
+ sudo ip link set dev blue1 netns ROUTERns
+ sudo ip link set dev red0 netns N3IWFns
+ sudo ip link set dev red1 netns ROUTERns
 
-  # to add virtual interfaces in namespaces
-  sudo ip link set dev blue0 netns APns
-  sudo ip link set dev blue1 netns ROUTERns
-  sudo ip link set dev red0 netns N3IWFns
-  sudo ip link set dev red1 netns ROUTERns
+ sudo ip netns exec ROUTERns ip link set blue1 up
+ sudo ip netns exec ROUTERns ip link set red1 up
+ sudo ip netns exec APns ip link set blue0 up
+ sudo ip netns exec N3IWFns ip link set red0 up
 
-  # to up each virtual interface
-  sudo ip netns exec ROUTERns ip link set blue1 up
-  sudo ip netns exec ROUTERns ip link set red1 up
-  sudo ip netns exec APns ip link set blue0 up
-  sudo ip netns exec N3IWFns ip link set red0 up
+ sudo ip netns exec ROUTERns ip link set lo up
+ sudo ip netns exec APns ip link set lo up
+ sudo ip netns exec N3IWFns ip link set lo up
 
-  # to up loopback interfaces
-  sudo ip netns exec ROUTERns ip link set lo up
-  sudo ip netns exec APns ip link set lo up
-  sudo ip netns exec N3IWFns ip link set lo up
+ sudo ip netns exec APns ifconfig blue0 192.168.1.20/24
+ sudo ip netns exec APns route add default gw 192.168.1.254 blue0
 
-  # network and routes - AP
-  sudo ip netns exec APns ip addr add 192.168.1.20/24 dev blue0
-  sudo ip netns exec APns route add default gw 192.168.1.254 blue0  #gw of blue0 - AP
+ #verificar
+ sudo ip netns exec APns ip link add br-wlan-veth type bridge
+ sudo ip netns exec APns ip addr add 192.168.1.10/24 dev br-wlan-veth
+ sudo ip netns exec APns ip addr add 192.168.1.20/24 dev br-wlan-veth
 
-  # network and routes - N3IWF
-  sudo ip netns exec N3IWFns ip addr add 192.168.127.1/24 dev red0
-  sudo ip netns exec N3IWFns route add default gw 192.168.127.254 red0  #gw of red0 - N3IWF
- 
-  # network and routes - ROUTER
-  sudo ip netns exec ROUTERns ip addr add 192.168.1.254/24 dev blue1
-  sudo ip netns exec ROUTERns ip addr add 192.168.127.254/24 dev red1
+ sudo ip netns exec N3IWFns ifconfig red0 192.168.127.1/24
+ sudo ip netns exec N3IWFns route add default gw 192.168.127.254 red0
 
-  
-  #ipsec0 entre UE (192.168.1.1) e N3IWF (192.168.127.1)
-  sudo ip netns exec APns ip link add ipsec0 type vti local 192.168.1.1 remote 192.168.127.1 key 5
-  sudo ip netns exec APns ip link set ipsec0 up
+ sudo ip netns exec ROUTERns ifconfig blue1 192.168.1.254/24
+ sudo ip netns exec ROUTERns ifconfig red1 192.168.127.254/24
 
-  sudo ip netns exec N3IWFns ip link add name ipsec0 type vti local 192.168.127.1 remote 0.0.0.0 key 5
-  sudo ip netns exec N3IWFns ip addr add 10.0.0.1/24 dev ipsec0
-  sudo ip netns exec N3IWFns ip link set ipsec0 up
+ #ipsec0 entre UE (192.168.1.1) e N3IWF (192.168.127.1)
+ sudo ip netns exec UEns ip link add ipsec0 type vti local 192.168.1.1 remote 192.168.127.1 key 5
+ sudo ip netns exec UEns ip link set ipsec0 up
 
-  sudo ip link add veth4 type veth peer name veth5
-  sudo ip addr add 10.1.2.1/24 dev veth4
-  sudo ip link set veth4 up
+ sudo ip netns exec N3IWFns ip link add name ipsec0 type vti local 192.168.127.1 remote 0.0.0.0  key 5
+ sudo ip netns exec N3IWFns ip addr add 10.0.0.1/24 dev ipsec0
+ sudo ip netns exec N3IWFns ip link set ipsec0 up
 
-  sudo ip link set veth5 netns UPFns
-  sudo ip netns exec UPFns ip addr add 10.1.2.2/24 dev veth5
-  sudo ip netns exec UPFns ip link set veth5 up
-  sudo ip netns exec UPFns ip route add default via 10.1.2.1
+ sudo ip link add veth4 type veth peer name veth5
+ sudo ip addr add 10.1.2.1/24 dev veth4
+ sudo ip link set veth4 up
+
+ sudo ip link set veth5 netns UPFns
+ sudo ip netns exec UPFns ip addr add 10.1.2.2/24 dev veth5
+ sudo ip netns exec UPFns ip link set veth5 up
+ sudo ip netns exec UPFns ip route add default via 10.1.2.1
 
   sudo ip netns exec UPFns iptables -t nat -A POSTROUTING -o veth5 -j MASQUERADE
   sudo iptables -t nat -A POSTROUTING -s 10.1.2.2/24 -o ${IFACE} -j MASQUERADE
@@ -167,9 +163,9 @@ elif [[ $1 == "down" ]]; then
   sudo ip link del red0
   sudo ip link del ipsec0
   sudo ip link del veth0
-  #sudo ip netns exec UEns ip link del ipsec0
+  sudo ip netns exec UEns ip link del ipsec0
   sudo ip netns exec APns ip link del ipsec0
-  #sudo ip netns del UEns
+  sudo ip netns del UEns
   sudo ip netns del UPFns
   sudo ip netns del APns
   sudo ip netns del ROUTERns
