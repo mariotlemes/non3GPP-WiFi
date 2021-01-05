@@ -89,41 +89,43 @@ if [[ $1 == "up" ]]; then
   #sudo ip netns exec UEns ip addr add 192.168.1.1/24 dev veth3 #ip address at UE (ike daemon)
   #sudo ip netns exec UEns ip link set lo up
   #sudo ip netns exec UEns ip link set veth3 up
-  
- #sudo ip netns add APns
- sudo ip netns add N3IWFns
- sudo ip netns add ROUTERns
+ 
+#sudo ip netns add APns 
+sudo ip netns add N3IWFns
+sudo ip netns add ROUTERns
 
- sudo ip link add dev blue0 type veth peer name blue1
- sudo ip link add dev red0 type veth peer name red1
+sudo ip link add dev blue0 type veth peer name blue1
+sudo ip link add dev red0 type veth peer name red1
 
- sudo ip link set dev blue0 netns APns
- sudo ip link set dev blue1 netns ROUTERns
- sudo ip link set dev red0 netns N3IWFns
- sudo ip link set dev red1 netns ROUTERns
+sudo ip link set dev blue0 netns APns
+sudo ip link set dev blue1 netns ROUTERns
+sudo ip link set dev red0 netns N3IWFns
+sudo ip link set dev red1 netns ROUTERns
 
- sudo ip netns exec ROUTERns ip link set blue1 up
- sudo ip netns exec ROUTERns ip link set red1 up
- sudo ip netns exec APns ip link set blue0 up
- sudo ip netns exec N3IWFns ip link set red0 up
+sudo ip netns exec ROUTERns ip link set blue1 up
+sudo ip netns exec ROUTERns ip link set red1 up
+sudo ip netns exec APns ip link set blue0 up
+sudo ip netns exec N3IWFns ip link set red0 up
 
- sudo ip netns exec ROUTERns ip link set lo up
- sudo ip netns exec APns ip link set lo up
- sudo ip netns exec N3IWFns ip link set lo up
+sudo ip netns exec ROUTERns ip link set lo up
+sudo ip netns exec APns ip link set lo up
+sudo ip netns exec N3IWFns ip link set lo up
 
- sudo ip netns exec APns ifconfig blue0 192.168.1.20/24
- sudo ip netns exec APns route add default gw 192.168.1.254 blue0
+sudo ip netns exec APns ifconfig blue0 192.168.1.20/24
+sudo ip netns exec APns route add default gw 192.168.1.254 blue0
+
+sudo ip netns exec N3IWFns ifconfig red0 192.168.127.1/24
+sudo ip netns exec N3IWFns route add default gw 192.168.127.254 red0
+
+sudo ip netns exec ROUTERns ifconfig blue1 192.168.1.254/24
+sudo ip netns exec ROUTERns ifconfig red1 192.168.127.254/24
+
 
  #verificar
- sudo ip netns exec APns ip link add br-wlan-veth type bridge
- sudo ip netns exec APns ip addr add 192.168.1.10/24 dev br-wlan-veth
- sudo ip netns exec APns ip addr add 192.168.1.20/24 dev br-wlan-veth
+ #sudo ip netns exec APns ip link add br-wlan-veth type bridge
+ #sudo ip netns exec APns ip addr add 192.168.1.10/24 dev br-wlan-veth
+ #sudo ip netns exec APns ip addr add 192.168.1.20/24 dev br-wlan-veth
 
- sudo ip netns exec N3IWFns ifconfig red0 192.168.127.1/24
- sudo ip netns exec N3IWFns route add default gw 192.168.127.254 red0
-
- sudo ip netns exec ROUTERns ifconfig blue1 192.168.1.254/24
- sudo ip netns exec ROUTERns ifconfig red1 192.168.127.254/24
 
  #ipsec0 entre UE (192.168.1.1) e N3IWF (192.168.127.1)
  sudo ip netns exec UEns ip link add ipsec0 type vti local 192.168.1.1 remote 192.168.127.1 key 5
@@ -164,7 +166,7 @@ elif [[ $1 == "down" ]]; then
   sudo ip link del ipsec0
   sudo ip link del veth0
   sudo ip netns exec UEns ip link del ipsec0
-  sudo ip netns exec APns ip link del ipsec0
+  sudo ip netns exec N3IWF ip link del ipsec0
   sudo ip netns del UEns
   sudo ip netns del UPFns
   sudo ip netns del APns
