@@ -182,13 +182,19 @@ routes will be created to exchange messages. The ip addressing for the logical i
 </p>
 
 ### Setting-up environment
+```bash
+cd ~
+git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
+cd non-3gpp-iot-wifi
+sudo rmmod gtp5g
+sudo ./fix_core.sh
+```
 
 ```bash
 cd ~/my5G-core
-
-# CP config 
 mv -f config config.orig
 cp -R sample/sample1/ config
+```
 
 # UP config
 mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
@@ -201,7 +207,7 @@ sed -i "s/non3gppDeregistrationTimer:.*/non3gppDeregistrationTimer: 0/" config/a
 sed -i 's/TimeT3560 time.Duration = .*/TimeT3560 time.Duration = 2 * time.Hour/' src/amf/context/3gpp_types.go
 
 # set UE http bind address 
-sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.1.1/' config/uecfg.conf
+sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.127.2/' config/uecfg.conf
 
 # remove database due to previews tests
 mongo free5gc --eval "db.dropDatabase()"
@@ -217,21 +223,35 @@ go build -o bin/webconsole -x webconsole/server.go
 
 ### Set the routes and namespaces
 ```bash
- 
 cd ~/my5G-core/sample/sample1/utils
 
 #backup env_manager.sh file
 mv env_manager.sh env_manager.sh-ori
 
 #wget env_manager.sh #TODO: get github content
-cp ~/Desktop/env_manager.sh ~/my5G-core/sample/sample1/utils
+cp ~/non-3gpp-iot-wifi/env_manager.sh ~/my5G-core/sample/sample1/utils
 
 # setup network interfaces and namespaces
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
 
-
 ### Cleanning-up
+```bash
+sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
+
+# wireshark
+killall -9 wireshark
+
+# webconsole
+killall -9 webconsole
+
+# UE-IoT-non3GPP
+sudo ip netns exec UEns killall -9 dlv
+sudo ip netns exec UEns killall -9 ./bin/ue
+
+# UPF
+sudo ip netns exec UPFns killall -9 free5gc-upfd
+```
 
 ```bash
 # removing network interfaces, namespaces and addresses
