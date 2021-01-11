@@ -196,6 +196,7 @@ mv -f config config.orig
 cp -R sample/sample1/ config
 ```
 
+```bash
 # UP config
 mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
 cp src/upf/config/upfcfg.sample1.yaml src/upf/build/config/upfcfg.yaml
