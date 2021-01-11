@@ -3,8 +3,8 @@
     <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
 </div> 
 
-# Non-3GPP-IoT-WiFi
-Non-3GPP-IoT-WiFi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network (WiFi) as illustrated by the following image.
+# Non-3GPP-WiFi
+Non-3GPP-WiFi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network (WiFi) as illustrated by the following image.
 
 <p align="center">
     <img src="figs/general-architecture.png" height="250"/> 
