@@ -49,15 +49,13 @@ We won’t need it for this guide.
     <img src="figs/iwconfig.png" height="200"/> 
 </p>
 
-We are going to create a network namespace called **APns** for the wlan0 interface 
-and run a separate shell in that namespace. With that we end up having two shells: One for 
-the WiFi hotspot (**APns**) and one for the WiFi client.
+We are going to create network namespaces: i) **APns** for interface wlan0, ii) **UEns** for  interface wlan1 and iii) **N3IWFns** for N3IWF component.
 
 To create a network namespace for UEns, APns and N3IWFns:
 
 ```bash
-sudo ip netns add UEns
 sudo ip netns add APns
+sudo ip netns add UEns
 sudo ip netns add N3IWFns
 ```
 
@@ -78,7 +76,7 @@ At the first terminal, type:
 
 ```bash
 # Run this command with your bash pid instead of 3065
-sudo iw phy phy0 set netns 3065 # you must have to change the bash pid (APns)
+sudo iw phy phy0 set netns 3065 # you must have to change the bash pid (**APns**)
 ```
 
 In other terminal, type:
@@ -91,7 +89,7 @@ At the first terminal, type:
 
 ```bash
 # Run this command with your bash pid instead of 3065
-sudo iw phy phy1 set netns 3065 # you must have to change the bash pid (UEns)
+sudo iw phy phy1 set netns 3065 # you must have to change the bash pid (**UEns**)
 ```
 
 At this point, wlan0 interface is in APns namespace and wlan1 at UEns namespace.
