@@ -53,10 +53,12 @@ We are going to create a network namespace called **APns** for the wlan0 interfa
 and run a separate shell in that namespace. With that we end up having two shells: One for 
 the WiFi hotspot (**APns**) and one for the WiFi client.
 
-To create a network namespace:
+To create a network namespace for UEns, APns and N3IWFns:
 
 ```bash
+sudo ip netns add UEns
 sudo ip netns add APns
+sudo ip netns add N3IWFns
 ```
 
 In other terminal, type:
@@ -76,23 +78,31 @@ At the first terminal, type:
 
 ```bash
 # Run this command with your bash pid instead of 3065
-sudo iw phy phy0 set netns 3065 # you must have to change the bash pid
+sudo iw phy phy0 set netns 3065 # you must have to change the bash pid (APns)
 ```
 
-At this point, the first terminal will look like the isolated wlan1 interface 
-as in the figure below: 
+In other terminal, type:
+```bash
+# Run this in a separate shell.
+sudo ip netns exec UEns bash
+echo $BASHPID
 
-<p align="center">
-    <img src="figs/first-terminal.png"/> 
-</p>
+At the first terminal, type:
 
-The second terminal will be the wifi access point. Note in the figure that wlan0 is isolated
+```bash
+# Run this command with your bash pid instead of 3065
+sudo iw phy phy1 set netns 3065 # you must have to change the bash pid (UEns)
+```
+
+At this point, wlan0 interface is in APns namespace and wlan1 at UEns namespace.
+
+The second terminal (APns namespace) will be the wifi access point. Note in the figure that wlan0 is isolated.
 
 <p align="center">
     <img src="figs/second-terminal.png"/> 
 </p>
 
-Apply the settings for wlan0 (in the second terminal):
+Apply the settings for wlan0:
 
 ```bash
 sudo ip addr add 192.168.1.10/24 dev wlan0
@@ -101,6 +111,7 @@ sudo ip addr add 192.168.1.10/24 dev wlan0
 To create the hostapd.conf file:
 
 ```bash
+sudo killall wpa_supplicant
 sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
 echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
 ```
@@ -126,7 +137,7 @@ The expected result is like below:
     <img src="figs/hostapd-background.png"/> 
 </p>
 
-In the first terminal, type to create the wpa_supplicant.conf file:
+At UEns namespace terminal, type to create the wpa_supplicant.conf file:
 
 ```bash
   cd ~
@@ -141,6 +152,7 @@ cd ~
 wget -q XXXX
 ```
 <br>
+
 Apply the settings for wlan1 and initialize wpa_supplicant:
 
 ```bash
@@ -148,7 +160,7 @@ cd ~
 sudo killall wpa_supplicant
 sudo wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B
 sudo ip addr add 192.168.1.1/24 dev wlan1
-#sudo route add default gw 192.168.1.10 wlan1
+
 ```
 Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) 
 which acts as a wifi access point. If success, the output of the command iwconfig will be like
@@ -172,10 +184,7 @@ sudo interface-y1.sh down
 
 ## Interface Y2 - Conection beetween AP and N3IWF
 
-The connection between AP and N3IWF will be made by a router that knows the UE 
-network (192.168.1.0/24) and the N3IWF network (192.168.127.0/24), being able to route messages between the two components. 
-Virtual interfaces will be established between AP and Router and Router and N3IWF and 
-routes will be created to exchange messages. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
+The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE (wlan1 interface) and N3IWF (veth). The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
 <p align="center">
     <img src="figs/interface-y2.png"/> 
