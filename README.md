@@ -187,7 +187,7 @@ cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
 cd non-3gpp-iot-wifi
 sudo rmmod gtp5g
-sudo ./fix_core.sh
+sudo ./utils/fix_core.sh
 ```
 
 ```bash
