@@ -76,7 +76,7 @@ At the first terminal, type:
 
 ```bash
 # Run this command with your bash pid instead of 3065
-sudo iw phy phy0 set netns 3065 # you must have to change the bash pid (**APns**)
+sudo iw phy phy0 set netns 3065 # you must have to change the bash pid (APns)
 ```
 
 In other terminal, type:
@@ -84,12 +84,13 @@ In other terminal, type:
 # Run this in a separate shell.
 sudo ip netns exec UEns bash
 echo $BASHPID
+```
 
 At the first terminal, type:
 
 ```bash
 # Run this command with your bash pid instead of 3065
-sudo iw phy phy1 set netns 3065 # you must have to change the bash pid (**UEns**)
+sudo iw phy phy1 set netns 3065 # you must have to change the bash pid (UEns)
 ```
 
 At this point, wlan0 interface is in APns namespace and wlan1 at UEns namespace.
