@@ -3,8 +3,8 @@
     <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
 </div> 
 
-# Non-3GPP-WiFi
-Non-3GPP-WiFi aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network (WiFi) as illustrated by the following image.
+# Non-3GPP-WiFi-use-case
+Non-3GPP-WiFi-use-case aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network (WiFi) as illustrated by the following image.
 
 <p align="center">
     <img src="figs/general-architecture.png" height="250"/> 
@@ -18,7 +18,7 @@ IEEE 802.11 network implemented mac80211_hwsim and using hostapd and
 wpa\_supplicant tools. We also use an open-source implementation of the 
 SBA-based 5G core software ([my5gcore](https://github.com/my5G/my5G-core)), and 
 an open-source implementation to provide untrusted non-3GPP access do 5G core network
-([UE-IoT-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is responsible for the connection
+([UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is responsible for the connection
 between User Equipment (UE) and Access Point (AP) and Y2 establishes connection between AP and N3IWF.
 
 <p align="center">
