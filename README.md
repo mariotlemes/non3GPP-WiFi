@@ -250,24 +250,24 @@ sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/util
 wireshark -kni any --display-filter "isakmp or nas-5gs or ngap or pfcp or gtp or esp or gre" &
 ```
 
-# Starting UPF
+### Starting UPF
 ```bash
 # Use a new terminal so we can easily see the logs
 cd ~/my5G-core/sample/sample1/utils
 ./run_upf.sh 
 ```
 
-# Starting UE in debug mode
+### Starting UE in debug mode
 ```bash
 # Use a new terminal or split
 #cd ~/my5G-core
 #echo $(which dlv) | sudo xargs -I % sh -c 'ip netns exec UEns % --listen=192.168.1.1:2345 --headless=true --api-version=2 --accept-multiclient #exec ./bin/ue' 
 ```
 
-# Starting UE.
+### Starting UE.
 Run the components of core: NFR -> AMF -> SMF -> UDR -> PCF -> UDM -> NSSF -> AUSF ->  N3IWF -> UE Debugger
 
-# Triggering initial registration procedure
+### Triggering initial registration procedure
 
 cd ~/my5G-core/src/ue
 ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
