@@ -22,7 +22,7 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
 between User Equipment (UE) and Access Point (AP) and Y2 establishes connection between AP and N3IWF.
 
 <p align="center">
-    <img src="figs/proposal.png" height="400" width="100%"/> 
+    <img src="figs/proposal.png" width="100%"/> 
 </p>
 
 ## Interface Y1 - Conection beetween UE and AP
