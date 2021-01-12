@@ -216,7 +216,7 @@ sed -i "s/non3gppDeregistrationTimer:.*/non3gppDeregistrationTimer: 0/" config/a
 sed -i 's/TimeT3560 time.Duration = .*/TimeT3560 time.Duration = 2 * time.Hour/' src/amf/context/3gpp_types.go
 
 # set UE http bind address 
-sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.127.2/' config/uecfg.conf
+sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.1.1/' config/uecfg.conf
 
 # remove database due to previews tests
 mongo free5gc --eval "db.dropDatabase()"
@@ -238,11 +238,40 @@ cd ~/my5G-core/sample/sample1/utils
 mv env_manager.sh env_manager.sh-ori
 
 #wget env_manager.sh #TODO: get github content
-cp ~/non-3gpp-iot-wifi/env_manager.sh ~/my5G-core/sample/sample1/utils
+sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/utils/
 
 # setup network interfaces and namespaces
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
+
+#Starting monitoring tools
+
+```bash
+wireshark -kni any --display-filter "isakmp or nas-5gs or ngap or pfcp or gtp or esp or gre" &
+```
+
+# Starting UPF
+```bash
+# Use a new terminal so we can easily see the logs
+cd ~/my5G-core/sample/sample1/utils
+./run_upf.sh 
+```
+
+# Starting UE in debug mode
+```bash
+# Use a new terminal or split
+#cd ~/my5G-core
+#echo $(which dlv) | sudo xargs -I % sh -c 'ip netns exec UEns % --listen=192.168.1.1:2345 --headless=true --api-version=2 --accept-multiclient #exec ./bin/ue' 
+```
+
+# Starting UE.
+Run the components of core: NFR -> AMF -> SMF -> UDR -> PCF -> UDM -> NSSF -> AUSF ->  N3IWF -> UE Debugger
+
+# Triggering initial registration procedure
+
+cd ~/my5G-core/src/ue
+./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
+
 
 ### Cleanning-up
 ```bash
