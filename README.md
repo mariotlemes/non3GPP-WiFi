@@ -304,8 +304,8 @@ rm -rf config
 mv config.orig config
 rm src/upf/build/config/upfcfg.yaml
 mv src/upf/build/config/upfcfg.yaml.orig src/upf/build/config/upfcfg.yaml
-rm sample/sample1/utils/env_manager.sh
-mv sample/sample1/utils/env_manager.sh-ori sample/sample1/utils/env_manager.sh
+rm -f sample/sample1/utils/env_manager.sh
+mv -f sample/sample1/utils/env_manager.sh-ori sample/sample1/utils/env_manager.sh
 
 
 # restore T3560 timer
