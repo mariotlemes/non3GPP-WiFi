@@ -244,7 +244,7 @@ sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/util
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
 
-#Starting monitoring tools
+###Starting monitoring tools
 
 ```bash
 wireshark -kni any --display-filter "isakmp or nas-5gs or ngap or pfcp or gtp or esp or gre" &
@@ -268,10 +268,10 @@ cd ~/my5G-core/sample/sample1/utils
 Run the components of core: NFR -> AMF -> SMF -> UDR -> PCF -> UDM -> NSSF -> AUSF ->  N3IWF -> UE Debugger
 
 ### Triggering initial registration procedure
-
+```bash
 cd ~/my5G-core/src/ue
 ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
-
+```
 
 ### Cleanning-up
 ```bash
