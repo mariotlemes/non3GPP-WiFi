@@ -260,8 +260,8 @@ cd ~/my5G-core/sample/sample1/utils
 ### Starting UE in debug mode
 ```bash
 # Use a new terminal or split
-#cd ~/my5G-core
-#echo $(which dlv) | sudo xargs -I % sh -c 'ip netns exec UEns % --listen=192.168.1.1:2345 --headless=true --api-version=2 --accept-multiclient #exec ./bin/ue' 
+cd ~/my5G-core
+echo $(which dlv) | sudo xargs -I % sh -c 'ip netns exec UEns % --listen=192.168.1.1:2345 --headless=true --api-version=2 --accept-multiclient exec ./bin/ue' 
 ```
 
 ### Starting UE.
