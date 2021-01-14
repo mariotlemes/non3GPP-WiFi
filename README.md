@@ -117,7 +117,7 @@ Or download the hostapd file from the repository:
 
 ```bash
 cd ~
-wget -q XXXXXXXXX
+wget -O hostapd.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/hostapd.conf?token=ACYGK3Q362VFPXWDSJBEOKTAADMJQ
 ```
 <br>
 
@@ -145,7 +145,7 @@ Or download the wpa_supplicant file from the repository:
 
 ```bash
 cd ~
-wget -q XXXX
+wget -O wpa_supplicant.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/wpa_supplicant.conf?token=ACYGK3VKB4PBZWVBCGQDM4DAADMS6
 ```
 <br>
 
