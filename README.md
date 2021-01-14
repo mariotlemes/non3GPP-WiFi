@@ -340,6 +340,13 @@ sudo ip netns exec UEns killall -9 ./bin/ue
 
 # kill UPF
 sudo ip netns exec UPFns killall -9 free5gc-upfd
+
+# kill hostapd and wpa_supplicant
+sudo killall hostapd
+sudo killall wpa_supplicant
+
+# remove mac80211_hwsim
+sudo rmmod mac80211_hwsim
 ```
 
 ```bash
