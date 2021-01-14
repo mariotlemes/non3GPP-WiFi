@@ -138,11 +138,9 @@ elif [[ $1 == "down" ]]; then
   sudo ip link del ipsec0
   sudo ip link del veth0
   sudo ip netns exec UEns ip link del ipsec0
-  sudo ip netns exec N3IWF ip link del ipsec0
   sudo ip netns del UEns
   sudo ip netns del UPFns
   sudo ip netns del APns
-  sudo ip netns del N3IWFns
 
   sudo rm /dev/mqueue/*
   for host in "${HOSTNAMES[@]}"; do
