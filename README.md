@@ -49,14 +49,13 @@ We won’t need it for this guide.
     <img src="figs/iwconfig.png" height="200"/> 
 </p>
 
-We are going to create network namespaces: i) **APns** for interface wlan0, ii) **UEns** for  interface wlan1 and iii) **N3IWFns** for N3IWF component.
+We are going to create network namespaces: i) **APns** for interface wlan0 and ii) **UEns** for  interface wlan1.
 
-To create a network namespace for UEns, APns and N3IWFns:
+To create a network namespace for UEns and APns:
 
 ```bash
 sudo ip netns add APns
 sudo ip netns add UEns
-sudo ip netns add N3IWFns
 ```
 
 In other terminal, type:
@@ -93,15 +92,13 @@ At the first terminal, type:
 sudo iw phy phy1 set netns 3065 # you must have to change the bash pid (UEns)
 ```
 
-At this point, wlan0 interface is in APns namespace and wlan1 at UEns namespace.
-
-The second terminal (APns namespace) will be the wifi access point. Note in the figure that wlan0 is isolated.
+At this point, wlan0 interface is in APns namespace and wlan1 at UEns namespace. Note in the figure that wlan0 is isolated.
 
 <p align="center">
     <img src="figs/second-terminal.png"/> 
 </p>
 
-Apply the settings for wlan0:
+Apply the settings for wlan0. In this tutorial, the ip address at access point (wlan0) will be 192.168.1.10/24
 
 ```bash
 sudo ip addr add 192.168.1.10/24 dev wlan0
@@ -116,7 +113,7 @@ echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nw
 ```
 <br>
 
-Or download the hostapd file:
+Or download the hostapd file from the repository:
 
 ```bash
 cd ~
@@ -124,7 +121,7 @@ wget -q XXXXXXXXX
 ```
 <br>
 
-Initializing hostapd.conf to wlan0:
+Initializing hostapd.conf to wlan0. In this process, wlan0 will become an access point:
 
 ```bash
 cd ~
@@ -144,7 +141,7 @@ At UEns namespace terminal, type to create the wpa_supplicant.conf file:
   echo -e 'network={\nssid="my5gcore"\nkey_mgmt=WPA-PSK\npsk="my5gcore"\n}' > wpa_supplicant.conf
 ```
 <br>
-Or download the wpa_supplicant file:
+Or download the wpa_supplicant file from the repository:
 
 ```bash
 cd ~
@@ -161,8 +158,7 @@ sudo wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B
 sudo ip addr add 192.168.1.1/24 dev wlan1
 
 ```
-Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) 
-which acts as a wifi access point. If success, the output of the command iwconfig will be like
+Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a wifi access point. If success, the output of the command iwconfig will be like
 below:
 
 <p align="center">
@@ -173,8 +169,8 @@ below:
 You can also use the interface-y1.sh file to automate the previous steps.
 
 ```bash
-sudo interface-y1.sh up
-```
+#sudo interface-y1.sh up
+#```
 To stop the script and clean-up environment type CRTL+c or run the command:
 
 ```bash
@@ -183,7 +179,7 @@ sudo interface-y1.sh down
 
 ## Interface Y2 - Conection beetween AP and N3IWF
 
-The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE (wlan1 interface) and N3IWF (veth). The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
+The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE (wlan1 interface) and N3IWF (veth2). The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
 <p align="center">
     <img src="figs/interface-y2.png"/> 
@@ -194,22 +190,32 @@ The connection between AP and N3IWF will be made by veth (virtual ethernet) and 
 cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
 cd non-3gpp-iot-wifi
+
+# remove module gtp5g
 sudo rmmod gtp5g
+
+# fix and install module gtp5g
 sudo ./utils/fix_core.sh
 ```
 
 ```bash
 cd ~/my5G-core
+ 
+# backup of the config folder
 mv -f config config.orig
+
+# using sample1 folder for configuration
 cp -R sample/sample1/ config
 ```
 
 ```bash
-# UP config
+# backup of upf config
 mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
+
+# new configuration for upf
 cp src/upf/config/upfcfg.sample1.yaml src/upf/build/config/upfcfg.yaml
 
-# Remove expiration/retry timers so that we can take our time debugging
+# Remove expiration/retry timers
 sed -i "s/t3502:.*/t3502: 0/" config/amfcfg.conf
 sed -i "s/t3512:.*/t3512: 0/" config/amfcfg.conf
 sed -i "s/non3gppDeregistrationTimer:.*/non3gppDeregistrationTimer: 0/" config/amfcfg.conf
@@ -222,7 +228,6 @@ sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.1.1/' config/uecfg.conf
 mongo free5gc --eval "db.dropDatabase()"
 
 # run webconsole
-cd ~/my5G-core
 go build -o bin/webconsole -x webconsole/server.go
 ./bin/webconsole &
 
@@ -230,14 +235,14 @@ go build -o bin/webconsole -x webconsole/server.go
 ~/my5G-core/sample/sample1/utils/add_test_ue.sh
 ```
 
-### Set the routes and namespaces
+### Set routes and namespaces for the scenario
 ```bash
 cd ~/my5G-core/sample/sample1/utils
 
 #backup env_manager.sh file
 mv env_manager.sh env_manager.sh-ori
 
-#wget env_manager.sh #TODO: get github content
+# copy the env_manager.sh file from the repository
 sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/utils/
 
 # setup network interfaces and namespaces
@@ -247,7 +252,11 @@ sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/util
 ###Starting monitoring tools
 
 ```bash
+# Wireshark for global namespace
 wireshark -kni any --display-filter "isakmp or nas-5gs or ngap or pfcp or gtp or esp or gre" &
+
+# Wireshark for UEns (wlan1)
+sudo ip netns exec UEns wireshark -kni wlan1 --display-filter "isakmp or esp" &
 ```
 
 ### Starting UPF
@@ -257,15 +266,35 @@ cd ~/my5G-core/sample/sample1/utils
 ./run_upf.sh 
 ```
 
-### Starting UE in debug mode
+### Starting UE
 ```bash
 # Use a new terminal or split
-cd ~/my5G-core
-echo $(which dlv) | sudo xargs -I % sh -c 'ip netns exec UEns % --listen=192.168.1.1:2345 --headless=true --api-version=2 --accept-multiclient exec ./bin/ue' 
+cd ~/my5G-core/src/ue
+
+# Backup of triger_initial_registration.sh file
+sudo cp trigger_initial_registration.sh trigger_initial_registration.sh-ori
+
+# New ike_bind_addr - ip of wlan1
+sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
+
+# Start ue in background
+sudo ../../bin/ue &
 ```
 
-### Starting UE.
-Run the components of core: NFR -> AMF -> SMF -> UDR -> PCF -> UDM -> NSSF -> AUSF ->  N3IWF -> UE Debugger
+### Running core
+Run the components of core in this order: 
+1) NFR -> 2) AMF -> 3) SMF -> 4) UDR -> 5) PCF -> 6)UDM -> 7) NSSF -> 8) AUSF -> 9) N3IWF.
+
+For example, to run NRF:
+```bash
+cd ~/my5G-core
+./bin/nrf &
+```
+Repeat the process to AMF, SMF, UDR, PCF, UDM, NSSF and AUSF. Finally, to run N3IWF:
+```bash
+cd ~/my5G-core
+sudo ./bin/n3iwf &
+```
 
 ### Triggering initial registration procedure
 ```bash
