@@ -215,12 +215,6 @@ mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
 # new configuration for upf
 cp src/upf/config/upfcfg.sample1.yaml src/upf/build/config/upfcfg.yaml
 
-# Remove expiration/retry timers
-sed -i "s/t3502:.*/t3502: 0/" config/amfcfg.conf
-sed -i "s/t3512:.*/t3512: 0/" config/amfcfg.conf
-sed -i "s/non3gppDeregistrationTimer:.*/non3gppDeregistrationTimer: 0/" config/amfcfg.conf
-sed -i 's/TimeT3560 time.Duration = .*/TimeT3560 time.Duration = 2 * time.Hour/' src/amf/context/3gpp_types.go
-
 # set UE http bind address 
 sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.1.1/' config/uecfg.conf
 
@@ -249,7 +243,7 @@ sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/util
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
 
-###Starting monitoring tools
+### Starting monitoring tools
 
 ```bash
 # Wireshark for global namespace
@@ -302,6 +296,16 @@ cd ~/my5G-core/src/ue
 ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 
+### Verify safe association between UE (wlan1) and N3IWF
+
+```bash
+# Starting watch XFRM policy
+watch -d -n 2 sudo ip netns exec UEns ip xfrm policy 
+
+# Starting watch XFRM state
+watch -d -n 2 sudo ip netns exec UEns ip xfrm state 
+```
+
 ### Cleanning-up
 ```bash
 sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
@@ -313,7 +317,6 @@ killall -9 wireshark
 killall -9 webconsole
 
 # UE-IoT-non3GPP
-sudo ip netns exec UEns killall -9 dlv
 sudo ip netns exec UEns killall -9 ./bin/ue
 
 # UPF
@@ -335,13 +338,9 @@ rm src/upf/build/config/upfcfg.yaml
 mv src/upf/build/config/upfcfg.yaml.orig src/upf/build/config/upfcfg.yaml
 rm -f sample/sample1/utils/env_manager.sh
 mv -f sample/sample1/utils/env_manager.sh-ori sample/sample1/utils/env_manager.sh
-
-
-# restore T3560 timer
-cd src/amf
-git checkout -- context/3gpp_types.go
-cd ~/my5G-core
-
+sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src/ue/trigger_initial_registration.sh
+exit
+exit
 ```
 
 
