@@ -277,7 +277,16 @@ sudo ../../bin/ue &
 
 ### Running my5G-core
 Run the components of core in this order: 
-1) NFR -> 2) AMF -> 3) SMF -> 4) UDR -> 5) PCF -> 6)UDM -> 7) NSSF -> 8) AUSF -> 9) N3IWF.
+
+1) NFR 
+2) AMF 
+3) SMF 
+4) UDR 
+5) PCF 
+6) UDM 
+7) NSSF 
+8) AUSF
+9) N3IWF
 
 For example, to run NRF:
 ```bash
