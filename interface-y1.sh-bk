@@ -27,38 +27,34 @@ if [[ $1 == "up" ]]; then
   echo -e "\n-------------------------------------------------------------"
   echo -e "\033[01;32mInstall necessary packages... \033[01;37m" 
   echo -e "-------------------------------------------------------------\n"
-  #sudo apt-get update && sudo apt-get install hostapd dnsmasq -y
+  sudo apt-get update && sudo apt-get install hostapd dnsmasq -y
   #sudo killall dnsmasq hostapd wpa_supplicant
   
   echo -e "\n-------------------------------------------------------------"
   echo -e "\033[01;32mCreating wlan0 and wlan1 wireless cards...\033[01;37m"
   echo -e "-------------------------------------------------------------\n"
-  sudo ip netns add UEns
-  sudo ip netns exec UEns modprobe mac80211_hwsim radios=2 && sleep 2
-  sudo ip netns exec UEns ip link set wlan0 up
-  sudo ip netns exec UEns ip addr add 192.168.1.10/24 dev wlan0
+  sudo modprobe mac80211_hwsim radios=2 && sleep 2
+  sudo ifconfig wlan0 up
+  sudo ip addr add 192.168.1.10/24 dev wlan0
   echo -e "Complete!"
   #sudo dnsmasq -i wlan0 -p 5353 --dhcp-range=192.168.1.1,192.168.1.253 &
-  sudo ip netns exec UEns touch $HOME/hostapd.conf 
-  sudo ip netns exec UEns chmod 666 $HOME/hostapd.conf
-  sudo ip netns exec UEns echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
+  sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
+  echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
   sleep 5
   
   echo -e "\n-------------------------------------------------------------"
   echo -e "\033[01;32mInitializing hostapd.conf...\033[01;37m" 
   echo -e "-------------------------------------------------------------\n"
   cd ~
-  sudo ip netns exec UEns killall wpa_supplicant
-  sudo ip netns exec UEns hostapd hostapd.conf & sleep 10
+  sudo hostapd hostapd.conf & sleep 10
   
   echo -e "\n-------------------------------------------------------------"
   echo -e "\033[01;32mInitializing wpa_supplicant for wlan1...\033[01;37m"
   echo -e "-------------------------------------------------------------\n"  
-  sudo ip netns exec UEns touch $HOME/wpa_supplicant.conf 
-  sudo ip netns exec UEns chmod 666 $HOME/wpa_supplicant.conf
-  sudo ip netns exec UEns echo -e 'network={\nssid="'$SSID'"\nkey_mgmt=WPA-PSK\npsk="'$WPA_PASSPHRASE'"\n}' > $HOME/wpa_supplicant.conf
-  sudo ip netns exec UEns ip addr add 192.168.1.1/24 dev wlan1
-  sudo ip netns exec UEns wpa_supplicant -i wlan1 -c $HOME/wpa_supplicant.conf -B
+  sudo touch $HOME/wpa_supplicant.conf && sudo chmod 666 $HOME/wpa_supplicant.conf
+  echo -e 'network={\nssid="'$SSID'"\nkey_mgmt=WPA-PSK\npsk="'$WPA_PASSPHRASE'"\n}' > $HOME/wpa_supplicant.conf
+  sudo ip addr add 192.168.1.1/24 dev wlan1
+  sudo wpa_supplicant -i wlan1 -c $HOME/wpa_supplicant.conf -B
 
  
 elif [[ $1 == "down" ]]; then
