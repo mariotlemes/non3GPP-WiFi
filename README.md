@@ -315,20 +315,30 @@ watch -d -n 2 sudo ip netns exec UEns ip xfrm policy
 watch -d -n 2 sudo ip netns exec UEns ip xfrm state 
 ```
 
+if successful, you will be able to see the safe associations as show in the figures below:
+
+<p align="center">
+    <img src="figs/policy.png"/> 
+</p>
+
+<p align="center">
+    <img src="figs/state.png"/> 
+</p>
+
 ### Cleanning-up
 ```bash
 sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
 
-# wireshark
+# kill wireshark
 killall -9 wireshark
 
-# webconsole
+# kill webconsole
 killall -9 webconsole
 
-# UE-IoT-non3GPP
+# kill UE-IoT-non3GPP
 sudo ip netns exec UEns killall -9 ./bin/ue
 
-# UPF
+# kill UPF
 sudo ip netns exec UPFns killall -9 free5gc-upfd
 ```
 
@@ -348,8 +358,9 @@ mv src/upf/build/config/upfcfg.yaml.orig src/upf/build/config/upfcfg.yaml
 rm -f sample/sample1/utils/env_manager.sh
 mv -f sample/sample1/utils/env_manager.sh-ori sample/sample1/utils/env_manager.sh
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src/ue/trigger_initial_registration.sh
-exit
-exit
+
+cd ~/my5G-core
+sudo ./force_kill.sh
 ```
 
 
