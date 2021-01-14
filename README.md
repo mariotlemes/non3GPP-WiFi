@@ -113,7 +113,7 @@ echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nw
 ```
 <br>
 
-Or download the hostapd file from the repository:
+Or download the hostapd.conf file from the repository:
 
 ```bash
 cd ~
@@ -141,7 +141,7 @@ At UEns namespace terminal, type to create the wpa_supplicant.conf file:
   echo -e 'network={\nssid="my5gcore"\nkey_mgmt=WPA-PSK\npsk="my5gcore"\n}' > wpa_supplicant.conf
 ```
 <br>
-Or download the wpa_supplicant file from the repository:
+Or download the wpa_supplicant.conf file from the repository:
 
 ```bash
 cd ~
