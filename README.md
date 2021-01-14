@@ -19,7 +19,7 @@ wpa\_supplicant tools. We also use an open-source implementation of the
 SBA-based 5G core software ([my5gcore](https://github.com/my5G/my5G-core)), and 
 an open-source implementation to provide untrusted non-3GPP access do 5G core network
 ([UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is responsible for the connection
-between User Equipment (UE) and Access Point (AP) and Y2 establishes connection between AP and N3IWF.
+between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF.
 
 <p align="center">
     <img src="figs/proposal.png" width="100%"/> 
@@ -215,7 +215,7 @@ mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
 # new configuration for upf
 cp src/upf/config/upfcfg.sample1.yaml src/upf/build/config/upfcfg.yaml
 
-# set UE http bind address 
+# set UE-non3GPP http bind address 
 sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.1.1/' config/uecfg.conf
 
 # remove database due to previews tests
@@ -225,7 +225,7 @@ mongo free5gc --eval "db.dropDatabase()"
 go build -o bin/webconsole -x webconsole/server.go
 ./bin/webconsole &
 
-# add the UE that will be used in the test
+# add the UE-non3GPP that will be used in the test
 ~/my5G-core/sample/sample1/utils/add_test_ue.sh
 ```
 
@@ -260,7 +260,7 @@ cd ~/my5G-core/sample/sample1/utils
 ./run_upf.sh 
 ```
 
-### Starting UE
+### Starting UE-non3GPP
 ```bash
 # Use a new terminal or split
 cd ~/my5G-core/src/ue
@@ -271,7 +271,7 @@ sudo cp trigger_initial_registration.sh trigger_initial_registration.sh-ori
 # New ike_bind_addr - ip of wlan1
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
 
-# Start ue in background
+# Start UE-non3GPP in background
 sudo ../../bin/ue &
 ```
 
@@ -296,7 +296,7 @@ cd ~/my5G-core/src/ue
 ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 
-### Verify safe association between UE (wlan1) and N3IWF
+### Verify safe association between UE-non3GPP (wlan1) and N3IWF
 
 ```bash
 # Starting watch XFRM policy
