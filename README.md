@@ -4,7 +4,7 @@
 </div> 
 
 # Non-3GPP-WiFi-use-case
-Non-3GPP-WiFi-use-case aims to demonstrate the untrusted non-3GPP access to the my5Gcore using a IEEE 802.11 network (WiFi) as illustrated by the following image.
+Non-3GPP-WiFi-use-case aims to demonstrate the untrusted non-3GPP access to the my5G-core using a IEEE 802.11 network (WiFi) as illustrated by the following image.
 
 <p align="center">
     <img src="figs/general-architecture.png" height="250"/> 
@@ -16,7 +16,7 @@ Non-3GPP-WiFi-use-case aims to demonstrate the untrusted non-3GPP access to the 
 This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a 
 IEEE 802.11 network implemented mac80211_hwsim and using hostapd and 
 wpa\_supplicant tools. We also use an open-source implementation of the 
-SBA-based 5G core software ([my5gcore](https://github.com/my5G/my5G-core)), and 
+SBA-based 5G core software ([my5G-core](https://github.com/my5G/my5G-core)), and 
 an open-source implementation to provide untrusted non-3GPP access do 5G core network
 ([UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is responsible for the connection
 between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF.
@@ -344,14 +344,14 @@ sudo ip netns exec UPFns killall -9 free5gc-upfd
 # kill hostapd and wpa_supplicant
 sudo killall hostapd
 sudo killall wpa_supplicant
-
-# remove mac80211_hwsim
-sudo rmmod mac80211_hwsim
 ```
 
 ```bash
 # removing network interfaces, namespaces and addresses
 ~/my5G-core/sample/sample1/utils/env_manager.sh down $(ip route | grep default | cut -d' ' -f5)
+
+# removing mac80211_hwsim
+sudo rmmod mac80211_hwsim
 
 # removing DB
 mongo free5gc --eval "db.dropDatabase()"
@@ -366,6 +366,7 @@ rm -f sample/sample1/utils/env_manager.sh
 mv -f sample/sample1/utils/env_manager.sh-ori sample/sample1/utils/env_manager.sh
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src/ue/trigger_initial_registration.sh
 
+#Stopping my5G-core
 cd ~/my5G-core
 sudo ./force_kill.sh
 ```
