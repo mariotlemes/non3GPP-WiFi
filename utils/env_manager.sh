@@ -18,11 +18,6 @@ HOSTNAMES=(
   "10.1.1.10 nrf"
 )
 
-#UENS="UEns"
-#EXEC_UENS="sudo ip netns exec ${UENS}"
-
-#UPFNS="UPFns"
-#EXEC_UPFNS="sudo ip netns exec ${UPFNS}"
 IFACE=$2
 
 if [[ $1 == "up" ]]; then
@@ -73,38 +68,29 @@ if [[ $1 == "up" ]]; then
   sudo ip netns exec UPFns ip addr add 10.200.200.101/24 dev veth1
   sudo ip netns exec UPFns ip addr add 10.200.200.102/24 dev veth1
 
-  #pra cima eh identico ao teste labora
-
-  #ipsec0 entre UE (192.168.1.1) e N3IWF (192.168.127.1)
-
-  #par veth2 - veth3
+  #veth2-veth3 beetween AP and N3IWF
   sudo ip link add dev veth2 type veth peer name veth3
 
-  # veth2 em namespace global com ip 192.168.127.1/24
+  # veth2- ip address:192.168.127.1/24
   sudo ip addr add 192.168.127.1/24 dev veth2  
   sudo ip link set veth2 up
 
-
-  # veth3 em APns com ip 192.168.127.2/24
+  # veth3 in APns - ip address: 192.168.127.2/24
   sudo ip link set veth3 netns APns
   sudo ip netns exec APns ip addr add 192.168.127.2/24 dev veth3
   sudo ip netns exec APns ip link set veth3 up
   
-  #tudo certo pra cima, n3iwfns e apns se comunicando corretamente
-
-  #routes - so de adicionar esta rota UEns pinga 192.168.127.2 mas n ping o N3IWFns
+  # default route for wlan1
   sudo ip netns exec UEns route add default gw 192.168.1.10 wlan1 #wlan 1 - interface cliente
   
-  # ao adicionar esta rota UEns e N3IWFns pingam entre si
-  #sudo ip netns exec N3IWFns route add default gw 192.168.127.2 veth2
+  # static route 
   sudo ip route add 192.168.1.0/24 via 192.168.127.2 dev veth2 
 
-  #ipsec do lado do UEns
+  # settings for ipsec0
   sudo ip netns exec UEns ip link set lo up
   sudo ip netns exec UEns ip link add ipsec0 type vti local 192.168.1.1 remote 192.168.127.1 key 5
   sudo ip netns exec UEns ip link set ipsec0 up
 
-  #ipsec do lado do N3IWFns
   sudo ip link add name ipsec0 type vti local 192.168.127.1 remote 0.0.0.0  key 5
   sudo ip addr add 10.0.0.1/24 dev ipsec0
   sudo ip link set ipsec0 up
