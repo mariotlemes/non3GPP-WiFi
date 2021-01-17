@@ -256,19 +256,6 @@ sudo ip netns exec UEns wireshark -kni wlan1 --display-filter "isakmp or esp" &
 cd ~/my5G-core/sample/sample1/utils
 ./run_upf.sh 
 ```
-
-### Starting UE-non3GPP
-```bash
-# Use a new terminal or split
-cd ~/my5G-core/src/ue
-
-# New ike_bind_addr - ip of wlan1
-sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
-
-# Starting UE-non3GPP
-sudo ip netns exec UEns ../../bin/ue
-```
-
 ### Running my5G-core
 Run the components of core in this order: 
 
@@ -291,6 +278,18 @@ Repeat the process to AMF, SMF, UDR, PCF, UDM, NSSF and AUSF. Finally, to run N3
 ```bash
 cd ~/my5G-core
 sudo ./bin/n3iwf &
+```
+
+### Starting UE-non3GPP
+```bash
+# Use a new terminal or split
+cd ~/my5G-core/src/ue
+
+# New ike_bind_addr - ip of wlan1
+sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
+
+# Starting UE-non3GPP
+sudo ip netns exec UEns ../../bin/ue
 ```
 
 ### Triggering initial registration procedure
