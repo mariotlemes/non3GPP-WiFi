@@ -191,9 +191,6 @@ cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
 cd non-3gpp-iot-wifi
 
-# remove module gtp5g
-sudo rmmod gtp5g
-
 # fix and install module gtp5g
 sudo ./utils/fix_core.sh
 ```
@@ -265,14 +262,11 @@ cd ~/my5G-core/sample/sample1/utils
 # Use a new terminal or split
 cd ~/my5G-core/src/ue
 
-# Backup of triger_initial_registration.sh file
-sudo cp trigger_initial_registration.sh trigger_initial_registration.sh-ori
-
 # New ike_bind_addr - ip of wlan1
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
 
-# Start UE-non3GPP in background
-sudo ../../bin/ue &
+# Starting UE-non3GPP in background - new terminal
+sudo ip netns exec UEns ../../bin/ue
 ```
 
 ### Running my5G-core
