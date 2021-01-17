@@ -189,7 +189,7 @@ The connection between AP and N3IWF will be made by veth (virtual ethernet) and 
 ```bash
 cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
-cd non-3gpp-iot-wifi
+cd ~/non-3gpp-iot-wifi
 
 # fix and install module gtp5g
 sudo ./utils/fix_core.sh
@@ -265,7 +265,7 @@ cd ~/my5G-core/src/ue
 # New ike_bind_addr - ip of wlan1
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
 
-# Starting UE-non3GPP in background - new terminal
+# Starting UE-non3GPP
 sudo ip netns exec UEns ../../bin/ue
 ```
 
@@ -338,6 +338,10 @@ sudo ip netns exec UPFns killall -9 free5gc-upfd
 # kill hostapd and wpa_supplicant
 sudo killall hostapd
 sudo killall wpa_supplicant
+
+#Stopping my5G-core
+cd ~/my5G-core
+sudo ./force_kill.sh
 ```
 
 ```bash
@@ -359,11 +363,8 @@ mv src/upf/build/config/upfcfg.yaml.orig src/upf/build/config/upfcfg.yaml
 rm -f sample/sample1/utils/env_manager.sh
 mv -f sample/sample1/utils/env_manager.sh-ori sample/sample1/utils/env_manager.sh
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src/ue/trigger_initial_registration.sh
-
-#Stopping my5G-core
-cd ~/my5G-core
-sudo ./force_kill.sh
 ```
+
 
 
 
