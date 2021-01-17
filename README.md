@@ -295,7 +295,7 @@ sudo ip netns exec UEns ../../bin/ue
 ### Triggering initial registration procedure
 ```bash
 cd ~/my5G-core/src/ue
-./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
+sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 
 ### Verify safe association between UE-non3GPP (wlan1) and N3IWF
