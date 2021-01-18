@@ -320,6 +320,16 @@ sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 
 ```
 <br>
 
+## Discussion
+
+In this tutorial, we created 2 (two) wireless network interfaces with the mac80211_hwsim module. The interface wlan0 was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". The dnsmasq program was used to provide dynamic addressing service to hosts connected to the "my5gcore" access point, emulated by the wlan0 interface with the hostapd software.
+
+In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE-non3GPP first needs to be configured with a local IP address from the untrusted non-3GPP access network (N3AN). With the wpa_supplicant tool, we connect the wlan1 interface to the "my5gcore" access point and obtain an IP address (192.168.1.1/24).
+
+After instantiating the customized scenario (addressing each Network Function, registering the UE-non3GPP to the core and setting up the scenario with namespace and virtual interfaces), we started all 5G core functions and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
+
+The purpose of this procedure is to establish a secure connection between the UE and the N3IWF, which is used to securely exchange NAS signalling messages between the UE and the AMF, via the N3IWF. The UE establishes a secure connection by establishing an IKE SA and first child SA to the N3IWF. The IKE SA and first child SA, called signalling IPsec SA, are created between the UE and the N3IWF after the IKE_SA_INIT exchange and after the IKE_AUTH exchange
+
 ### Verify safe association between UE-non3GPP and N3IWF
 
 ```bash
