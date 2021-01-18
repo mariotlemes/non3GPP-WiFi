@@ -21,7 +21,7 @@
     - [Registration, Authentication and Authorization](#registration-authentication-and-authorization)
     - [PDU Session Establishment](#pdu-session-establishment)
     - [Tests](#tests)
-      - [Verify safe association between UE-non3GPP and N3IWF](#verify-safe-association-between-ue-non3gpp-and-n3iwf)
+      - [Verify association between UE-non3GPP and N3IWF](#verify-association-between-ue-non3gpp-and-n3iwf)
       - [Ping to UPF](#ping-to-upf)
       - [Ping to Internet](#ping-to-internet)
   - [Cleanning-up environment](#cleanning-up-environment)
