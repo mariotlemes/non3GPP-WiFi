@@ -3,8 +3,8 @@
     <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
 </div> 
 
-# Non-3GPP-WiFi-use-case
-Non-3GPP-WiFi-use-case aims to demonstrate the untrusted non-3GPP access to the my5G-core using a IEEE 802.11 network (WiFi) as illustrated by the following image.
+# Non-3GPP-WiFi use-case
+Non-3GPP-WiFi use-case aims to demonstrate the untrusted non-3GPP access to the my5G-core using a IEEE 802.11 network (WiFi) as illustrated by the following image.
 
 <p align="center">
     <img src="figs/general-architecture.png" height="250"/> 
@@ -24,7 +24,7 @@ between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes con
     <img src="figs/proposal.png" width="100%"/> 
 </p>
 
-## Interface Y1 - Conection beetween UE and AP
+## Interface Y1 - Conection beetween UE-non3GPP and AP
 
 On your host, install the necessary packages:
 
@@ -180,6 +180,11 @@ cd ~
 sudo killall wpa_supplicant
 sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B && sudo dhcliente wlan1
 ```
+Removing the default route from UE. This route will be added later.
+
+```bash
+sudo ip netns exec UEns route del -net 0.0.0.0 gw 192.168.1.10 netmask 0.0.0.0 dev wlan1
+```
 
 Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a WiFi access point. If success, the output of the command iwconfig will be like
 below:
@@ -311,7 +316,7 @@ cd ~/my5G-core/src/ue
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 
-### Verify safe association between UE-non3GPP (wlan1) and N3IWF
+### Verify safe association between UE-non3GPP and N3IWF
 
 ```bash
 # Starting watch XFRM policy
@@ -341,7 +346,7 @@ killall -9 wireshark
 # kill webconsole
 killall -9 webconsole
 
-# kill UE-IoT-non3GPP
+# kill UE-non3GPP
 sudo ip netns exec UEns killall -9 ./bin/ue
 
 # kill UPF
