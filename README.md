@@ -1,3 +1,26 @@
+<!-- START doctoc generated TOC please keep comment here to allow auto update -->
+<!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
+**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+
+- [Non-3GPP-WiFi use-case](#non-3gpp-wifi-use-case)
+  - [Expected result](#expected-result)
+  - [Interface Y1 - Conection beetween UE-non3GPP and AP](#interface-y1---conection-beetween-ue-non3gpp-and-ap)
+  - [Interface Y2 - Conection beetween AP and N3IWF](#interface-y2---conection-beetween-ap-and-n3iwf)
+    - [Setting-up environment](#setting-up-environment)
+    - [Set routes and namespaces for the scenario](#set-routes-and-namespaces-for-the-scenario)
+    - [Starting monitoring tools](#starting-monitoring-tools)
+    - [Starting UPF](#starting-upf)
+    - [Running the my5G-core network](#running-the-my5g-core-network)
+    - [Starting UE-non3GPP](#starting-ue-non3gpp)
+    - [Triggering initial registration procedure](#triggering-initial-registration-procedure)
+  - [Discussion](#discussion)
+  - [Registration, Authentication and Authorization](#registration-authentication-and-authorization)
+  - [PDU Session Establishment](#pdu-session-establishment)
+    - [Verify safe association between UE-non3GPP and N3IWF](#verify-safe-association-between-ue-non3gpp-and-n3iwf)
+    - [Cleanning-up](#cleanning-up)
+
+<!-- END doctoc generated TOC please keep comment here to allow auto update -->
+
 
 <div align="center">
     <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
