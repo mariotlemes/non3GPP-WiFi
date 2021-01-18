@@ -178,7 +178,8 @@ Apply the settings for wlan1 and initialize wpa_supplicant:
 ```bash
 cd ~
 sudo killall wpa_supplicant
-sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B && sudo dhcliente wlan1
+sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B 
+sudo dhclient wlan1
 ```
 Removing the default route from UE. This route will be added later.
 
@@ -205,9 +206,10 @@ The connection between AP and N3IWF will be made by veth (virtual ethernet) and 
 ```bash
 cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
-cd ~/non-3gpp-iot-wifi
+
 
 # fix and install module gtp5g
+cd ~/non-3gpp-iot-wifi
 sudo ./utils/fix_core.sh
 ```
 
@@ -309,13 +311,13 @@ sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigg
 # Starting UE-non3GPP
 sudo ip netns exec UEns ../../bin/ue
 ```
-
+<br>
 ### Triggering initial registration procedure
 ```bash
 cd ~/my5G-core/src/ue
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
-
+<br>
 ### Verify safe association between UE-non3GPP and N3IWF
 
 ```bash
@@ -359,9 +361,7 @@ sudo killall wpa_supplicant
 #Stopping my5G-core
 cd ~/my5G-core
 sudo ./force_kill.sh
-```
 
-```bash
 # removing network interfaces, namespaces and addresses
 ~/my5G-core/sample/sample1/utils/env_manager.sh down $(ip route | grep default | cut -d' ' -f5)
 
