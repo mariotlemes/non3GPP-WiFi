@@ -110,6 +110,7 @@ sudo touch $HOME/dnsmasq.conf && sudo chmod 666 $HOME/dnsmasq.conf
 echo -e "interface=wlan0\ndhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h\nserver=8.8.8.8\nlog-queries\nlog-dhcp\nlisten-address=127.0.0.1\ndhcp-host=02:00:00:00:01:00,192.168.1.1" > $HOME/dnsmasq.conf
 
 ```
+<br>
 
 Or download the dnsmasq.conf file from the repository:
 
@@ -117,6 +118,7 @@ Or download the dnsmasq.conf file from the repository:
 cd ~
 wget -O https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/dnsmasq.conf?token=ACYGK3V7N5FZEO6FJ3BJDTLAAWCOI
 ```
+<br>
 
 Initializing dnsmasq.conf:
 
