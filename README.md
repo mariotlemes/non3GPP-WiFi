@@ -312,6 +312,7 @@ sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigg
 sudo ip netns exec UEns ../../bin/ue
 ```
 <br>
+
 ### Triggering initial registration procedure
 ```bash
 cd ~/my5G-core/src/ue
