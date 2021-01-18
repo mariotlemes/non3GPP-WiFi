@@ -4,7 +4,7 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-# Table of Contents  
+# Table of contents  
 
 - [Non-3GPP-WiFi use-case](#non-3gpp-wifi-use-case)
   - [Expected result](#expected-result)
