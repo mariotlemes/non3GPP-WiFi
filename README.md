@@ -342,9 +342,9 @@ The registration, authentication and authorization procedures involve the follow
 
 5) N3IWF selects an AMF based on the received AN parameters and local policy and forwards the registration request received from the UE to the selected AMF within an N2 Initial UE message. All NAS messages between UE and AMF are transparently relayed by N3IWF.
 
-6)AMF may request the SUCI from the UE with a NAS Identity request that is received back in a NAS Identity Response from the UE.
+6) AMF may request the SUCI from the UE with a NAS Identity request that is received back in a NAS Identity Response from the UE.
 
-7)AMF selects an AUSF to authenticate the UE based on SUCI or SUPI. The AUSF further selects a Unified Data Management (UDM) to obtain authentication data and executes the EAP-AKA’/5G-AKA authentication with the UE.
+7) AMF selects an AUSF to authenticate the UE based on SUCI or SUPI. The AUSF further selects a Unified Data Management (UDM) to obtain authentication data and executes the EAP-AKA’/5G-AKA authentication with the UE.
 
 8) After successful authentication, the AUSF sends the EAP Success Security anchor key (SEAF key) to AMF which derives the NAS security keys and N3IWF security key.
 
