@@ -181,7 +181,7 @@ sudo killall wpa_supplicant
 sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B 
 sudo dhclient wlan1
 ```
-Removing the default route from UE. This route will be added later.
+Removing the default route from UE-non3GPP:
 
 ```bash
 sudo ip netns exec UEns route del -net 0.0.0.0 gw 192.168.1.10 netmask 0.0.0.0 dev wlan1
@@ -196,7 +196,7 @@ below:
 
 ## Interface Y2 - Conection beetween AP and N3IWF
 
-The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE (wlan1 interface) and N3IWF (veth2). The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
+The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE-non3GPP and N3IWF. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
 <p align="center">
     <img src="figs/interface-y2.png"/> 
@@ -365,7 +365,7 @@ The registration, authentication and authorization procedures are show in figure
 
 14) AMF sends the **NAS Registration Accept message** including the Allowed NSSAI for the access type for the UE to the N3IWF which forwards the same to the UE through the signalling IPsec SA.
 
-After registration, the UE shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point.
+After registration, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point.
 
 ## PDU Session Establishment
 
