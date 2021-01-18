@@ -13,8 +13,7 @@ Non-3GPP-WiFi-use-case aims to demonstrate the untrusted non-3GPP access to the 
 
 ## Expected result
 
-This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a 
-IEEE 802.11 network implemented mac80211_hwsim and using hostapd and 
+This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a IEEE 802.11 network implemented by mac80211_hwsim and using hostapd and 
 wpa\_supplicant tools. We also use an open-source implementation of the 
 SBA-based 5G core software ([my5G-core](https://github.com/my5G/my5G-core)), and 
 an open-source implementation to provide untrusted non-3GPP access do 5G core network
@@ -121,11 +120,11 @@ wget -O hostapd.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-
 ```
 <br>
 
-Initializing hostapd.conf to wlan0. In this process, wlan0 will become an access point:
+Initializing hostapd.conf to wlan0. At the end of this process, wlan0 will become an access point:
 
 ```bash
 cd ~
-sudo hostapd hostapd.conf -B
+sudo ip netns exec APns hostapd hostapd.conf -B
 ```
 The expected result is like below:
 
@@ -133,7 +132,7 @@ The expected result is like below:
     <img src="figs/hostapd-background.png"/> 
 </p>
 
-At UEns namespace terminal, type to create the wpa_supplicant.conf file:
+To create the wpa_supplicant.conf file:
 
 ```bash
   cd ~
@@ -154,11 +153,11 @@ Apply the settings for wlan1 and initialize wpa_supplicant:
 ```bash
 cd ~
 sudo killall wpa_supplicant
-sudo wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B
-sudo ip addr add 192.168.1.1/24 dev wlan1
+sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B
+sudo ip netns exec UEns ip addr add 192.168.1.1/24 dev wlan1
 
 ```
-Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a wifi access point. If success, the output of the command iwconfig will be like
+Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a WiFi access point. If success, the output of the command iwconfig will be like
 below:
 
 <p align="center">
@@ -274,7 +273,9 @@ For example, to run NRF:
 cd ~/my5G-core
 ./bin/nrf &
 ```
-Repeat the process to AMF, SMF, UDR, PCF, UDM, NSSF and AUSF. Finally, to run N3IWF:
+Repeat the process to AMF, SMF, UDR, PCF, UDM, NSSF and AUSF. 
+
+Finally, to run N3IWF:
 ```bash
 cd ~/my5G-core
 sudo ./bin/n3iwf &
