@@ -324,11 +324,46 @@ sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 
 
 In this tutorial, we created 2 (two) wireless network interfaces with the mac80211_hwsim module. The interface wlan0 was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". The dnsmasq program was used to provide dynamic addressing service to hosts connected to the "my5gcore" access point, emulated by the wlan0 interface with the hostapd software.
 
-In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE-non3GPP first needs to be configured with a local IP address from the untrusted non-3GPP access network (N3AN). With the wpa_supplicant tool, we connect the wlan1 interface to the "my5gcore" access point and obtain an IP address (192.168.1.1/24).
+In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE-non3GPP first needs to be configured with a local IP address from the untrusted non-3GPP access network. With the wpa_supplicant tool, we connect the wlan1 interface to the IEEE 802.11 network and obtain an IP address (192.168.1.1/24).
 
 After instantiating the customized scenario (addressing each Network Function, registering the UE-non3GPP to the core and setting up the scenario with namespace and virtual interfaces), we started all 5G core functions and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
 
-The purpose of this procedure is to establish a secure connection between the UE and the N3IWF, which is used to securely exchange NAS signalling messages between the UE and the AMF, via the N3IWF. The UE establishes a secure connection by establishing an IKE SA and first child SA to the N3IWF. The IKE SA and first child SA, called signalling IPsec SA, are created between the UE and the N3IWF after the IKE_SA_INIT exchange and after the IKE_AUTH exchange
+## Registration, Authentication and Authorization
+
+The registration, authentication and authorization procedures involve the following steps:
+
+1) UE initiates the IKEv2 initial exchange with the selected N3IWF for the establishment of an IKE SA. All subsequent IKE messages are encrypted and integrity-protected using the established IKE SA.
+
+2) UE sends the IKE AUTH request without the AUTH payload indicating use of EAP-5G. The IKE AUTH request may also include a Notify payload to indicate MOBIKE support and a CERTREQ payload to request N3IWF certificate.
+
+3) N3IWF responds with an IKE AUTH response, including EAP-Request/5G-Start packet informing UE to start sending NAS messages. The IKE AUTH response will include the N3IWF certificate if it has received the CERTREQ payload.
+
+4) UE sends the IKE AUTH request including EAP-Response/5G-NAS with NAS registration request and AN parameters (GUAMI, selected PLMN ID, Requested NSSAI and the Establishment Cause). All subsequent NAS messages between UE and N3IWF are encapsulated within EAP/5G-NAS packets.
+
+5) N3IWF selects an AMF based on the received AN parameters and local policy and forwards the registration request received from the UE to the selected AMF within an N2 Initial UE message. All NAS messages between UE and AMF are transparently relayed by N3IWF.
+
+6)AMF may request the SUCI from the UE with a NAS Identity request that is received back in a NAS Identity Response from the UE.
+
+7)AMF selects an AUSF to authenticate the UE based on SUCI or SUPI. The AUSF further selects a Unified Data Management (UDM) to obtain authentication data and executes the EAP-AKA’/5G-AKA authentication with the UE.
+
+8) After successful authentication, the AUSF sends the EAP Success Security anchor key (SEAF key) to AMF which derives the NAS security keys and N3IWF security key.
+
+9) AMF encapsulates the EAP-Success received from AUSF within the NAS Security Mode Command message and sends it to the UE to activate NAS security.
+
+10) UE also derives the SEAF key, NAS security keys and N3IWF key and sends a NAS Security Mode Complete message to the AMF.
+
+11) AMF further sends an NGAP Initial Context Setup Request message including the N3IWF key to the N3IWF which triggers the N3IWF to send an EAP-Success to UE, which completes the EAP-5G session.
+
+12) 1IPsec SA is established between the UE and N3IWF using the common N3IWF key in tunnel mode with the allocation of an inner IP address for UE and NAS IP address for N3IWF. All subsequent NAS messages between 
+
+13) UE and N3IWF are encapsulated within the established Signalling IPsec SA.
+N3IWF notifies the AMF that the UE context is created by sending a NGAP Initial Context Setup Response.
+
+14) AMF sends the NAS Registration Accept message including the Allowed NSSAI for the access type for the UE to the N3IWF which forwards the same to the UE through the signalling IPsec SA.
+
+
+## PDU Session Establishment
+
 
 ### Verify safe association between UE-non3GPP and N3IWF
 
