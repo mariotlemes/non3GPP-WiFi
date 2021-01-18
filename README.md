@@ -29,7 +29,7 @@ between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes con
 On your host, install the necessary packages:
 
 ```bash
-sudo apt-get update && sudo apt-get install hostapd wget -y
+sudo apt-get update && sudo apt-get install dnsmasq hostapd wget -y
 ```
 
 To create wlan0 and wlan1 wireless cards with mac80211_hwsim:
@@ -101,6 +101,20 @@ Apply the settings for wlan0. In this tutorial, the ip address at access point (
 
 ```bash
 sudo ip addr add 192.168.1.10/24 dev wlan0
+```
+
+To create the dnsmasq.conf file:
+```bash
+sudo killall dnsmasq
+sudo touch $HOME/dnsmasq.conf && sudo chmod 666 $HOME/dnsmasq.conf
+echo -e "interface=wlan0\ndhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h\nserver=8.8.8.8\nlog-queries\nlog-dhcp\nlisten-address=127.0.0.1\ndhcp-host=02:00:00:00:01:00,192.168.1.1" > $HOME/dnsmasq.conf
+
+```
+
+Or download the dnsmasq.conf file from the repository:
+
+```bash
+
 ```
 
 To create the hostapd.conf file:

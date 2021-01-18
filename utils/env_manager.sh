@@ -110,7 +110,6 @@ if [[ $1 == "up" ]]; then
   sudo iptables -A FORWARD -i ${IFACE} -o veth4 -j ACCEPT
   sudo iptables -A FORWARD -o ${IFACE} -i veth4 -j ACCEPT
 
-  sudo sysctl -w net.ipv4.ip_forward=1 > /dev/null
   echo "Network interfaces and namespaces created."
 
 elif [[ $1 == "down" ]]; then
