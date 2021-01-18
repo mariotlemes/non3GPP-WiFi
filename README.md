@@ -20,8 +20,11 @@
   - [Discussion](#discussion)
     - [Registration, Authentication and Authorization](#registration-authentication-and-authorization)
     - [PDU Session Establishment](#pdu-session-establishment)
-    - [Verify safe association between UE-non3GPP and N3IWF](#verify-safe-association-between-ue-non3gpp-and-n3iwf)
-  - [Cleanning-up](#cleanning-up)
+    - [Tests](#tests)
+      - [Verify safe association between UE-non3GPP and N3IWF](#verify-safe-association-between-ue-non3gpp-and-n3iwf)
+      - [Ping to UPF](#ping-to-upf)
+      - [Ping to Internet](#ping-to-internet)
+  - [Cleanning-up environment](#cleanning-up-environment)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -391,8 +394,13 @@ After registration, the UE-non3GPP shall support NAS signalling with 5GCN for mo
 
 ### PDU Session Establishment
 
+### Tests
 
-### Verify safe association between UE-non3GPP and N3IWF
+#### Verify safe association between UE-non3GPP and N3IWF
+
+#### Ping to UPF
+
+#### Ping to Internet
 
 ```bash
 # Starting watch XFRM policy
@@ -412,7 +420,10 @@ if successful, you will be able to see the safe associations as show in the figu
     <img src="figs/state.png"/> 
 </p>
 
-## Cleanning-up
+
+
+
+## Cleanning-up environment
 ```bash
 sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
 
