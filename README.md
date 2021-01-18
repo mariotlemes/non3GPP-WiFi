@@ -2,6 +2,7 @@
     <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
 </div> 
 
+# Non-3GPP-WiFi use-case
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Table of contents  
@@ -28,13 +29,40 @@
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
-# Non-3GPP-WiFi use-case
+## Description
 Non-3GPP-WiFi use-case aims to demonstrate the untrusted non-3GPP access to the my5G-core using a IEEE 802.11 network (WiFi) as illustrated by the following image.
 
 <p align="center">
     <img src="figs/general-architecture.png" height="250"/> 
 </p>
 
+## Recommended environment
+
+Non-3GPP-Wi-Fi use-case  has been tested against the following environment:
+
+- Software
+    - OS: Ubuntu 18.04
+    - kernel version 5.0.0-23-generic
+    - my5G-core release v.3.0.4
+    - UE-non3GPP v.0.0.1
+    - gtp5g v.0.2.1.
+    
+
+The listed kernel version is required for the UPF element.
+
+- Minimum Hardware
+    - CPU: Intel i5 processor
+    - RAM: 4GB
+    - Hard drive: 30GB
+    - NIC: Any 1Gbps Ethernet card supported in the Linux kernel
+
+- Recommended Hardware
+    - CPU: Intel i7 processor
+    - RAM: 8GB
+    - Hard drive: 160GB
+    - NIC: Any 10Gbps Ethernet card supported in the Linux kernel
+
+This guide assumes that you will run all 5GC elements on a single machine.
 
 ## Expected result
 
