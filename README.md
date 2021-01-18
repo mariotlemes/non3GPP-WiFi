@@ -116,7 +116,7 @@ Or download the dnsmasq.conf file from the repository:
 
 ```bash
 cd ~
-wget -O https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/dnsmasq.conf?token=ACYGK3V7N5FZEO6FJ3BJDTLAAWCOI
+wget -O dnsmasq.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/conf/dnsmasq.conf?token=ACYGK3XWNRZ7RVIOKYKCJKTAAWIIC
 ```
 <br>
 
@@ -140,7 +140,7 @@ Or download the hostapd.conf file from the repository:
 
 ```bash
 cd ~
-wget -O hostapd.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/hostapd.conf?token=ACYGK3Q362VFPXWDSJBEOKTAADMJQ
+wget -O hostapd.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/conf/hostapd.conf?token=ACYGK3S5HDFSL3RPIKC6KLLAAWILC
 ```
 <br>
 
@@ -169,7 +169,7 @@ Or download the wpa_supplicant.conf file from the repository:
 
 ```bash
 cd ~
-wget -O wpa_supplicant.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/wpa_supplicant.conf?token=ACYGK3VKB4PBZWVBCGQDM4DAADMS6
+wget -O wpa_supplicant.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/conf/wpa_supplicant.conf?token=ACYGK3TSG2SLZVZ3OE334LLAAWIMY
 ```
 <br>
 
