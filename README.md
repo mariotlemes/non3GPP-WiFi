@@ -274,18 +274,18 @@ sudo ip netns exec UEns wireshark -kni wlan1 --display-filter "isakmp or esp" &
 cd ~/my5G-core/sample/sample1/utils
 ./run_upf.sh 
 ```
-### Running my5G-core
+### Running the my5G-core network
 Run the components of core in this order: 
 
-1) NFR 
-2) AMF 
-3) SMF 
-4) UDR 
-5) PCF 
-6) UDM 
-7) NSSF 
-8) AUSF
-9) N3IWF
+**1)** NFR 
+**2)** AMF 
+**3)** SMF 
+**4)** UDR 
+**5)** PCF 
+**6)** UDM 
+**7)** NSSF 
+**8)** AUSF
+**9)** N3IWF
 
 For example, to run NRF:
 ```bash
