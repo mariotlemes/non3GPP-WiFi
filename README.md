@@ -361,6 +361,7 @@ N3IWF notifies the AMF that the UE context is created by sending a NGAP Initial 
 
 14) AMF sends the NAS Registration Accept message including the Allowed NSSAI for the access type for the UE to the N3IWF which forwards the same to the UE through the signalling IPsec SA.
 
+After registration, the UE shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point.
 
 ## PDU Session Establishment
 
