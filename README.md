@@ -308,7 +308,6 @@ cd ~/my5G-core/
 # Starting UE-non3GPP
 sudo ip netns exec UEns ./bin/ue
 ```
-<br>
 
 ### Triggering initial registration procedure
 ```bash
@@ -319,7 +318,6 @@ sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigg
 
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
-<br>
 
 ## Discussion
 
