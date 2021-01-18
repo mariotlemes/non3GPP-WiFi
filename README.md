@@ -1,6 +1,10 @@
+<div align="center">
+    <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
+</div> 
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  *generated with [DocToc](https://github.com/thlorenz/doctoc)*
+**Table of Contents**  
 
 - [Non-3GPP-WiFi use-case](#non-3gpp-wifi-use-case)
   - [Expected result](#expected-result)
@@ -20,11 +24,6 @@
     - [Cleanning-up](#cleanning-up)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
-
-
-<div align="center">
-    <a href="https://github.com/LABORA-INF-UFG/my5Gcore"><img width="20%" src="figs/my5g-logo.png" alt="free5GC"/></a>
-</div> 
 
 # Non-3GPP-WiFi use-case
 Non-3GPP-WiFi use-case aims to demonstrate the untrusted non-3GPP access to the my5G-core using a IEEE 802.11 network (WiFi) as illustrated by the following image.
