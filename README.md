@@ -114,7 +114,15 @@ echo -e "interface=wlan0\ndhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h
 Or download the dnsmasq.conf file from the repository:
 
 ```bash
+cd ~
+wget -O https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/dnsmasq.conf?token=ACYGK3V7N5FZEO6FJ3BJDTLAAWCOI
+```
 
+Initializing dnsmasq.conf:
+
+```bash
+cd ~
+sudo ip netns exec APns dnsmasq -C $HOME/dnsmasq.conf -D
 ```
 
 To create the hostapd.conf file:
@@ -154,6 +162,7 @@ To create the wpa_supplicant.conf file:
   echo -e 'network={\nssid="my5gcore"\nkey_mgmt=WPA-PSK\npsk="my5gcore"\n}' > wpa_supplicant.conf
 ```
 <br>
+
 Or download the wpa_supplicant.conf file from the repository:
 
 ```bash
@@ -167,28 +176,15 @@ Apply the settings for wlan1 and initialize wpa_supplicant:
 ```bash
 cd ~
 sudo killall wpa_supplicant
-sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B
-sudo ip netns exec UEns ip addr add 192.168.1.1/24 dev wlan1
-
+sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B && sudo dhcliente wlan1
 ```
+
 Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a WiFi access point. If success, the output of the command iwconfig will be like
 below:
 
 <p align="center">
     <img src="figs/success-interface-y1.png"/> 
 </p>
-
-
-You can also use the interface-y1.sh file to automate the previous steps.
-
-```bash
-#sudo interface-y1.sh up
-#```
-To stop the script and clean-up environment type CRTL+c or run the command:
-
-```bash
-sudo interface-y1.sh down
-```
 
 ## Interface Y2 - Conection beetween AP and N3IWF
 
