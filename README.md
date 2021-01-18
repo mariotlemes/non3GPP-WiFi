@@ -319,6 +319,7 @@ cd ~/my5G-core/src/ue
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 <br>
+
 ### Verify safe association between UE-non3GPP and N3IWF
 
 ```bash
