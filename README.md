@@ -396,11 +396,7 @@ After registration, the UE-non3GPP shall support NAS signalling with 5GCN for mo
 
 ### Tests
 
-#### Verify safe association between UE-non3GPP and N3IWF
-
-#### Ping to UPF
-
-#### Ping to Internet
+#### Verify association between UE-non3GPP and N3IWF
 
 ```bash
 # Starting watch XFRM policy
@@ -410,7 +406,7 @@ watch -d -n 2 sudo ip netns exec UEns ip xfrm policy
 watch -d -n 2 sudo ip netns exec UEns ip xfrm state 
 ```
 
-if successful, you will be able to see the safe associations as show in the figures below:
+if success, you will be able to see the safe associations as show in the figures below:
 
 <p align="center">
     <img src="figs/policy.png"/> 
@@ -420,8 +416,9 @@ if successful, you will be able to see the safe associations as show in the figu
     <img src="figs/state.png"/> 
 </p>
 
+#### Ping to UPF
 
-
+#### Ping to Internet
 
 ## Cleanning-up environment
 ```bash
