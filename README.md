@@ -4,7 +4,7 @@
 
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
-**Table of Contents**  
+# Table of Contents  
 
 - [Non-3GPP-WiFi use-case](#non-3gpp-wifi-use-case)
   - [Expected result](#expected-result)
@@ -18,10 +18,10 @@
     - [Starting UE-non3GPP](#starting-ue-non3gpp)
     - [Triggering initial registration procedure](#triggering-initial-registration-procedure)
   - [Discussion](#discussion)
-  - [Registration, Authentication and Authorization](#registration-authentication-and-authorization)
-  - [PDU Session Establishment](#pdu-session-establishment)
+    - [Registration, Authentication and Authorization](#registration-authentication-and-authorization)
+    - [PDU Session Establishment](#pdu-session-establishment)
     - [Verify safe association between UE-non3GPP and N3IWF](#verify-safe-association-between-ue-non3gpp-and-n3iwf)
-    - [Cleanning-up](#cleanning-up)
+  - [Cleanning-up](#cleanning-up)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -349,7 +349,7 @@ In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP acc
 
 After instantiating the customized scenario (addressing each Network Function, registering the UE-non3GPP to the core and setting up the scenario with namespace and virtual interfaces), we started all 5G core functions and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
 
-## Registration, Authentication and Authorization
+### Registration, Authentication and Authorization
 
 The registration, authentication and authorization procedures are show in figure below:
 
@@ -389,7 +389,7 @@ The registration, authentication and authorization procedures are show in figure
 
 After registration, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point.
 
-## PDU Session Establishment
+### PDU Session Establishment
 
 
 ### Verify safe association between UE-non3GPP and N3IWF
@@ -412,7 +412,7 @@ if successful, you will be able to see the safe associations as show in the figu
     <img src="figs/state.png"/> 
 </p>
 
-### Cleanning-up
+## Cleanning-up
 ```bash
 sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
 
