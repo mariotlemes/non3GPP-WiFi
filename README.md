@@ -373,9 +373,9 @@ After instantiating the customized scenario (addressing each Network Function (N
 
 ### 1) Registration, Authentication and Authorization
 
-- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `UE-non3GPP`
-- ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `N3IWF`
-- ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+) `AMF`
+- ![#ff0000](https://via.placeholder.com/15/f03c15/000000?text=+) `UE-non3GPP`
+- ![#00a000](https://via.placeholder.com/15/c5f015/000000?text=+) `N3IWF`
+- ![#0000ff](https://via.placeholder.com/15/1589F0/000000?text=+) `AMF`
 
 The registration, authentication and authorization procedures are show in figure below:
 
@@ -385,7 +385,7 @@ The registration, authentication and authorization procedures are show in figure
 
 **1)** UE-non3GPP initiates the IKEv2 initial exchange with the N3IWF for the establishment of an IKE SA. 
 
-2) UE-non3GPP sends to N3IWF the **IKE AUTH request** without the AUTH payload indicating use of **EAP-5G**. 
+**2)** UE-non3GPP sends to N3IWF the IKE AUTH request without the AUTH payload indicating use of EAP-5G. 
 
 3) N3IWF responds with an **IKE AUTH response**, including EAP-Request/5G-Start packet informing UE to start sending NAS messages. 
 
