@@ -20,15 +20,15 @@
   - [5) Running the other NFs in my5G-core network](#5-running-the-other-nfs-in-my5g-core-network)
   - [6) Starting UE-non3GPP](#6-starting-ue-non3gpp)
   - [7) Triggering initial registration procedure](#7-triggering-initial-registration-procedure)
-- [B. Discussion](#b-discussion)
+- [C. Discussion](#c-discussion)
   - [1) Registration, Authentication and Authorization](#1-registration-authentication-and-authorization)
   - [2) PDU Session Establishment](#2-pdu-session-establishment)
-- [C. Tests](#c-tests)
+- [D. Tests](#d-tests)
   - [1) Verify association between UE-non3GPP and N3IWF](#1-verify-association-between-ue-non3gpp-and-n3iwf)
   - [2) Ping to UPF](#2-ping-to-upf)
   - [3) Ping to Internet](#3-ping-to-internet)
-- [D. Cleanning-up environment](#d-cleanning-up-environment)
-- [E. Troubleshooting](#e-troubleshooting)
+- [E. Cleanning-up environment](#e-cleanning-up-environment)
+- [F. Troubleshooting](#f-troubleshooting)
   - [1) To create gtp5g module](#1-to-create-gtp5g-module)
   - [2) Pings tests failed](#2-pings-tests-failed)
 
@@ -361,7 +361,7 @@ sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigg
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 
-## B. Discussion
+## C. Discussion
 
 In this tutorial, we created 2 (two) wireless network interfaces with the mac80211_hwsim module. The interface wlan0 was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". Dnsmasq tool was used to provide ip addressing service to hosts connected to the "my5gcore", emulated by the wlan0 interface with hostapd.
 
@@ -425,7 +425,7 @@ After registration procedures, the UE-non3GPP shall support NAS signalling with 
 
 TODO...
 
-## C. Tests
+## D. Tests
 
 ### 1) Verify association between UE-non3GPP and N3IWF
 
@@ -456,7 +456,7 @@ TODO...
 
 TODO...
 
-## D. Cleanning-up environment
+## E. Cleanning-up environment
 ```bash
 sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
 
@@ -501,7 +501,7 @@ sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src
 ```
 <br>
 
-## E. Troubleshooting
+## F. Troubleshooting
 
 ### 1) To create gtp5g module
 
