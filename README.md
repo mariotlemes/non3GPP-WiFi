@@ -381,7 +381,7 @@ In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP acc
 
 After instantiating the customized scenario (addressing each Network Function, registering the UE-non3GPP to the core and setting up the scenario with namespace and virtual interfaces), we started all 5G core functions and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
 
-### Registration, Authentication and Authorization
+### 1) Registration, Authentication and Authorization
 
 The registration, authentication and authorization procedures are show in figure below:
 
@@ -421,11 +421,11 @@ The registration, authentication and authorization procedures are show in figure
 
 After registration, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point.
 
-### PDU Session Establishment
+### 2) PDU Session Establishment
 
 ## Tests
 
-### Verify association between UE-non3GPP and N3IWF
+### 1) Verify association between UE-non3GPP and N3IWF
 
 ```bash
 # Starting watch XFRM policy
@@ -445,12 +445,12 @@ if success, you will be able to see the safe associations as show in the figures
     <img src="figs/state.png"/> 
 </p>
 
-### Ping to UPF
+### 2) Ping to UPF
 
 TODO...
 
 
-### Ping to Internet
+### 3) Ping to Internet
 
 TODO...
 
