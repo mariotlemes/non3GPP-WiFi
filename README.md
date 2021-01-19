@@ -28,6 +28,8 @@
   - [2) Ping to UPF](#2-ping-to-upf)
   - [3) Ping to Internet](#3-ping-to-internet)
 - [D. Cleanning-up environment](#d-cleanning-up-environment)
+- [E. Troubleshooting](#e-troubleshooting)
+  - [1)Gtp5gDeviceInit failed](#1gtp5gdeviceinit-failed)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -504,7 +506,21 @@ mv -f sample/sample1/utils/env_manager.sh-ori sample/sample1/utils/env_manager.s
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src/ue/trigger_initial_registration.sh
 ```
 
+## E. Troubleshooting
 
+### 1)Gtp5gDeviceInit failed 
+
+Sometimes, the gtp5g module failed as show in the figures below. Then, if you get this error:
+
+<p align="center">
+    <img src="figs/tshoot-gtp5g.png"/> 
+</p>
+
+**Solution**:
+```bash
+cd ~/gtp5g
+sudo make && sudo make install
+```
 
 
 
