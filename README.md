@@ -270,19 +270,14 @@ git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
 # fix and install module gtp5g
 cd ~/non-3gpp-iot-wifi
 sudo ./utils/fix_core.sh
-```
-
-```bash
-cd ~/my5G-core
  
 # backup of the config folder
+cd ~/my5G-core
 mv -f config config.orig
 
 # using sample1 folder for configuration
 cp -R sample/sample1/ config
-```
 
-```bash
 # backup of upf config
 mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
 
@@ -305,9 +300,8 @@ go build -o bin/webconsole -x webconsole/server.go
 
 ### 2) Set routes and namespaces for the scenario
 ```bash
-cd ~/my5G-core/sample/sample1/utils
-
 #backup env_manager.sh file
+cd ~/my5G-core/sample/sample1/utils
 mv env_manager.sh env_manager.sh-ori
 
 # copy the env_manager.sh file from the repository
@@ -360,9 +354,8 @@ sudo ip netns exec UEns ./bin/ue
 
 ### 7) Triggering initial registration procedure
 ```bash
-cd ~/my5G-core/src/ue
-
 # New ike_bind_addr - ip of wlan1
+cd ~/my5G-core/src/ue
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
 
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
