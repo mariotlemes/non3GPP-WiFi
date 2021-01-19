@@ -11,6 +11,5 @@ cd ~/gtp5g
 sudo make && sudo make install
 
 # adding rule in iptables
-sudo iptables -t nat -F
-sudo iptables -t nat -X
-sudo iptables -t nat -A POSTROUTING -o enp0s3 -j MASQUERADE
+sudo iptables -t nat -A POSTROUTING -o $(ip route | grep default | cut -d' ' -f5) -j MASQUERADE
+
