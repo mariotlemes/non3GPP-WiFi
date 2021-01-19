@@ -9,7 +9,7 @@
 
 - [Description](#description)
 - [Recommended environment](#recommended-environment)
-- [Pre-requisite](#pre-requisite)
+- [Prerequisite](#prerequisite)
 - [Expected result](#expected-result)
 - [A. Interface Y1 - Conection beetween UE-non3GPP and AP](#a-interface-y1---conection-beetween-ue-non3gpp-and-ap)
 - [B. Interface Y2 - Conection beetween AP and N3IWF](#b-interface-y2---conection-beetween-ap-and-n3iwf)
@@ -29,7 +29,8 @@
   - [3) Ping to Internet](#3-ping-to-internet)
 - [D. Cleanning-up environment](#d-cleanning-up-environment)
 - [E. Troubleshooting](#e-troubleshooting)
-  - [1)Gtp5gDeviceInit failed](#1gtp5gdeviceinit-failed)
+  - [1) To create gtp5g module](#1-to-create-gtp5g-module)
+  - [2) Pings testes failed](#2-pings-testes-failed)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -47,9 +48,9 @@ Non-3GPP-Wi-Fi use-case  has been tested against the following environment:
 - Software
     - OS: Ubuntu 18.04
     - kernel version 5.0.0-23-generic
-    - my5G-core v.3.0.4
-    - UE-non3GPP v.0.0.1
-    - gtp5g v.0.2.0
+    - my5G-core v3.0.4
+    - UE-non3GPP v0.0.1
+    - gtp5g v0.2.0
     
 
 The listed kernel version is required for the UPF element.
@@ -66,9 +67,9 @@ The listed kernel version is required for the UPF element.
     - Hard drive: 160GB
     - NIC: Any 10Gbps Ethernet card supported in the Linux kernel
 
-## Pre-requisite
+## Prerequisite
 
-This guide assumes that you will run all 5GC elements on a single machine and that the [my5G-core](https://github.com/my5G/my5G-core) and [UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP) are already installed.
+This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and [UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP) are already installed.
 
 ## Expected result
 
@@ -509,7 +510,7 @@ sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src
 
 ## E. Troubleshooting
 
-### 1) Problem: To create gtp5g module
+### 1) To create gtp5g module
 
 Sometimes, the gtp5g module failed as show in the figures below. Then, if you get this error:
 
@@ -521,6 +522,18 @@ Sometimes, the gtp5g module failed as show in the figures below. Then, if you ge
 ```bash
 cd ~/gtp5g
 sudo make && sudo make install
+```
+
+### 2) Pings testes failed
+
+Make sure you have version 0.2.0 of the gtp5g module installed
+
+```bash
+cd ~
+sudo git clone -b v0.2.0 https://github.com/PrinzOwO/gtp5g.git
+cd ~/gtp5g
+sudo make
+sudo make install
 ```
 
 
