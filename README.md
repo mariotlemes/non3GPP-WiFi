@@ -11,10 +11,10 @@
 - [Recommended environment](#recommended-environment)
 - [Prerequisite](#prerequisite)
 - [Expected result](#expected-result)
-- [A. Interface Y1 - Conection beetween UE-non3GPP and AP](#a-interface-y1---conection-beetween-ue-non3gpp-and-ap)
-- [B. Interface Y2 - Conection beetween AP and N3IWF](#b-interface-y2---conection-beetween-ap-and-n3iwf)
+- [A. Y1 Interface- Conection beetween UE-non3GPP and AP](#a-y1-interface--conection-beetween-ue-non3gpp-and-ap)
+- [B. Y2 Interface - Conection beetween AP and N3IWF](#b-y2-interface---conection-beetween-ap-and-n3iwf)
   - [1) Setting-up environment](#1-setting-up-environment)
-  - [2) Set routes and namespaces for the scenario](#2-set-routes-and-namespaces-for-the-scenario)
+  - [2) Setting namespaces, interfaces and routes for the scenario](#2-setting-namespaces-interfaces-and-routes-for-the-scenario)
   - [3) Starting monitoring tools](#3-starting-monitoring-tools)
   - [4) Starting UPF](#4-starting-upf)
   - [5) Running the other NFs in my5G-core network](#5-running-the-other-nfs-in-my5g-core-network)
@@ -90,7 +90,7 @@ between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes con
     <img src="figs/proposal.png" width="100%"/> 
 </p>
 
-## A. Interface Y1 - Conection beetween UE-non3GPP and AP
+## A. Y1 Interface- Conection beetween UE-non3GPP and AP
 
 On your host, install the necessary packages:
 
@@ -260,7 +260,7 @@ below:
     <img src="figs/success-interface-y1.png"/> 
 </p>
 
-## B. Interface Y2 - Conection beetween AP and N3IWF
+## B. Y2 Interface - Conection beetween AP and N3IWF
 
 The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE-non3GPP and N3IWF. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
@@ -304,7 +304,7 @@ go build -o bin/webconsole -x webconsole/server.go
 ~/my5G-core/sample/sample1/utils/add_test_ue.sh
 ```
 
-### 2) Set routes and namespaces for the scenario
+### 2) Setting namespaces, interfaces and routes for the scenario
 ```bash
 #backup env_manager.sh file
 cd ~/my5G-core/sample/sample1/utils
