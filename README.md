@@ -10,23 +10,23 @@
 - [Description](#description)
 - [Recommended environment](#recommended-environment)
 - [Expected result](#expected-result)
-- [Interface Y1 - Conection beetween UE-non3GPP and AP](#interface-y1---conection-beetween-ue-non3gpp-and-ap)
-- [Interface Y2 - Conection beetween AP and N3IWF](#interface-y2---conection-beetween-ap-and-n3iwf)
-  - [Setting-up environment](#setting-up-environment)
-  - [Set routes and namespaces for the scenario](#set-routes-and-namespaces-for-the-scenario)
-  - [Starting monitoring tools](#starting-monitoring-tools)
-  - [Starting UPF](#starting-upf)
-  - [Running the my5G-core network](#running-the-my5g-core-network)
-  - [Starting UE-non3GPP](#starting-ue-non3gpp)
-  - [Triggering initial registration procedure](#triggering-initial-registration-procedure)
-- [Discussion](#discussion)
-  - [Registration, Authentication and Authorization](#registration-authentication-and-authorization)
-  - [PDU Session Establishment](#pdu-session-establishment)
-- [Tests](#tests)
-  - [Verify association between UE-non3GPP and N3IWF](#verify-association-between-ue-non3gpp-and-n3iwf)
-  - [Ping to UPF](#ping-to-upf)
-  - [Ping to Internet](#ping-to-internet)
-- [Cleanning-up environment](#cleanning-up-environment)
+- [A. Interface Y1 - Conection beetween UE-non3GPP and AP](#a-interface-y1---conection-beetween-ue-non3gpp-and-ap)
+- [B. Interface Y2 - Conection beetween AP and N3IWF](#b-interface-y2---conection-beetween-ap-and-n3iwf)
+  - [1) Setting-up environment](#1-setting-up-environment)
+  - [2) Set routes and namespaces for the scenario](#2-set-routes-and-namespaces-for-the-scenario)
+  - [3) Starting monitoring tools](#3-starting-monitoring-tools)
+  - [4) Starting UPF](#4-starting-upf)
+  - [5) Running the other NFs in my5G-core network](#5-running-the-other-nfs-in-my5g-core-network)
+  - [6) Starting UE-non3GPP](#6-starting-ue-non3gpp)
+  - [7) Triggering initial registration procedure](#7-triggering-initial-registration-procedure)
+- [B. Discussion](#b-discussion)
+  - [1) Registration, Authentication and Authorization](#1-registration-authentication-and-authorization)
+  - [2) PDU Session Establishment](#2-pdu-session-establishment)
+- [C. Tests](#c-tests)
+  - [1) Verify association between UE-non3GPP and N3IWF](#1-verify-association-between-ue-non3gpp-and-n3iwf)
+  - [2) Ping to UPF](#2-ping-to-upf)
+  - [3) Ping to Internet](#3-ping-to-internet)
+- [D. Cleanning-up environment](#d-cleanning-up-environment)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -78,7 +78,7 @@ between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes con
     <img src="figs/proposal.png" width="100%"/> 
 </p>
 
-## Interface Y1 - Conection beetween UE-non3GPP and AP
+## A. Interface Y1 - Conection beetween UE-non3GPP and AP
 
 On your host, install the necessary packages:
 
@@ -248,7 +248,7 @@ below:
     <img src="figs/success-interface-y1.png"/> 
 </p>
 
-## Interface Y2 - Conection beetween AP and N3IWF
+## B. Interface Y2 - Conection beetween AP and N3IWF
 
 The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE-non3GPP and N3IWF. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
@@ -256,7 +256,7 @@ The connection between AP and N3IWF will be made by veth (virtual ethernet) and 
     <img src="figs/interface-y2.png"/> 
 </p>
 
-### Setting-up environment
+### 1) Setting-up environment
 ```bash
 cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
@@ -298,7 +298,7 @@ go build -o bin/webconsole -x webconsole/server.go
 ~/my5G-core/sample/sample1/utils/add_test_ue.sh
 ```
 
-### Set routes and namespaces for the scenario
+### 2) Set routes and namespaces for the scenario
 ```bash
 cd ~/my5G-core/sample/sample1/utils
 
@@ -312,7 +312,7 @@ sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/util
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
 
-### Starting monitoring tools
+### 3) Starting monitoring tools
 
 ```bash
 # Wireshark for global namespace
@@ -322,13 +322,13 @@ wireshark -kni any --display-filter "isakmp or nas-5gs or ngap or pfcp or gtp or
 sudo ip netns exec UEns wireshark -kni wlan1 --display-filter "isakmp or esp" &
 ```
 
-### Starting UPF
+### 4) Starting UPF
 ```bash
 # Use a new terminal so we can easily see the logs
 cd ~/my5G-core/sample/sample1/utils
 ./run_upf.sh 
 ```
-### Running the my5G-core network
+### 5) Running the other NFs in my5G-core network
 Run the components of core in this order: 
 
 **1)** NFR 
@@ -354,7 +354,7 @@ cd ~/my5G-core
 sudo ./bin/n3iwf &
 ```
 
-### Starting UE-non3GPP
+### 6) Starting UE-non3GPP
 ```bash
 # Use a new terminal or split
 cd ~/my5G-core/
@@ -363,7 +363,7 @@ cd ~/my5G-core/
 sudo ip netns exec UEns ./bin/ue
 ```
 
-### Triggering initial registration procedure
+### 7) Triggering initial registration procedure
 ```bash
 cd ~/my5G-core/src/ue
 
@@ -373,7 +373,7 @@ sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigg
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 
-## Discussion
+## B. Discussion
 
 In this tutorial, we created 2 (two) wireless network interfaces with the mac80211_hwsim module. The interface wlan0 was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". The dnsmasq program was used to provide dynamic addressing service to hosts connected to the "my5gcore" access point, emulated by the wlan0 interface with the hostapd software.
 
@@ -423,7 +423,9 @@ After registration, the UE-non3GPP shall support NAS signalling with 5GCN for mo
 
 ### 2) PDU Session Establishment
 
-## Tests
+TODO...
+
+## C. Tests
 
 ### 1) Verify association between UE-non3GPP and N3IWF
 
@@ -454,7 +456,7 @@ TODO...
 
 TODO...
 
-## Cleanning-up environment
+## D. Cleanning-up environment
 ```bash
 sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
 
