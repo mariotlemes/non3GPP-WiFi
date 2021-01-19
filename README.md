@@ -373,13 +373,17 @@ After instantiating the customized scenario (addressing each Network Function (N
 
 ### 1) Registration, Authentication and Authorization
 
+- ![#f03c15](https://via.placeholder.com/15/f03c15/000000?text=+) `UE`
+- ![#c5f015](https://via.placeholder.com/15/c5f015/000000?text=+) `#c5f015`
+- ![#1589F0](https://via.placeholder.com/15/1589F0/000000?text=+) `#1589F0`
+
 The registration, authentication and authorization procedures are show in figure below:
 
 <p align="center">
     <img src="figs/registration.png"/> 
 </p>
 
-1) <font color=\"red">UE-non3GPP</fonte> initiates the **IKEv2 initial** exchange with the N3IWF for the establishment of an IKE SA. 
+1) UE-non3GPP initiates the **IKEv2 initial** exchange with the N3IWF for the establishment of an IKE SA. 
 
 2) UE sends the IKE AUTH request **without the AUTH payload** indicating use of **EAP-5G**. 
 
