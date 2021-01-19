@@ -373,10 +373,6 @@ After instantiating the customized scenario (addressing each Network Function (N
 
 ### 1) Registration, Authentication and Authorization
 
-- ![#ff0000](https://via.placeholder.com/15/ff0000/000000?text=+) `UE-non3GPP`
-- ![#00a000](https://via.placeholder.com/15/00a000/000000?text=+) `N3IWF`
-- ![#0000ff](https://via.placeholder.com/15/0000ff/000000?text=+) `AMF`
-
 The registration, authentication and authorization procedures are show in figure below:
 
 <p align="center">
