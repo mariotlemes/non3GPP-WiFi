@@ -29,7 +29,7 @@
     - [XFRM state](#xfrm-state)
   - [2) Check connectivity between UE-non3GPP and UPF](#2-check-connectivity-between-ue-non3gpp-and-upf)
     - [Ping to UPF (60.60.0.101)](#ping-to-upf-60600101)
-  - [MTR analysis](#mtr-analysis)
+    - [MTR analysis](#mtr-analysis)
   - [3) Check conectivity between UE-non3GPP and Data Networks (Internet)](#3-check-conectivity-between-ue-non3gpp-and-data-networks-internet)
     - [Ping to Internet (8.8.8.8)](#ping-to-internet-8888)
     - [MTR analysis](#mtr-analysis-1)
@@ -461,7 +461,7 @@ watch -d -n 2 sudo ip netns exec UEns ip xfrm state
 
 TODO...
 
-### MTR analysis
+#### MTR analysis
 
 TODO...
 
