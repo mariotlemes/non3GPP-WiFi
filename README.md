@@ -505,10 +505,11 @@ rm -f sample/sample1/utils/env_manager.sh
 mv -f sample/sample1/utils/env_manager.sh-ori sample/sample1/utils/env_manager.sh
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src/ue/trigger_initial_registration.sh
 ```
+<br>
 
 ## E. Troubleshooting
 
-### 1)Gtp5gDeviceInit failed 
+### 1) Problem: To create gtp5g module
 
 Sometimes, the gtp5g module failed as show in the figures below. Then, if you get this error:
 
