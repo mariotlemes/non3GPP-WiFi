@@ -166,7 +166,7 @@ At this point, wlan0 interface is in APns namespace and wlan1 at UEns namespace.
 Apply the settings for wlan0. In this tutorial, the ip address at access point (wlan0) will be 192.168.1.10/24
 
 ```bash
-sudo ip addr add 192.168.1.10/24 dev wlan0
+sudo ip netns exec APns ip addr add 192.168.1.10/24 dev wlan0
 ```
 
 To create the dnsmasq.conf file:
