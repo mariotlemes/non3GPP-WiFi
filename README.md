@@ -30,7 +30,7 @@
 - [D. Cleanning-up environment](#d-cleanning-up-environment)
 - [E. Troubleshooting](#e-troubleshooting)
   - [1) To create gtp5g module](#1-to-create-gtp5g-module)
-  - [2) Pings testes failed](#2-pings-testes-failed)
+  - [2) Pings tests failed](#2-pings-tests-failed)
 
 <!-- END doctoc generated TOC please keep comment here to allow auto update -->
 
@@ -528,9 +528,9 @@ cd ~/gtp5g
 sudo make && sudo make install
 ```
 
-### 2) Pings testes failed
+### 2) Pings tests failed
 
-Make sure you have version 0.2.0 of the gtp5g module installed
+Make sure you have version 0.2.0 or higher of the gtp5g module installed.
 
 ```bash
 cd ~
