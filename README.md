@@ -24,9 +24,15 @@
   - [1) Registration, Authentication and Authorization](#1-registration-authentication-and-authorization)
   - [2) PDU Session Establishment](#2-pdu-session-establishment)
 - [D. Tests](#d-tests)
-  - [1) Verify association between UE-non3GPP and N3IWF](#1-verify-association-between-ue-non3gpp-and-n3iwf)
-  - [2) Ping to UPF](#2-ping-to-upf)
-  - [3) Ping to Internet](#3-ping-to-internet)
+  - [1) Check associations between UE-non3GPP and N3IWF](#1-check-associations-between-ue-non3gpp-and-n3iwf)
+    - [XFRM policy](#xfrm-policy)
+    - [XFRM state](#xfrm-state)
+  - [2) Check connectivity between UE-non3GPP and UPF](#2-check-connectivity-between-ue-non3gpp-and-upf)
+    - [Ping to UPF (60.60.0.101)](#ping-to-upf-60600101)
+  - [MTR analysis](#mtr-analysis)
+  - [3) Check conectivity between UE-non3GPP and Data Networks (Internet)](#3-check-conectivity-between-ue-non3gpp-and-data-networks-internet)
+    - [Ping to Internet (8.8.8.8)](#ping-to-internet-8888)
+    - [MTR analysis](#mtr-analysis-1)
 - [E. Cleanning-up environment](#e-cleanning-up-environment)
 - [F. Troubleshooting](#f-troubleshooting)
   - [1) To create gtp5g module](#1-to-create-gtp5g-module)
@@ -427,32 +433,45 @@ TODO...
 
 ## D. Tests
 
-### 1) Verify association between UE-non3GPP and N3IWF
+### 1) Check associations between UE-non3GPP and N3IWF
+
+#### XFRM policy
 
 ```bash
 # Starting watch XFRM policy
 watch -d -n 2 sudo ip netns exec UEns ip xfrm policy 
-
-# Starting watch XFRM state
-watch -d -n 2 sudo ip netns exec UEns ip xfrm state 
 ```
-
-if success, you will be able to see the safe associations as show in the figures below:
 
 <p align="center">
     <img src="figs/policy.png"/> 
 </p>
 
+#### XFRM state
+
+```bash
+watch -d -n 2 sudo ip netns exec UEns ip xfrm state 
+```
 <p align="center">
     <img src="figs/state.png"/> 
 </p>
 
-### 2) Ping to UPF
+### 2) Check connectivity between UE-non3GPP and UPF
+
+#### Ping to UPF (60.60.0.101)
 
 TODO...
 
+### MTR analysis
 
-### 3) Ping to Internet
+TODO...
+
+### 3) Check conectivity between UE-non3GPP and Data Networks (Internet)
+
+#### Ping to Internet (8.8.8.8)
+
+TODO...
+
+#### MTR analysis
 
 TODO...
 
@@ -530,7 +549,6 @@ cd ~
 sudo git clone -b v0.2.0 https://github.com/PrinzOwO/gtp5g.git
 cd ~/gtp5g
 sudo make && sudo make install
-```
 
 
 
