@@ -261,7 +261,6 @@ The connection between AP and N3IWF will be made by veth (virtual ethernet) and 
 cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
 
-
 # fix and install module gtp5g
 cd ~/non-3gpp-iot-wifi
 sudo ./utils/fix_core.sh
@@ -329,17 +328,7 @@ cd ~/my5G-core/sample/sample1/utils
 ./run_upf.sh 
 ```
 ### 5) Running the other NFs in my5G-core network
-Run the components of core in this order: 
-
-**1)** NFR 
-**2)** AMF 
-**3)** SMF 
-**4)** UDR 
-**5)** PCF 
-**6)** UDM 
-**7)** NSSF 
-**8)** AUSF
-**9)** N3IWF
+Run the components of core in this order: **NFR**->**AMF**->**SMF**->**UDR**->**PCF**->**UDM**->**NSSF**->**AUSF**->**N3IWF**.  
 
 For example, to run NRF:
 ```bash
