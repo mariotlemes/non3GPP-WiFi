@@ -518,8 +518,12 @@ Sometimes, the gtp5g module failed as show in the figures below. Then, if you ge
     <img src="figs/tshoot-gtp5g.png"/> 
 </p>
 
-**Solution**:
 ```bash
+
+# if gtp5g module is loaded
+sudo rmmod gtp5g
+
+# compile gtp5g module again
 cd ~/gtp5g
 sudo make && sudo make install
 ```
@@ -532,8 +536,7 @@ Make sure you have version 0.2.0 of the gtp5g module installed
 cd ~
 sudo git clone -b v0.2.0 https://github.com/PrinzOwO/gtp5g.git
 cd ~/gtp5g
-sudo make
-sudo make install
+sudo make && sudo make install
 ```
 
 
