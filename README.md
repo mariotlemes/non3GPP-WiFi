@@ -365,9 +365,10 @@ cd ~/my5G-core/src/ue
 # New ike_bind_addr 
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
 
-# starting the initial registration procedure
+# Starting the initial registration procedure
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
+<br>
 
 ## C. Discussion
 
