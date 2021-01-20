@@ -12,6 +12,11 @@
 - [Prerequisite](#prerequisite)
 - [Expected result](#expected-result)
 - [A. Y1 Interface- Conection beetween UE-non3GPP and AP](#a-y1-interface--conection-beetween-ue-non3gpp-and-ap)
+  - [Setting-up environment](#setting-up-environment)
+  - [Dnsmasq service](#dnsmasq-service)
+  - [Hostapd service](#hostapd-service)
+  - [Wpa_supplicant service](#wpa_supplicant-service)
+    - [Removing default route](#removing-default-route)
 - [B. Y2 Interface - Conection beetween AP and N3IWF](#b-y2-interface---conection-beetween-ap-and-n3iwf)
   - [1) Setting-up environment](#1-setting-up-environment)
   - [2) Setting namespaces, interfaces and routes for the scenario](#2-setting-namespaces-interfaces-and-routes-for-the-scenario)
@@ -92,6 +97,7 @@ between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes con
 
 ## A. Y1 Interface- Conection beetween UE-non3GPP and AP
 
+### Setting-up environment
 On your host, install the necessary packages:
 
 ```bash
@@ -168,7 +174,7 @@ Apply the settings for wlan0. In this tutorial, the ip address at access point (
 ```bash
 sudo ip netns exec APns ip addr add 192.168.1.10/24 dev wlan0
 ```
-
+### Dnsmasq service
 To create the dnsmasq.conf file:
 ```bash
 sudo killall dnsmasq
@@ -192,7 +198,7 @@ Initializing dnsmasq.conf:
 cd ~
 sudo ip netns exec APns dnsmasq -C $HOME/dnsmasq.conf -D
 ```
-
+### Hostapd service
 To create the hostapd.conf file:
 
 ```bash
@@ -222,6 +228,7 @@ The expected result is like below:
     <img src="figs/hostapd-background.png"/> 
 </p>
 
+### Wpa_supplicant service
 To create the wpa_supplicant.conf file:
 
 ```bash
@@ -247,6 +254,8 @@ sudo killall wpa_supplicant
 sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B 
 sudo dhclient wlan1
 ```
+#### Removing default route
+
 Removing the default route from UE-non3GPP:
 
 ```bash
