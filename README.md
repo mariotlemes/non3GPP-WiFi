@@ -16,7 +16,7 @@
   - [Dnsmasq service](#dnsmasq-service)
   - [Hostapd service](#hostapd-service)
   - [Wpa_supplicant service](#wpa_supplicant-service)
-    - [Removing default route](#removing-default-route)
+  - [Removing default route from UE-non3GPP](#removing-default-route-from-ue-non3gpp)
 - [B. Y2 Interface - Conection beetween AP and N3IWF](#b-y2-interface---conection-beetween-ap-and-n3iwf)
   - [1) Setting-up environment](#1-setting-up-environment)
   - [2) Setting namespaces, interfaces and routes for the scenario](#2-setting-namespaces-interfaces-and-routes-for-the-scenario)
@@ -254,9 +254,9 @@ sudo killall wpa_supplicant
 sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B 
 sudo dhclient wlan1
 ```
-#### Removing default route
+### Removing default route from UE-non3GPP
 
-Removing the default route from UE-non3GPP:
+To remove the default route from UE-non3GPP:
 
 ```bash
 sudo ip netns exec UEns route del -net 0.0.0.0 gw 192.168.1.10 netmask 0.0.0.0 dev wlan1
