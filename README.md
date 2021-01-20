@@ -32,7 +32,7 @@
   - [1) Check associations between UE-non3GPP and N3IWF](#1-check-associations-between-ue-non3gpp-and-n3iwf)
     - [XFRM policy](#xfrm-policy)
     - [XFRM state](#xfrm-state)
-  - [2) Check connectivity between UE-non3GPP and UPF](#2-check-connectivity-between-ue-non3gpp-and-upf)
+  - [2) Check connectivity between UE-non3GPP and Data Plane](#2-check-connectivity-between-ue-non3gpp-and-data-plane)
     - [Ping to UPF (60.60.0.101)](#ping-to-upf-60600101)
     - [MTR analysis](#mtr-analysis)
   - [3) Check conectivity between UE-non3GPP and Data Networks (Internet)](#3-check-conectivity-between-ue-non3gpp-and-data-networks-internet)
