@@ -416,8 +416,7 @@ The registration, authentication and authorization procedures are show in figure
 
 **9)** N3IWF forwards this NAS Authentication Response from UE-non3GPP to AMF.
 
-**10)** AMF selects an AUSF to authenticate the UE-non3GPP based on SUCI or SUPI. The AUSF further selects a Unified Data Management (UDM) to obtain authentication data and executes the EAP-AKA/5G-AKA authentication with the UE-non3GPP. After successful authentication, the AUSF sends the EAP Success Security Anchor key (SEAF key) to AMF which derives the NAS security keys and N3IWF security key.
-AMF encapsulates the EAP-Success received from AUSF within the NAS Security Mode Command message and sends it to the UE to activate NAS security.
+**10)** AMF selects an AUSF to authenticate the UE-non3GPP based on SUCI or SUPI. The AUSF further selects a Unified Data Management (UDM) to obtain authentication data and executes the EAP-AKA/5G-AKA authentication with the UE-non3GPP. After successful authentication, the AUSF sends the EAP Success Security Anchor key (SEAF key) to AMF which derives two keys: the NAS security keys and N3IWF security key. AMF encapsulates the EAP-Success received from AUSF within the NAS Security Mode Command message and sends it to the UE to activate NAS security.
 
 **11)** N3IWF forwards this Security Mode Command message to UE-non3GPP.
 
@@ -427,9 +426,9 @@ AMF encapsulates the EAP-Success received from AUSF within the NAS Security Mode
 
 **14)** AMF further sends an NGAP Initial Context Setup Request message including the N3IWF key to the N3IWF which triggers the N3IWF to send an EAP-Success to UE-non3GPP, which completes the EAP-5G session.
 
-**15)** N3IWF sends an EAP-Success message to UE-non3GPP.
+**15)** N3IWF sends an IKE_AUTH Response to UE-non3GPP which contains an EAP-Success message 
 
-**16)** UE-non3GPP sends a IKE_AUTH Response to establishment of the IPsec tunnel.
+**16)** UE-non3GPP sends a IKE_AUTH Request to establishment of the IPsec tunnel using the common N3IWF key.
 
 **17)** IPsec SA is established between the UE-non3GPP and N3IWF. All subsequent NAS messages between UE-non3GPP and N3IWF are encapsulated within the established Signalling IPsec SA.
 
@@ -441,29 +440,30 @@ AMF encapsulates the EAP-Success received from AUSF within the NAS Security Mode
 
 After registration procedures, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point.
 
+The registration, authentication and authorization process of the UE-non3GPP to the 5G core, with the specifications of the messages exchanged and their contents, protocols and logical interfaces are summarized in the table below. 
 
-|   ID   |  Src  | Dst    | Protocol | Message | Content | Interface
-| :---:  |  :---:   |    :---:       |   :---:  | :---: | :---: | :--:
-|1  | UE | N3IWF   | IKEv2/ISAKMP | IKE_SA_INIT Request
-| 2    |   UE   |    N3IWF  | IKEv2/ISAKMP | IKE_AUTH Request | no AUTH payload
-| 3    |    N3IWF   | UE   | IKEv2/ISAKMP | IKE_AUTH Response | EAP-Request/5G-Start
-| 4    | UE  |   N3IWF  | IKEv2/ISAKMP | IKE_AUTH Request | EAP-Response/5G-NAS
-| 5    | N3IWF   | AMF     | NGAP/NAS-5GS |InitialUEMessage Registration Request | | N2
-| 6    |        |       |
-| 7    |        |       |
-| 8    |        |       |
-| 9    |        |       |
-| 10    |        |       |
-| 11    |        |       |
-| 12    |        |       |
-| 13    |        |       |
-| 14    |        |       |
-| 15    |        |       |
-| 16    |        |       |
-| 17    |        |       |
-| 18    |        |       |
-| 19    |        |       |
-| 20    |        |       |
+| ID | Src | Dst | Protocol | Message | Content | Interface
+| :---: | :---: | :---: | :---: | :---: | :---: | :--: |
+|1| UE | N3IWF | IKEv2/ISAKMP | IKE_SA_INIT Request | | - |
+|2| UE | N3IWF | IKEv2/ISAKMP | IKE_AUTH Request | no AUTH payload | - |
+|3| N3IWF | UE | IKEv2/ISAKMP | IKE_AUTH Response | EAP-Request/5G-Start | - |
+|4| UE | N3IWF | IKEv2/ISAKMP | IKE_AUTH Request | EAP-Response/5G-NAS | - |
+|5| N3IWF | AMF | NGAP/NAS-5GS | InitialUEMessage Registration Request | EAP-Response/5G-NAS | N2
+|6| AMF | N3IWF | NGAP/NAS-5GS | DownlinkNASTransport/Authentication Request | NAS Identity Request | N2
+|7| N3IWF |  UE  | ISAKMP | IKE_AUTH Response | Authentication Request/NAS Identity Request | - |
+|8| UE | N3IWF | ISAKMP | IKE_AUTH Request| Authentication Request/NAS Identity Response | -
+|9| N3IWF | AMF | NGAP/NAS-5GS | UplinkNASTransport |Authentication Request/NAS Identity Response | N2
+|10| AMF | N3IWF | NGAP/NAS-5GS | Security mode command | Authentication Response/EAP-success | N2 |
+|11| N3IWF | UE | ISAKMP | IKE_AUTH Response | Security mode command | -
+|12| UE | N3IWF | ISAKMP | IKE_AUTH Request | Security mode complete | -
+|13| N3IWF | AMF | NGAP/NAS-5GS | UplinkNASTransport/Authentication Request | Security mode complete | N2
+|14| AMF | N3IWF | NGAP | InitialContextSetupRequest | N3IWF key | N2
+|15| N3IWF | UE | ISAKMP | IKE_AUTH Response | EAP-Success | - 
+|16| UE | N3IWF | ISAKMP | IKE_AUTH Request | IPSec SA initializing | -
+|17| N3IWF | UE | ISAKMP | IKE_AUTH Response | IPSEC SA complete | -
+|18| N3IWF | AMF | NGAP | InitialContextSetupResponse | UE context was completed | N2
+|19| AMF | N3IWF | NGAP/NAS-5GS | NAS Registration Accept | N2
+|20| N3IWF | UE | ESP | NAS Registration Accept | -
 
 
 ### 2) PDU Session Establishment
