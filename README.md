@@ -204,7 +204,6 @@ sudo ip netns exec APns dnsmasq -C $HOME/dnsmasq.conf -D
 To create the hostapd.conf file:
 
 ```bash
-sudo killall wpa_supplicant
 sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
 echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
 ```
@@ -254,7 +253,7 @@ Apply the settings for wlan1 and initialize wpa_supplicant:
 cd ~
 sudo killall wpa_supplicant
 sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B 
-sudo dhclient wlan1
+sudo ip netns exec UEns dhclient wlan1
 ```
 ### 5) Removing default route from UE-non3GPP
 
