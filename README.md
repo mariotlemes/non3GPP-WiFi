@@ -91,6 +91,8 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
 ([UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is responsible for the connection
 between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF.
 
+The network architecture for untrusted WLAN access interworking with 5GCN is shown in figure below. A UE-non3GPP accessing the 5GCN through an untrusted WLAN shall support NAS signalling and shall initially register and authenticate with the 5GCN using the N3IWF. The component of core - AMF (Access and Mobility Management Function) - is used to register the UE-non3GPP and the AUSF (Authentication Server Function) is used to authenticate the UE-non3GPP using EAP-AKA/5G-AKA authentication. The UE-non3GPP shall establish PDU sessions using the IPsec signalling SA using the NAS session management messages with the SMF (Session Management Function) via the AMF. The transfer of data packets between the UE-non3GPP and Data Network (Dn) uses the secure IPsec tunnel between UE-non3GPP and N3IWF and the GTP-U tunnel between N3IWF and UPF (User Plane Function).
+
 <p align="center">
     <img src="figs/proposal.png" width="100%"/> 
 </p>
@@ -381,11 +383,11 @@ sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 
 
 ## C. Discussion
 
-In this tutorial, we created 2 (two) wireless network interfaces with the mac80211_hwsim module. The interface wlan0 was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". Dnsmasq tool was used to provide ip addressing service to hosts connected to the "my5gcore", emulated by the wlan0 interface with hostapd.
+At this point, we created 2 (two) wireless network interfaces with the mac80211_hwsim module. The interface wlan0 was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". Dnsmasq was used to provide ip addressing service to hosts connected to the "my5gcore", emulated by the wlan0 interface with hostapd.
 
-In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE-non3GPP first needs to be configured with a local IP address from the untrusted non-3GPP access network. With the wpa_supplicant tool, we connect the wlan1 interface to the IEEE 802.11 network (WiFi) and obtain an IP address (192.168.1.1/24).
+In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE-non3GPP first needs to be configured with a local IP address from the untrusted non-3GPP access network. With the wpa_supplicant tool, we connected the wlan1 interface to the IEEE 802.11 network (WiFi).
 
-After instantiating the customized scenario (addressing each Network Function (NF), registering the UE-non3GPP to the core and setting up the scenario with namespace and virtual interfaces), we started all 5G core functions and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
+After instantiating the customized scenario (addressing each Network Function (NF), registering the UE-non3GPP to the core and setting up the scenario with namespaces, virtual interfaces and routes), we started all 5G core NFs and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
 
 
 ### 1) Registration, Authentication and Authorization
