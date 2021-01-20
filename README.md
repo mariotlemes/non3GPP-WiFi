@@ -467,15 +467,15 @@ After registration procedures, the UE-non3GPP shall support NAS signalling with 
 
 The PDU session establishment procedure involves the following steps:
 
-**1)** UE-non3GPP sends a PDU Session Establishment request to the N3IWF using the NAS signalling IPsec SA.
+**1)** UE-non3GPP sends a PDU Session Establishment Request to the N3IWF.
 
-**2)** N3IWF transparently forwards PDU Session Establishment request to the AMF in a NAS UL message.
+**2)** N3IWF transparently forwards PDU Session Establishment Request to the AMF.
 
-**3)** AMF sends N2 PDU Session Resource Setup Request message to N3IWF to establish the  resources for this PDU session. 
+**3)** AMF sends an PDU Session Resource Setup Request message to N3IWF to establish the  resources for this PDU session. 
 
-**4)**  N3IWF determines the number of IPsec Child SAs to establish and the QoS profiles associated with each IPsec Child SA based on its own policies, configuration and QoS profiles received.N3IWF sends an IKE Create Child SA request to establish the first IPsec Child SA for the PDU session. 
+**4)**  N3IWF determines the number of IPsec Child SAs to establish and the QoS profiles associated with each IPsec Child SA based on its own policies, configuration and QoS profiles received. Also, N3IWF sends an IKE Create Child SA Request to establish the first IPsec Child SA for the PDU session. 
 
-**5)** UE-non3GPP sends an IKE Create Child SA response on accepting the IKE Create Child SA request.
+**5)** UE-non3GPP sends an IKE Create Child SA Response to N3IWF.
 
 **6)** N3IWF establishes additional IPsec Child SAs as determined with each one associated with one or more QFI(s) and with a UP IP address. N3IWF forwards the PDU Session Establishment Accept message to the UE-non3GPP via the signalling IPsec SA which enables start of UL data.The N3IWF also sends a N2 PDU Session Resource Setup Response to AMF including DL GTPU Tunnel info which further executes procedures similar to the PDU session establishment in a 3GPP access and enables start of DL data.
 
