@@ -398,7 +398,7 @@ The registration, authentication and authorization procedures are show in figure
     <img src="figs/registration.png"/> 
 </p>
 
-**1)** UE-non3GPP initiates the IKEv2 initial exchange with the N3IWF for the establishment of an IKE SA. 
+**1)** UE-non3GPP initiates the IKEv2/ISAKMP initial exchange with the N3IWF for the establishment of an IKE SA. 
 
 **2)** UE-non3GPP sends to N3IWF the IKE_AUTH Request without the AUTH payload indicating use of EAP-5G. 
 
@@ -440,6 +440,31 @@ AMF encapsulates the EAP-Success received from AUSF within the NAS Security Mode
 **20)** N3IWF forwards NAS Registration Accept message to the UE-non3GPP through the signalling IPsec SA.
 
 After registration procedures, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point.
+
+
+|   ID   |  Src  | Dst    | Protocol | Message | Content | Interface
+| :---:  |  :---:   |    :---:       |   :---:  | :---: | :---: | :--:
+|1  | UE | N3IWF   | IKEv2/ISAKMP | IKE_SA_INIT Request
+| 2    |   UE   |    N3IWF  | IKEv2/ISAKMP | IKE_AUTH Request | no AUTH payload
+| 3    |    N3IWF   | UE   | IKEv2/ISAKMP | IKE_AUTH Response | EAP-Request/5G-Start
+| 4    | UE  |   N3IWF  | IKEv2/ISAKMP | IKE_AUTH Request | EAP-Response/5G-NAS
+| 5    | N3IWF   | AMF     | NGAP/NAS-5GS |InitialUEMessage Registration Request | | N2
+| 6    |        |       |
+| 7    |        |       |
+| 8    |        |       |
+| 9    |        |       |
+| 10    |        |       |
+| 11    |        |       |
+| 12    |        |       |
+| 13    |        |       |
+| 14    |        |       |
+| 15    |        |       |
+| 16    |        |       |
+| 17    |        |       |
+| 18    |        |       |
+| 19    |        |       |
+| 20    |        |       |
+
 
 ### 2) PDU Session Establishment
 
