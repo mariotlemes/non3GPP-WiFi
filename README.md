@@ -467,7 +467,7 @@ watch -d -n 2 sudo ip netns exec UEns ip xfrm state
     <img src="figs/state.png"/> 
 </p>
 
-### 2) Check connectivity between UE-non3GPP and UPF
+### 2) Check connectivity between UE-non3GPP and Data Plane
 
 #### Ping to UPF (60.60.0.101)
 
