@@ -449,7 +449,7 @@ TODO...
 
 ### 1) Check associations between UE-non3GPP and N3IWF
 
-#### XFRM policy
+#### 1.1) XFRM policy
 
 ```bash
 # Starting watch XFRM policy
@@ -460,7 +460,7 @@ watch -d -n 2 sudo ip netns exec UEns ip xfrm policy
     <img src="figs/policy.png"/> 
 </p>
 
-#### XFRM state
+#### 1.2) XFRM state
 
 ```bash
 watch -d -n 2 sudo ip netns exec UEns ip xfrm state 
@@ -471,21 +471,21 @@ watch -d -n 2 sudo ip netns exec UEns ip xfrm state
 
 ### 2) Check connectivity between UE-non3GPP and Data Plane (UPF)
 
-#### Ping to 60.60.0.101
+#### 2.1) Ping to 60.60.0.101
 
 TODO...
 
-#### MTR analysis
+#### 2.2) MTR analysis
 
 TODO...
 
 ### 3) Check conectivity between UE-non3GPP and Data Plane (Internet)
 
-#### Ping to 8.8.8.8
+#### 3.1) Ping to 8.8.8.8
 
 TODO...
 
-#### MTR analysis
+#### 3.2) MTR analysis
 
 TODO...
 
