@@ -467,6 +467,10 @@ After registration procedures, the UE-non3GPP shall support NAS signalling with 
 
 The PDU session establishment procedure involves the following steps:
 
+<p align="center">
+    <img src="figs/pdu-session.png"/> 
+</p>
+
 **1)** UE-non3GPP sends a PDU Session Establishment Request to the N3IWF.
 
 **2)** N3IWF transparently forwards PDU Session Establishment Request to the AMF.
