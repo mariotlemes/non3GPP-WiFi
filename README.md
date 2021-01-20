@@ -438,9 +438,7 @@ The registration, authentication and authorization procedures are show in figure
 
 **20)** N3IWF forwards NAS Registration Accept message to the UE-non3GPP through the signalling IPsec SA.
 
-After registration procedures, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point.
-
-The registration, authentication and authorization process of the UE-non3GPP to the 5G core, with the specifications of the messages exchanged and their contents, protocols and logical interfaces are summarized in the table below. 
+After registration procedures, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point. The registration, authentication and authorization process of the UE-non3GPP to the 5G core, with the specifications of the messages exchanged and their contents, protocols and logical interfaces are summarized in the table below. 
 
 | ID | Src | Dst | Protocol | Message | Content | Interface
 | :---: | :---: | :---: | :---: | :---: | :---: | :--: |
