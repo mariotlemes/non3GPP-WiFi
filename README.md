@@ -163,7 +163,7 @@ At this point, wlan0 interface is in APns namespace and wlan1 at UEns namespace.
     <img src="figs/second-terminal.png"/> 
 </p>
 
-Apply the settings for wlan0. In this tutorial, the ip address at access point (wlan0) will be 192.168.1.10/24
+Apply the settings for wlan0. In this tutorial, the ip address at access point (wlan0) will be 192.168.1.10/24.
 
 ```bash
 sudo ip netns exec APns ip addr add 192.168.1.10/24 dev wlan0
@@ -346,7 +346,7 @@ Repeat the process to AMF, SMF, UDR, PCF, UDM, NSSF and AUSF.
 Finally, to run N3IWF:
 ```bash
 cd ~/my5G-core
-sudo ./bin/n3iwf &
+sudo ./bin/n3iwf 
 ```
 
 ### 6) Starting UE-non3GPP
@@ -360,10 +360,12 @@ sudo ip netns exec UEns ./bin/ue
 
 ### 7) Triggering initial registration procedure
 ```bash
-# New ike_bind_addr - ip of wlan1
 cd ~/my5G-core/src/ue
+
+# New ike_bind_addr 
 sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
 
+# starting the initial registration procedure
 sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 
@@ -384,7 +386,7 @@ The registration, authentication and authorization procedures are show in figure
     <img src="figs/registration.png"/> 
 </p>
 
-**1)** UE-non3GPP initiates the IKEv2 initial exchange with the N3IWF for the establishment of an IKE_SA_INIT. 
+**1)** UE-non3GPP initiates the IKEv2 initial exchange with the N3IWF for the establishment of an IKE SA. 
 
 **2)** UE-non3GPP sends to N3IWF the IKE_AUTH Request without the AUTH payload indicating use of EAP-5G. 
 
