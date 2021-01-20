@@ -451,7 +451,7 @@ After registration procedures, the UE-non3GPP shall support NAS signalling with 
 |7| N3IWF |  UE  | ISAKMP | IKE_AUTH Response (2) | Authentication Request/NAS Identity Request | 
 |8| UE | N3IWF | ISAKMP | IKE_AUTH Request (3)| Authentication Request/NAS Identity Response |
 |9| N3IWF | AMF | NGAP/NAS-5GS | UplinkNASTransport |Authentication Request/NAS Identity Response |
-|10| AMF | N3IWF | NGAP/NAS-5GS | Security mode command | Authentication Response/EAP-success |
+|10| AMF | N3IWF | NGAP/NAS-5GS | DownlinkNASTransport/Security mode command | Authentication Response/EAP-success |
 |11| N3IWF | UE | ISAKMP | IKE_AUTH Response (3) | Security mode command |
 |12| UE | N3IWF | ISAKMP | IKE_AUTH Request (4) | Security mode complete |
 |13| N3IWF | AMF | NGAP/NAS-5GS | UplinkNASTransport/Authentication Request | Security mode complete |
@@ -460,7 +460,7 @@ After registration procedures, the UE-non3GPP shall support NAS signalling with 
 |16| UE | N3IWF | ISAKMP | IKE_AUTH Request (5) | IPSec SA initializing |
 |17| N3IWF | UE | ISAKMP | IKE_AUTH Response (5) | IPSEC SA complete |
 |18| N3IWF | AMF | NGAP | InitialContextSetupResponse | UE context is created |
-|19| AMF | N3IWF | NGAP/NAS-5GS | NAS Registration Accept | Allowed NSSSAI
+|19| AMF | N3IWF | NGAP/NAS-5GS | DownlinkNASTransport | NAS Registration Accept
 |20| N3IWF | UE | ESP | NAS Registration Accept | NAS Registration Accept 
 
 
