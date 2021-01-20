@@ -26,8 +26,8 @@
   - [6) Starting UE-non3GPP](#6-starting-ue-non3gpp)
   - [7) Triggering initial registration procedure](#7-triggering-initial-registration-procedure)
 - [C. Discussion](#c-discussion)
-  - [1) Registration, Authentication and Authorization](#1-registration-authentication-and-authorization)
-  - [2) PDU Session Establishment](#2-pdu-session-establishment)
+  - [1) Registration, authentication and authorization](#1-registration-authentication-and-authorization)
+  - [2) PDU session establishment](#2-pdu-session-establishment)
 - [D. Tests](#d-tests)
   - [1) Check associations between UE-non3GPP and N3IWF](#1-check-associations-between-ue-non3gpp-and-n3iwf)
     - [1.1) XFRM policy](#11-xfrm-policy)
@@ -390,7 +390,7 @@ In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP acc
 After instantiating the customized scenario (addressing each Network Function (NF), registering the UE-non3GPP to the core and setting up the scenario with namespaces, virtual interfaces and routes), we started all 5G core NFs and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
 
 
-### 1) Registration, Authentication and Authorization
+### 1) Registration, authentication and authorization
 
 The registration, authentication and authorization procedures are show in figure below:
 
@@ -438,7 +438,7 @@ The registration, authentication and authorization procedures are show in figure
 
 **20)** N3IWF forwards NAS Registration Accept message to the UE-non3GPP through the signalling IPsec SA.
 
-After registration procedures, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point. All messages exchanged, the contents protocols and contents are summarized in the table below. 
+After registration procedures, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point. All communication entities, protocols and messages and their contents are summarized in the table below. 
 
 | ID | Src | Dst | Protocol | Message | Content | 
 | :---: | :---: | :---: | :---: | :---: | :---: |
@@ -464,7 +464,7 @@ After registration procedures, the UE-non3GPP shall support NAS signalling with 
 |20| N3IWF | UE | ESP | NAS Registration Accept | NAS Registration Accept 
 
 
-### 2) PDU Session Establishment
+### 2) PDU session establishment
 
 TODO...
 
