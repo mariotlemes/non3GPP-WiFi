@@ -97,7 +97,7 @@ between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes con
 
 ## A. Y1 Interface- Conection beetween UE-non3GPP and AP
 
-### Setting-up environment
+### 1) Setting-up environment
 On your host, install the necessary packages:
 
 ```bash
@@ -174,7 +174,7 @@ Apply the settings for wlan0. In this tutorial, the ip address at access point (
 ```bash
 sudo ip netns exec APns ip addr add 192.168.1.10/24 dev wlan0
 ```
-### Dnsmasq service
+### 2) Dnsmasq service
 To create the dnsmasq.conf file:
 ```bash
 sudo killall dnsmasq
@@ -198,7 +198,7 @@ Initializing dnsmasq.conf:
 cd ~
 sudo ip netns exec APns dnsmasq -C $HOME/dnsmasq.conf -D
 ```
-### Hostapd service
+### 3) Hostapd service
 To create the hostapd.conf file:
 
 ```bash
@@ -228,7 +228,7 @@ The expected result is like below:
     <img src="figs/hostapd-background.png"/> 
 </p>
 
-### Wpa_supplicant service
+### 4) Wpa_supplicant service
 To create the wpa_supplicant.conf file:
 
 ```bash
@@ -254,7 +254,7 @@ sudo killall wpa_supplicant
 sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B 
 sudo dhclient wlan1
 ```
-### Removing default route from UE-non3GPP
+### 5) Removing default route from UE-non3GPP
 
 To remove the default route from UE-non3GPP:
 
