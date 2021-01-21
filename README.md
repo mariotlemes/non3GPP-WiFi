@@ -14,11 +14,7 @@
 - [Expected result](#expected-result)
 - [A. Y1 Interface- Conection between UE-non3GPP and AP](#a-y1-interface--conection-between-ue-non3gpp-and-ap)
   - [1) Setting-up environment](#1-setting-up-environment)
-  - [2) Dnsmasq service](#2-dnsmasq-service)
-  - [3) Hostapd service](#3-hostapd-service)
-  - [4) Wpa_supplicant service](#4-wpa_supplicant-service)
-  - [5) Removing default route from UE-non3GPP](#5-removing-default-route-from-ue-non3gpp)
-  - [6) Checking connection between UE-non3GPP and AP](#6-checking-connection-between-ue-non3gpp-and-ap)
+  - [6) Check connection between UE-non3GPP and AP](#6-check-connection-between-ue-non3gpp-and-ap)
 - [B. Y2 Interface - Conection between AP and N3IWF](#b-y2-interface---conection-between-ap-and-n3iwf)
   - [1) Setting-up environment](#1-setting-up-environment-1)
   - [2) Setting namespaces, interfaces and routes for the scenario](#2-setting-namespaces-interfaces-and-routes-for-the-scenario)
@@ -178,7 +174,7 @@ Apply the settings for wlan0:
 ```bash
 sudo ip netns exec APns ip addr add 192.168.1.10/24 dev wlan0
 ```
-### 2) Dnsmasq service
+
 To create the dnsmasq.conf file:
 ```bash
 sudo killall dnsmasq
@@ -202,7 +198,7 @@ Initializing dnsmasq.conf:
 cd ~
 sudo ip netns exec APns dnsmasq -C $HOME/dnsmasq.conf -D
 ```
-### 3) Hostapd service
+
 To create the hostapd.conf file:
 
 ```bash
@@ -231,7 +227,6 @@ The expected result is like below:
     <img src="figs/hostapd-background.png"/> 
 </p>
 
-### 4) Wpa_supplicant service
 To create the wpa_supplicant.conf file:
 
 ```bash
@@ -257,14 +252,13 @@ sudo killall wpa_supplicant
 sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B 
 sudo ip netns exec UEns dhclient wlan1
 ```
-### 5) Removing default route from UE-non3GPP
 
 To remove the default route from UE-non3GPP, do:
 
 ```bash
 sudo ip netns exec UEns route del -net 0.0.0.0 gw 192.168.1.10 netmask 0.0.0.0 dev wlan1
 ```
-### 6) Checking connection between UE-non3GPP and AP
+### 6) Check connection between UE-non3GPP and AP
 
 At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a WiFi access point. 
 
