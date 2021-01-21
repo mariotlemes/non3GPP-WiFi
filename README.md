@@ -258,7 +258,7 @@ To remove the default route from UE-non3GPP, do:
 ```bash
 sudo ip netns exec UEns route del -net 0.0.0.0 gw 192.168.1.10 netmask 0.0.0.0 dev wlan1
 ```
-### 6) Check connection between UE-non3GPP and AP
+### 2) Check connection between UE-non3GPP and AP
 
 At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a WiFi access point. 
 
@@ -386,13 +386,11 @@ sudo ip netns exec UEns ./bin/ue
 
 ### 7) Triggering initial registration procedure
 ```bash
-cd ~/my5G-core/src/ue
-
 # New ike_bind_addr 
-sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' trigger_initial_registration.sh
+sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.1.1"}/' ~/my5G-core/src/ue/trigger_initial_registration.sh 
 
 # Starting the initial registration procedure
-sudo ip netns exec UEns ./trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
+sudo ip netns exec UEns ~/my5G-core/src/ue/trigger_initial_registration.sh --ue_addr 192.168.1.1 --ue_port 10000 --scheme http
 ```
 <br>
 
