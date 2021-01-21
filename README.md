@@ -516,7 +516,7 @@ The table below shows the messages exchanged between UE and 5G core to PDU sessi
 
 ## D. Tests
 
-### 1) Check the creation of the rules at UPF
+### 1) Check creation of the rules in UPF
 
 #### 1.1) Packet Detection Rule (PDR) 
 ```bash
