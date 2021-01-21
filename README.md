@@ -497,7 +497,19 @@ The PDU session establishment procedure involves the following steps:
 
 **5)** UE-non3GPP sends an IKE Create Child SA Response to N3IWF.
 
-**6)** N3IWF establishes additional IPsec Child SAs as determined with each one associated with one or more QFI(s) and with a UP IP address. N3IWF forwards the PDU Session Establishment Accept message to the UE-non3GPP via the signalling IPsec SA which enables start of UL data.The N3IWF also sends a N2 PDU Session Resource Setup Response to AMF including DL GTPU Tunnel info which further executes procedures similar to the PDU session establishment in a 3GPP access and enables start of DL data.
+**6)** N3IWF establishes additional IPsec Child SAs as determined with each one associated with one or more QFI(s) and with a UP IP address. N3IWF forwards the PDU Session Establishment Accept message to the UE-non3GPP via the signalling IPsec SA which enables start of UL data.The N3IWF also sends a N2 PDU Session Resource Setup Response to AMF including DL GTPU Tunnel and enables start of DL data.
+
+The table below shows the messages exchanged between UE and 5G core to PDU session establishment.
+
+| ID | Src | Dst | Protocol | Message | Content |
+| :---: | :---: | :---: | :---: | :---: | :---: |
+|1| UE | N3IWF | ESP | PDU Session Establishment Request | PDU session |
+|2| N3IWF| AMF | NGAP/NAS-5G/ PDU Session | Establishment Request | PDU session |
+|3| AMF | N3IWF | NGAP/NAS-5G |PDU Session Resource Setup Request | PDU session request |
+|4| N3IWF | UE | IKEv2/ISAKMP | Create Child SA Request | Child SA |
+|5| UE | N3IWF | IKEv2/ISAKMP | Create Child SA Response | Child SA
+|6| N3IWF | AMF | NGAP | PDU Session Resource Setup Response | PDU session response |
+
 
 ## D. Tests
 
