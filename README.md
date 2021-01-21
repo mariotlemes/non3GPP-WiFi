@@ -3,6 +3,7 @@
 </div> 
 
 # Non-3GPP-WiFi use-case
+
 <!-- START doctoc generated TOC please keep comment here to allow auto update -->
 <!-- DON'T EDIT THIS SECTION, INSTEAD RE-RUN doctoc TO UPDATE -->
 # Table of contents  
@@ -283,47 +284,47 @@ The connection between AP and N3IWF will be made by veth (virtual ethernet) and 
 cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
 
-# fix and install module gtp5g
+# Enable forwarding, stop ufw, install module gtp5g and add rule on iptables 
 cd ~/non-3gpp-iot-wifi
 sudo ./utils/fix_core.sh
  
-# backup of the config folder
+# Backup of the config folder
 cd ~/my5G-core
 mv -f config config.orig
 
-# using sample1 folder for configuration
+# Using sample1 folder for configuration
 cp -R sample/sample1/ config
 
-# backup of upf config
+# Backup of upf config
 mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
 
-# new configuration for upf
+# New configuration for upf
 cp src/upf/config/upfcfg.sample1.yaml src/upf/build/config/upfcfg.yaml
 
 # set UE-non3GPP http bind address 
 sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.1.1/' config/uecfg.conf
 
-# remove database due to previews tests
+# Remove database due to previews tests
 mongo free5gc --eval "db.dropDatabase()"
 
-# run webconsole
+# Run webconsole
 go build -o bin/webconsole -x webconsole/server.go
 ./bin/webconsole &
 
-# add the UE-non3GPP that will be used in the test
+# Add the UE-non3GPP that will be used in the test
 ~/my5G-core/sample/sample1/utils/add_test_ue.sh
 ```
 
 ### 2) Setting namespaces, interfaces and routes for the scenario
 ```bash
-#backup env_manager.sh file
+# Backup env_manager.sh file
 cd ~/my5G-core/sample/sample1/utils
 mv env_manager.sh env_manager.sh-ori
 
-# copy the env_manager.sh file from the repository
+# Copy the env_manager.sh file from the repository
 sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/utils/
 
-# setup network interfaces and namespaces
+# Setup network interfaces and namespaces
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
 ```
 
@@ -531,36 +532,36 @@ TODO...
 ```bash
 sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
 
-# kill wireshark
+# Kill wireshark
 killall -9 wireshark
 
-# kill webconsole
+# Kill webconsole
 killall -9 webconsole
 
-# kill UE-non3GPP
+# Kill UE-non3GPP
 sudo ip netns exec UEns killall -9 ./bin/ue
 
-# kill UPF
+# Kill UPF
 sudo ip netns exec UPFns killall -9 free5gc-upfd
 
-# kill hostapd and wpa_supplicant
+# Kill hostapd and wpa_supplicant
 sudo killall hostapd
 sudo killall wpa_supplicant
 
-#Stopping my5G-core
+# Stopping my5G-core
 cd ~/my5G-core
 sudo ./force_kill.sh
 
-# removing network interfaces, namespaces and addresses
+# Removing network interfaces, namespaces and addresses
 ~/my5G-core/sample/sample1/utils/env_manager.sh down $(ip route | grep default | cut -d' ' -f5)
 
-# removing mac80211_hwsim
+# Removing mac80211_hwsim
 sudo rmmod mac80211_hwsim
 
-# removing DB
+# Removing db
 mongo free5gc --eval "db.dropDatabase()"
 
-# restoring original configuration
+# Restoring original configuration
 cd ~/my5G-core
 rm -rf config
 mv config.orig config
@@ -584,10 +585,10 @@ Sometimes, the gtp5g module failed as show in the figures below. Then, if you ge
 
 ```bash
 
-# if gtp5g module is loaded
+# If gtp5g module is loaded
 sudo rmmod gtp5g
 
-# compile gtp5g module again
+# Compile gtp5g module again
 cd ~/gtp5g
 sudo make && sudo make install
 ```
