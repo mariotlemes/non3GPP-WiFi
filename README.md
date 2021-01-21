@@ -98,7 +98,7 @@ The network architecture is shown in figure below. A UE-non3GPP accessing the 5G
     <img src="figs/proposal.png" width="100%"/> 
 </p>
 
-## A. Y1 Interface- Conection beetween UE-non3GPP and AP
+## A. Y1 Interface- Conection between UE-non3GPP and AP
 
 ### 1) Setting-up environment
 On your host, install the necessary packages:
@@ -172,7 +172,7 @@ At this point, wlan0 interface is in APns namespace and wlan1 at UEns namespace.
     <img src="figs/second-terminal.png"/> 
 </p>
 
-Apply the settings for wlan0. In this tutorial, the ip address at access point (wlan0) will be 192.168.1.10/24.
+Apply the settings for wlan0:
 
 ```bash
 sudo ip netns exec APns ip addr add 192.168.1.10/24 dev wlan0
@@ -248,7 +248,7 @@ wget -O wpa_supplicant.conf https://raw.githubusercontent.com/mariotlemes/non-3g
 ```
 <br>
 
-Apply the settings for wlan1 and initialize wpa_supplicant:
+Apply the settings for wlan1:
 
 ```bash
 cd ~
@@ -258,20 +258,40 @@ sudo ip netns exec UEns dhclient wlan1
 ```
 ### 5) Removing default route from UE-non3GPP
 
-To remove the default route from UE-non3GPP:
+To remove the default route from UE-non3GPP, do:
 
 ```bash
 sudo ip netns exec UEns route del -net 0.0.0.0 gw 192.168.1.10 netmask 0.0.0.0 dev wlan1
 ```
+### 6) Checking connection between UE-non3GPP and AP
 
-Done! At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a WiFi access point. If success, the output of the command iwconfig will be like
+At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a WiFi access point. 
+
+```bash
+sudo ip netns exec UEns iwconfig
+```
+
+If success, the output of the command above will be like
 below:
 
 <p align="center">
     <img src="figs/success-interface-y1.png"/> 
 </p>
 
-## B. Y2 Interface - Conection beetween AP and N3IWF
+You can also check the IP address configuration of wlan1 interface.
+
+```bash
+sudo ip netns exec UEns ip addr show wlan1
+```
+
+The ip add address of the wlan1 interface must be 192.168.1.1/24.
+
+<p align="center">
+    <img src="figs/ip-address-wlan1.png"/> 
+</p>
+
+
+## B. Y2 Interface - Conection between AP and N3IWF
 
 The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE-non3GPP and N3IWF. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
