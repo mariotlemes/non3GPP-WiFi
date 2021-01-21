@@ -78,7 +78,7 @@ The listed kernel version is required for the UPF element.
 
 ## Prerequisite
 
-This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and [UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP) are already installed.
+This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and [UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP) are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
 
 ## Expected result
 
@@ -579,8 +579,7 @@ sudo killall hostapd
 sudo killall wpa_supplicant
 
 # Stopping my5G-core
-cd ~/my5G-core
-sudo ./force_kill.sh
+sudo ~/my5G-core/force_kill.sh
 
 # Removing network interfaces, namespaces and addresses
 ~/my5G-core/sample/sample1/utils/env_manager.sh down $(ip route | grep default | cut -d' ' -f5)
