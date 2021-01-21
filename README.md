@@ -12,7 +12,7 @@
 - [Recommended environment](#recommended-environment)
 - [Prerequisite](#prerequisite)
 - [Expected result](#expected-result)
-- [A. Y1 Interface- Conection between UE-non3GPP and AP](#a-y1-interface--conection-between-ue-non3gpp-and-ap)
+- [A. Y1 Interface - Conection between UE-non3GPP and AP](#a-y1-interface---conection-between-ue-non3gpp-and-ap)
   - [1) Setting-up environment](#1-setting-up-environment)
   - [2) Check connection between UE-non3GPP and AP](#2-check-connection-between-ue-non3gpp-and-ap)
 - [B. Y2 Interface - Conection between AP and N3IWF](#b-y2-interface---conection-between-ap-and-n3iwf)
@@ -95,7 +95,7 @@ The network architecture is shown in figure below. A UE-non3GPP accessing the 5G
     <img src="figs/proposal.png" width="100%"/> 
 </p>
 
-## A. Y1 Interface- Conection between UE-non3GPP and AP
+## A. Y1 Interface - Conection between UE-non3GPP and AP
 
 ### 1) Setting-up environment
 On your host, install the necessary packages:
