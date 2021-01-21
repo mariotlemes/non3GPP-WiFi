@@ -529,6 +529,7 @@ watch -d -n 2 sudo ip netns exec UEns ip xfrm policy
 #### 1.2) XFRM state
 
 ```bash
+# Starting watch XFRM state
 watch -d -n 2 sudo ip netns exec UEns ip xfrm state 
 ```
 <p align="center">
@@ -556,6 +557,7 @@ TODO...
 TODO...
 
 ## E. Cleanning-up environment
+# Kill XFRM policy and state
 ```bash
 sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
 
