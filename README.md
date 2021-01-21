@@ -295,7 +295,9 @@ The connection between AP and N3IWF will be made by veth (virtual ethernet) and 
 </p>
 
 ### 1) Setting-up environment
+
 ```bash
+# Clone the repository
 cd ~
 git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
 
