@@ -27,15 +27,18 @@
   - [1) Registration, authentication and authorization](#1-registration-authentication-and-authorization)
   - [2) PDU session establishment](#2-pdu-session-establishment)
 - [D. Tests](#d-tests)
-  - [1) Check associations between UE-non3GPP and N3IWF](#1-check-associations-between-ue-non3gpp-and-n3iwf)
-    - [1.1) XFRM policy](#11-xfrm-policy)
-    - [1.2) XFRM state](#12-xfrm-state)
-  - [2) Check connectivity between UE-non3GPP and Data Plane (UPF)](#2-check-connectivity-between-ue-non3gpp-and-data-plane-upf)
-    - [2.1) Ping to 60.60.0.101](#21-ping-to-60600101)
-    - [2.2) MTR analysis](#22-mtr-analysis)
-  - [3) Check conectivity between UE-non3GPP and Data Plane (Internet)](#3-check-conectivity-between-ue-non3gpp-and-data-plane-internet)
-    - [3.1) Ping to 8.8.8.8](#31-ping-to-8888)
+  - [1) Check the creation of the rules at UPF](#1-check-the-creation-of-the-rules-at-upf)
+    - [1.1) Packet Detection Rule (PDR)](#11-packet-detection-rule-pdr)
+    - [1.2) Forwarding Action Rule (FAR)](#12-forwarding-action-rule-far)
+  - [2) Check associations between UE-non3GPP and N3IWF](#2-check-associations-between-ue-non3gpp-and-n3iwf)
+    - [2.1) XFRM policy](#21-xfrm-policy)
+    - [2.2) XFRM state](#22-xfrm-state)
+  - [3) Check connectivity between UE-non3GPP and Data Plane (UPF)](#3-check-connectivity-between-ue-non3gpp-and-data-plane-upf)
+    - [3.1) Ping to 60.60.0.101](#31-ping-to-60600101)
     - [3.2) MTR analysis](#32-mtr-analysis)
+  - [4) Check conectivity between UE-non3GPP and Data Plane (Internet)](#4-check-conectivity-between-ue-non3gpp-and-data-plane-internet)
+    - [4.1) Ping to 8.8.8.8](#41-ping-to-8888)
+    - [4.2) MTR analysis](#42-mtr-analysis)
 - [E. Cleanning-up environment](#e-cleanning-up-environment)
 - [F. Troubleshooting](#f-troubleshooting)
   - [1) To create gtp5g module](#1-to-create-gtp5g-module)
@@ -362,7 +365,7 @@ cd ~/my5G-core/sample/sample1/utils
 ./run_upf.sh 
 ```
 ### 5) Running the other NFs in my5G-core network
-Run the components of core in this order: **NFR**->**AMF**->**SMF**->**UDR**->**PCF**->**UDM**->**NSSF**->**AUSF**->**N3IWF**.  
+Run the components of core in this order: **NFR**->**AMF**->**SMF**->**UDR**->**PCF**->**UDM**->**NSSF**->**AUSF**->**N3IWF**.
 
 For example, to run NRF:
 ```bash
@@ -513,46 +516,63 @@ The table below shows the messages exchanged between UE and 5G core to PDU sessi
 
 ## D. Tests
 
-### 1) Check associations between UE-non3GPP and N3IWF
+### 1) Check the creation of the rules at UPF
 
-#### 1.1) XFRM policy
+#### 1.1) Packet Detection Rule (PDR) 
+```bash
+sudo ip netns exec UPFns ~/libgtp5gnl/tools/gtp5g-tunnel list pdr
+```
+<p align="center">
+    <img src="figs/pdr.png"/> 
+</p>
+
+#### 1.2) Forwarding Action Rule (FAR) 
+```bash
+sudo ip netns exec UPFns ~/libgtp5gnl/tools/gtp5g-tunnel list far
+```
+<p align="center">
+    <img src="figs/far.png"/> 
+</p>
+
+### 2) Check associations between UE-non3GPP and N3IWF
+
+#### 2.1) XFRM policy
 
 ```bash
-# Starting watch XFRM policy
-watch -d -n 2 sudo ip netns exec UEns ip xfrm policy 
+# To view XFRM policy
+sudo ip netns exec UEns ip xfrm policy 
 ```
-
 <p align="center">
     <img src="figs/policy.png"/> 
 </p>
 
-#### 1.2) XFRM state
+#### 2.2) XFRM state
 
 ```bash
-# Starting watch XFRM state
-watch -d -n 2 sudo ip netns exec UEns ip xfrm state 
+# To view XFRM state
+sudo ip netns exec UEns ip xfrm state 
 ```
 <p align="center">
     <img src="figs/state.png"/> 
 </p>
 
-### 2) Check connectivity between UE-non3GPP and Data Plane (UPF)
+### 3) Check connectivity between UE-non3GPP and Data Plane (UPF)
 
-#### 2.1) Ping to 60.60.0.101
-
-TODO...
-
-#### 2.2) MTR analysis
-
-TODO...
-
-### 3) Check conectivity between UE-non3GPP and Data Plane (Internet)
-
-#### 3.1) Ping to 8.8.8.8
+#### 3.1) Ping to 60.60.0.101
 
 TODO...
 
 #### 3.2) MTR analysis
+
+TODO...
+
+### 4) Check conectivity between UE-non3GPP and Data Plane (Internet)
+
+#### 4.1) Ping to 8.8.8.8
+
+TODO...
+
+#### 4.2) MTR analysis
 
 TODO...
 
