@@ -27,7 +27,7 @@
   - [1) Registration, authentication and authorization](#1-registration-authentication-and-authorization)
   - [2) PDU session establishment](#2-pdu-session-establishment)
 - [D. Tests](#d-tests)
-  - [1) Check the creation of the rules at UPF](#1-check-the-creation-of-the-rules-at-upf)
+  - [1) Check creation of the rules in UPF](#1-check-creation-of-the-rules-in-upf)
     - [1.1) Packet Detection Rule (PDR)](#11-packet-detection-rule-pdr)
     - [1.2) Forwarding Action Rule (FAR)](#12-forwarding-action-rule-far)
   - [2) Check associations between UE-non3GPP and N3IWF](#2-check-associations-between-ue-non3gpp-and-n3iwf)
