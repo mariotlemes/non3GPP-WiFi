@@ -427,7 +427,7 @@ The registration, authentication and authorization procedures are show in figure
 
 **7)** N3IWF forwards the Authentication Request to UE-non3GPP.
 
-**8)** AMF may request the SUCI from the UE with a NAS Identity request that is received back in a NAS Identity Response from the UE (Authentication Response message) to N3IWF
+**8)** AMF may request the SUCI from the UE with a NAS Identity request that is received back in a NAS Identity Response from the UE (Authentication Request message) to N3IWF
 
 **9)** N3IWF forwards this NAS Authentication Response from UE-non3GPP to AMF.
 
