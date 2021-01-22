@@ -109,7 +109,7 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
             <th>Namespace</th>
         </tr>
     </thead>
-       <tbody>
+    <tbody>
         <tr>
             <td rowspan=2>AMF</td>
             <td rowspan=1>10.1.1.2/24</td>
@@ -130,50 +130,49 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
             <td>10.200.200.1/24</td>
             <td>veth0</td>
         </tr>
-
         <tr>
             <td rowspan=1>AUSF</td>
             <td rowspan=1>10.1.1.4/24</td>
             <td rowspan=1>br-5gc</td>
             <td>default</td>
         </tr>
-          <tr>
+        <tr>
             <td rowspan=1>NSSF</td>
             <td rowspan=1>10.1.1.5/24</td>
             <td rowspan=1>br-5gc</td>
            <td>default</td>
-      </tr>
-          <tr>
+        </tr>
+        <tr>
             <td rowspan=1>PCF</td>
             <td rowspan=1>10.1.1.6/24</td>
             <td rowspan=1>br-5gc</td>
             <td>default</td>
         </tr>
-          <tr>
+        <tr>
             <td rowspan=1>UDM</td>
             <td rowspan=1>10.1.1.7/24</td>
             <td rowspan=1>br-5gc</td>
             <td>default</td>
         </tr>
-         <tr>
+        <tr>
             <td rowspan=1>UDR</td>
             <td rowspan=1>10.1.1.8/24</td>
             <td rowspan=1>br-5gc</td>
             <td>default</td>
-       </tr>
-          <tr>
+        </tr>
+        <tr>
             <td rowspan=1>UDSF</td>
             <td rowspan=1>10.1.1.9/24</td>
             <td rowspan=1>br-5gc</td>
             <td>default</td>
         </tr>
-          <tr>
+        <tr>
             <td rowspan=1>NFR</td>
             <td rowspan=1>10.1.1.10/24</td>
             <td rowspan=1>br-5gc</td>
             <td>default</td>
-      </tr>
-         <tr>
+        </tr>
+        <tr>
             <td rowspan=4>UPF</td>
             <td rowspan=1>10.200.200.101/24</td>
             <td>veth1</td>
@@ -187,11 +186,11 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
             <td>60.60.0.101</td>
             <td>lo</td>
         </tr>
-              <tr>
+        <tr>
             <td>10.1.2.2/24</td>
             <td>veth5</td>
         </tr>
-             <tr>
+        <tr>
             <td rowspan=3>N3IWF</td>
             <td rowspan=1>172.16.0.2*/24</td>
             <td>br-n2</td>
@@ -205,7 +204,7 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
             <td>10.200.200.2</td>
             <td>veth0</td>
         </tr>
-          <tr>
+        <tr>
             <td rowspan=2>Access Point</td>
             <td rowspan=1>192.168.1.10/24</td>
             <td>wlan0</td>
