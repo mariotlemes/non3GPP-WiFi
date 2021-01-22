@@ -218,11 +218,12 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
             <td rowspan=3>UE-non3GPP</td>
             <td rowspan=1>60.60.0.1/24</td>
             <td>lo</td>
-            <td rowspan=3>UEns</td>
+            <td rowspan=1>default</td>
         </tr>
         <tr>
             <td>192.168.1.1/24</td>
             <td>wlan1</td>
+            <td rowspan=2>UEns</td>
         </tr>
         <tr>
             <td>10.0.0.X/24</td>
