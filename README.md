@@ -109,7 +109,6 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
             <th>Namespace</th>
         </tr>
     </thead>
-    <tbody>
          <body>
         <tr>
             <td rowspan=2>AMF</td>
