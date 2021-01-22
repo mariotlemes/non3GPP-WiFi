@@ -13,7 +13,7 @@
 - [Prerequisite](#prerequisite)
 - [1) Expected result](#1-expected-result)
   - [1.1) Architecture](#11-architecture)
-  - [1.2) Networking Address Table](#12-networking-address-table)
+  - [1.2) Network addressing scheme](#12-network-addressing-scheme)
 - [A. Y1 Interface - Conection between UE-non3GPP and AP](#a-y1-interface---conection-between-ue-non3gpp-and-ap)
   - [1) Setting-up environment](#1-setting-up-environment)
   - [2) Check connection between UE-non3GPP and AP](#2-check-connection-between-ue-non3gpp-and-ap)
