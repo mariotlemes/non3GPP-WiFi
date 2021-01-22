@@ -11,7 +11,9 @@
 - [Description](#description)
 - [Recommended environment](#recommended-environment)
 - [Prerequisite](#prerequisite)
-- [Expected result](#expected-result)
+- [1) Expected result](#1-expected-result)
+  - [1.1) Architecture](#11-architecture)
+  - [1.2) Networking Address Table](#12-networking-address-table)
 - [A. Y1 Interface - Conection between UE-non3GPP and AP](#a-y1-interface---conection-between-ue-non3gpp-and-ap)
   - [1) Setting-up environment](#1-setting-up-environment)
   - [2) Check connection between UE-non3GPP and AP](#2-check-connection-between-ue-non3gpp-and-ap)
@@ -28,8 +30,8 @@
   - [2) PDU session establishment](#2-pdu-session-establishment)
 - [D. Tests](#d-tests)
   - [1) Check creation of the rules in UPF](#1-check-creation-of-the-rules-in-upf)
-    - [1.1) Packet Detection Rule (PDR)](#11-packet-detection-rule-pdr)
-    - [1.2) Forwarding Action Rule (FAR)](#12-forwarding-action-rule-far)
+    - [1.1) PDR](#11-pdr)
+    - [1.2) FAR](#12-far)
   - [2) Check associations between UE-non3GPP and N3IWF](#2-check-associations-between-ue-non3gpp-and-n3iwf)
     - [2.1) XFRM policy](#21-xfrm-policy)
     - [2.2) XFRM state](#22-xfrm-state)
@@ -83,8 +85,9 @@ The listed kernel version is required for the UPF element.
 
 This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and [UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP) are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
 
-## Expected result
+## 1) Expected result
 
+### 1.1) Architecture
 This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a IEEE 802.11 network implemented by mac80211_hwsim and using hostapd and 
 wpa\_supplicant tools. We also use an open-source implementation of the 
 SBA-based 5G core software ([my5G-core](https://github.com/my5G/my5G-core)), and 
@@ -95,32 +98,142 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
     <img src="figs/proposal.png" width="100%"/> 
 </p>
 
+### 1.2) Networking Address Table
+
 <table>
     <thead>
         <tr>
-            <th>Layer 1</th>
-            <th>Layer 2</th>
-            <th>Layer 3</th>
+            <th>Component</th>
+            <th>IPv4/CIDR</th>
+            <th>Bridge/Interface</th>
+            <th>Namespace</th>
         </tr>
     </thead>
     <tbody>
+         <body>
         <tr>
-            <td rowspan=4>L1 Name</td>
-            <td rowspan=2>L2 Name A</td>
-            <td>L3 Name A</td>
+            <td rowspan=2>AMF</td>
+            <td rowspan=1>10.1.1.2/24</td>
+            <td>br-5gc</td>
+            <td rowspan=2>default</td>
         </tr>
         <tr>
-            <td>L3 Name B</td>
+            <td>172.16.0.1/24</td>
+            <td>br-n2</td>   
+        </tr>
+           <tr>
+            <td rowspan=2>SMF</td>
+            <td rowspan=1>10.1.1.3/24</td>
+            <td>br-5gc</td>
+            <td rowspan=2>default</td>
         </tr>
         <tr>
-            <td rowspan=2>L2 Name B</td>
-            <td>L3 Name C</td>
+            <td>10.200.200.1/24</td>
+            <td>veth0</td>
+        </tr>
+
+        <tr>
+            <td rowspan=1>AUSF</td>
+            <td rowspan=1>10.1.1.4/24</td>
+            <td rowspan=1>br-5gc</td>
+            <td>default</td>
+        </tr>
+          <tr>
+            <td rowspan=1>NSSF</td>
+            <td rowspan=1>10.1.1.5/24</td>
+            <td rowspan=1>br-5gc</td>
+           <td>default</td>
+      </tr>
+          <tr>
+            <td rowspan=1>PCF</td>
+            <td rowspan=1>10.1.1.6/24</td>
+            <td rowspan=1>br-5gc</td>
+            <td>default</td>
+        </tr>
+          <tr>
+            <td rowspan=1>UDM</td>
+            <td rowspan=1>10.1.1.7/24</td>
+            <td rowspan=1>br-5gc</td>
+            <td>default</td>
+        </tr>
+         <tr>
+            <td rowspan=1>UDR</td>
+            <td rowspan=1>10.1.1.8/24</td>
+            <td rowspan=1>br-5gc</td>
+            <td>default</td>
+       </tr>
+          <tr>
+            <td rowspan=1>UDSF</td>
+            <td rowspan=1>10.1.1.9/24</td>
+            <td rowspan=1>br-5gc</td>
+            <td>default</td>
+        </tr>
+          <tr>
+            <td rowspan=1>NFR</td>
+            <td rowspan=1>10.1.1.10/24</td>
+            <td rowspan=1>br-5gc</td>
+            <td>default</td>
+      </tr>
+         <tr>
+            <td rowspan=4>UPF</td>
+            <td rowspan=1>10.200.200.101/24</td>
+            <td>veth1</td>
+            <td rowspan=4>UPFns</td>
         </tr>
         <tr>
-            <td>L3 Name D</td>
+            <td>10.200.200.102/24</td>
+            <td>veth1</td>
+        </tr>
+        <tr>
+            <td>60.60.0.101</td>
+            <td>lo</td>
+        </tr>
+              <tr>
+            <td>10.1.2.2/24</td>
+            <td>veth5</td>
+        </tr>
+             <tr>
+            <td rowspan=3>N3IWF</td>
+            <td rowspan=1>172.16.0.2*/24</td>
+            <td>br-n2</td>
+            <td rowspan=3>default</td>
+        </tr>
+        <tr>
+            <td>192.168.127.1</td>
+            <td>veth2</td>
+        </tr>
+        <tr>
+            <td>10.200.200.2</td>
+            <td>veth0</td>
+        </tr>
+          <tr>
+            <td rowspan=2>Access Point</td>
+            <td rowspan=1>192.168.1.10/24</td>
+            <td>wlan0</td>
+            <td rowspan=2>APns</td>
+        </tr>
+        <tr>
+            <td>192.168.127.2/24</td>
+            <td>veth3</td>
+        </tr>
+        <tr>
+            <td rowspan=3>UE-non3GPP</td>
+            <td rowspan=1>60.60.0.1/24</td>
+            <td>lo</td>
+            <td rowspan=3>UEns</td>
+        </tr>
+        <tr>
+            <td>192.168.1.1/24</td>
+            <td>wlan1</td>
+        </tr>
+        <tr>
+            <td>10.0.0.X/24</td>
+            <td>ipsec0</td>
         </tr>
     </tbody>
 </table>
+
+
 
 ## A. Y1 Interface - Conection between UE-non3GPP and AP
 
