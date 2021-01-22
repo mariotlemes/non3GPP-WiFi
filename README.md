@@ -323,14 +323,6 @@ echo -e "interface=wlan0\ndhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h
 ```
 <br>
 
-Or download the dnsmasq.conf file from the repository:
-
-```bash
-cd ~
-wget -O dnsmasq.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/conf/dnsmasq.conf?token=ACYGK3SQCFMVALNY7W5Y7M3AAWKZO
-```
-<br>
-
 Initializing dnsmasq.conf:
 
 ```bash
@@ -343,14 +335,6 @@ To create the hostapd.conf file:
 ```bash
 sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
 echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
-```
-<br>
-
-Or download the hostapd.conf file from the repository:
-
-```bash
-cd ~
-wget -O hostapd.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/conf/hostapd.conf?token=ACYGK3TYEKDKTDWH7KVNHV3AAWKX4
 ```
 <br>
 
@@ -372,14 +356,6 @@ To create the wpa_supplicant.conf file:
   cd ~
   sudo touch wpa_supplicant.conf && sudo chmod 666 wpa_supplicant.conf
   echo -e 'network={\nssid="my5gcore"\nkey_mgmt=WPA-PSK\npsk="my5gcore"\n}' > wpa_supplicant.conf
-```
-<br>
-
-Or download the wpa_supplicant.conf file from the repository:
-
-```bash
-cd ~
-wget -O wpa_supplicant.conf https://raw.githubusercontent.com/mariotlemes/non-3gpp-iot-wifi/master/conf/wpa_supplicant.conf?token=ACYGK3RD4FRCJKW7NOGDXGLAAWK22
 ```
 <br>
 
