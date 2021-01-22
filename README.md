@@ -98,7 +98,7 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
     <img src="figs/proposal.png" width="100%"/> 
 </p>
 
-### 1.2) Networking Address Table
+### 1.2) Network addressing scheme
 
 <table>
     <thead>
