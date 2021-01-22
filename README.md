@@ -89,12 +89,38 @@ This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP I
 wpa\_supplicant tools. We also use an open-source implementation of the 
 SBA-based 5G core software ([my5G-core](https://github.com/my5G/my5G-core)), and 
 an open-source implementation to provide untrusted non-3GPP access do 5G core network
-([UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is responsible for the connection
-between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF. The network architecture is shown in figure below. 
+([UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is the connection between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF. The network architecture is shown in figure below. 
 
 <p align="center">
     <img src="figs/proposal.png" width="100%"/> 
 </p>
+
+<table>
+    <thead>
+        <tr>
+            <th>Layer 1</th>
+            <th>Layer 2</th>
+            <th>Layer 3</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td rowspan=4>L1 Name</td>
+            <td rowspan=2>L2 Name A</td>
+            <td>L3 Name A</td>
+        </tr>
+        <tr>
+            <td>L3 Name B</td>
+        </tr>
+        <tr>
+            <td rowspan=2>L2 Name B</td>
+            <td>L3 Name C</td>
+        </tr>
+        <tr>
+            <td>L3 Name D</td>
+        </tr>
+    </tbody>
+</table>
 
 ## A. Y1 Interface - Conection between UE-non3GPP and AP
 
