@@ -90,9 +90,7 @@ wpa\_supplicant tools. We also use an open-source implementation of the
 SBA-based 5G core software ([my5G-core](https://github.com/my5G/my5G-core)), and 
 an open-source implementation to provide untrusted non-3GPP access do 5G core network
 ([UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is responsible for the connection
-between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF.
-
-The network architecture is shown in figure below. A UE-non3GPP accessing the 5GCN through an untrusted WLAN (my5gcore) shall support NAS signalling and shall initially register and authenticate with the 5GCN using the N3IWF and N1 interface. The component of core - AMF (Access and Mobility Management Function) - is used to register the UE-non3GPP and the AUSF (Authentication Server Function) is used to authenticate the UE-non3GPP. The UE-non3GPP shall establish PDU sessions using the IPsec signalling SA using the NAS session management messages with the SMF (Session Management Function) via the AMF. The transfer of data packets between the UE-non3GPP and Data Network (DN) uses the secure IPsec tunnel between UE-non3GPP and N3IWF and the GTP-U tunnel between N3IWF and UPF (User Plane Function).
+between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF. The network architecture is shown in figure below. 
 
 <p align="center">
     <img src="figs/proposal.png" width="100%"/> 
@@ -406,6 +404,8 @@ At this point, we created 2 (two) wireless network interfaces with the mac80211_
 In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE-non3GPP first needs to be configured with a local IP address from the untrusted non-3GPP access network. With the wpa_supplicant tool, we connected the wlan1 interface to the IEEE 802.11 network (WiFi).
 
 After instantiating the customized scenario (addressing each Network Function (NF), registering the UE-non3GPP to the core and setting up the scenario with namespaces, virtual interfaces and routes), we started all 5G core NFs and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
+
+A UE-non3GPP accessing the 5GCN through an untrusted IEEE 802.11 network (my5gcore) shall support NAS signalling and shall initially register and authenticate with the 5GCN using the N3IWF and N1 interface. The component of core - AMF (Access and Mobility Management Function) - is used to register the UE-non3GPP and the AUSF (Authentication Server Function) is used to authenticate the UE-non3GPP. The UE-non3GPP shall establish PDU sessions using the IPsec signalling SA and NAS session management messages with the SMF (Session Management Function) via AMF. The transfer of data packets between the UE-non3GPP and Data Network (DN) uses the secure IPsec tunnel between UE-non3GPP and N3IWF and the GTP-U tunnel between N3IWF and UPF (User Plane Function).
 
 
 ### 1) Registration, authentication and authorization
