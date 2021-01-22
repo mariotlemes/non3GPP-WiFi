@@ -494,31 +494,43 @@ The PDU session establishment procedure involves the following steps:
 
 **2)** N3IWF transparently forwards PDU Session Establishment Request to the AMF.
 
-**3)** AMF sends an PDU Session Resource Setup Request message to N3IWF to establish the  resources for this PDU session. 
+**3)** SMF sends a PFCP Session Establishment Request message to the UPF in order to create the PDR (Packet Detection Rule) and FAR (Forwarding Action Rule).
 
-**4)**  N3IWF determines the number of IPsec Child SAs to establish and the QoS profiles associated with each IPsec Child SA based on its own policies, configuration and QoS profiles received. Also, N3IWF sends an IKE Create Child SA Request to establish the first IPsec Child SA for the PDU session. 
+**4)** UPF sends the message PFCP Session Establishment Response indicating that the PDR and FAR rules have been created.
 
-**5)** UE-non3GPP sends an IKE Create Child SA Response to N3IWF.
+**5)** AMF sends an PDU Session Resource Setup Request message to N3IWF to establish the  resources for this PDU session.
 
-**6)** N3IWF establishes additional IPsec Child SAs as determined with each one associated with one or more QFI(s) and with a UP IP address. N3IWF forwards the PDU Session Establishment Accept message to the UE-non3GPP via the signalling IPsec SA which enables start of UL data.The N3IWF also sends a N2 PDU Session Resource Setup Response to AMF including DL GTPU Tunnel and enables start of DL data.
+**6)** N3IWF sends a path management message called Echo Request to the UPF via N3 interface.
+
+**7)** UPF sends a Echo Response message to N3IWF indicating that it`s active.
+
+**8)**  N3IWF determines the number of IPsec Child SAs to establish and the QoS profiles associated with each IPsec Child SA based on its own policies, configuration and QoS profiles received. Also, N3IWF sends an IKE Create Child SA Request to establish the first IPsec Child SA for the PDU session. 
+
+**9)** UE-non3GPP sends an IKE Create Child SA Response to N3IWF.
+
+**10)** N3IWF establishes additional IPsec Child SAs and forwards the PDU Session Establishment Accept message to the UE-non3GPP via the signalling IPsec SA which enables start of UL data.The N3IWF also sends a PDU Session Resource Setup Response to AMF including DL GTPU Tunnel and enables start of DL data.
 
 The table below shows the messages exchanged between UE and 5G core to PDU session establishment.
 
-| ID | Src | Dst | Protocol | Message | Content |
-| :---: | :---: | :---: | :---: | :---: | :---: |
-|1| UE | N3IWF | ESP | PDU Session Establishment Request | PDU session |
-|2| N3IWF| AMF | NGAP/NAS-5G/ PDU Session | Establishment Request | PDU session |
-|3| AMF | N3IWF | NGAP/NAS-5G |PDU Session Resource Setup Request | PDU session request |
-|4| N3IWF | UE | IKEv2/ISAKMP | Create Child SA Request | Child SA |
-|5| UE | N3IWF | IKEv2/ISAKMP | Create Child SA Response | Child SA
-|6| N3IWF | AMF | NGAP | PDU Session Resource Setup Response | PDU session response |
+| ID | Src | Dst | Protocol | Message {payload/intention} 
+| :---: | :---: | :---: | :---: | :---: | 
+|1| UE | N3IWF | ESP | PDU Session Establishment Request {PDU session} |
+|2| N3IWF| AMF | NGAP/NAS-5G/ PDU Session | Establishment Request {PDU session} |
+|3| SMF | UPF | PFCP | PFCP Session Establishment Request {PDR/FAR}
+|4| UPF | SMF | PFCP | PFCP Session Establishment Response {Request accepted (success)}
+|5| AMF | N3IWF | NGAP/NAS-5G |PDU Session Resource Setup Request {PDU session request}
+|6| N3IWF | UPF | GTP | Echo Request {Is still alived?}
+|7| UPF | N3IWF | GTP | Echo Response {Activity confirmation}
+|8| N3IWF | UE | IKEv2/ISAKMP | Create Child SA Request {Child SA request} |
+|9| UE | N3IWF | IKEv2/ISAKMP | Create Child SA Response {Child SA response}
+|10| N3IWF | AMF | NGAP | PDU Session Resource Setup Response {PDU session response} | 
 
 
 ## D. Tests
 
 ### 1) Check creation of the rules in UPF
 
-#### 1.1) Packet Detection Rule (PDR) 
+#### 1.1) PDR
 ```bash
 sudo ip netns exec UPFns ~/libgtp5gnl/tools/gtp5g-tunnel list pdr
 ```
@@ -526,7 +538,7 @@ sudo ip netns exec UPFns ~/libgtp5gnl/tools/gtp5g-tunnel list pdr
     <img src="figs/pdr.png"/> 
 </p>
 
-#### 1.2) Forwarding Action Rule (FAR) 
+#### 1.2) FAR
 ```bash
 sudo ip netns exec UPFns ~/libgtp5gnl/tools/gtp5g-tunnel list far
 ```
