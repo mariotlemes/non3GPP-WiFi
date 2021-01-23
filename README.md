@@ -417,10 +417,10 @@ The connection between AP and N3IWF will be made by veth (virtual ethernet) and 
 ```bash
 # Clone the repository
 cd ~
-git clone https://github.com/mariotlemes/non-3gpp-iot-wifi.git
+git clone https://github.com/mariotlemes/non-3GPP-WiFi.git
 
 # Enable forwarding, stop ufw, install module gtp5g and add rule on iptables 
-cd ~/non-3gpp-iot-wifi
+cd ~/non-3GPP-WiFi
 sudo ./utils/fix_core.sh
  
 # Backup of the config folder
@@ -457,7 +457,7 @@ cd ~/my5G-core/sample/sample1/utils
 mv env_manager.sh env_manager.sh-ori
 
 # Copy the env_manager.sh file from the repository
-sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/utils/
+sudo cp ~/non-3GPP-WiFi/utils/env_manager.sh ~/my5G-core/sample/sample1/utils/
 
 # Setup network interfaces and namespaces
 ./env_manager.sh up $(ip route | grep default | cut -d' ' -f5)
