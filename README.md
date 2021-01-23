@@ -10,20 +10,21 @@
 
 - [Description](#description)
 - [Recommended environment](#recommended-environment)
+- [Convention](#convention)
 - [Prerequisite](#prerequisite)
 - [1) Expected result](#1-expected-result)
   - [1.1) Architecture](#11-architecture)
   - [1.2) Network addressing scheme](#12-network-addressing-scheme)
-- [A. Y1 Interface - Conection between UE-non3GPP and AP](#a-y1-interface---conection-between-ue-non3gpp-and-ap)
+- [A. Y1 Interface - Conection between UE and AP](#a-y1-interface---conection-between-ue-and-ap)
   - [1) Setting-up environment](#1-setting-up-environment)
-  - [2) Check connection between UE-non3GPP and AP](#2-check-connection-between-ue-non3gpp-and-ap)
+  - [2) Check connection between UE and AP](#2-check-connection-between-ue-and-ap)
 - [B. Y2 Interface - Conection between AP and N3IWF](#b-y2-interface---conection-between-ap-and-n3iwf)
   - [1) Setting-up environment](#1-setting-up-environment-1)
   - [2) Setting namespaces, interfaces and routes for the scenario](#2-setting-namespaces-interfaces-and-routes-for-the-scenario)
   - [3) Starting monitoring tools](#3-starting-monitoring-tools)
   - [4) Starting UPF](#4-starting-upf)
   - [5) Running the other NFs in my5G-core network](#5-running-the-other-nfs-in-my5g-core-network)
-  - [6) Starting UE-non3GPP](#6-starting-ue-non3gpp)
+  - [6) Starting UE](#6-starting-ue)
   - [7) Triggering initial registration procedure](#7-triggering-initial-registration-procedure)
 - [C. Discussion](#c-discussion)
   - [1) Registration, authentication and authorization](#1-registration-authentication-and-authorization)
@@ -32,13 +33,13 @@
   - [1) Check creation of the rules in UPF](#1-check-creation-of-the-rules-in-upf)
     - [1.1) PDR](#11-pdr)
     - [1.2) FAR](#12-far)
-  - [2) Check associations between UE-non3GPP and N3IWF](#2-check-associations-between-ue-non3gpp-and-n3iwf)
+  - [2) Check associations between UE and N3IWF](#2-check-associations-between-ue-and-n3iwf)
     - [2.1) XFRM policy](#21-xfrm-policy)
     - [2.2) XFRM state](#22-xfrm-state)
-  - [3) Check connectivity between UE-non3GPP and UPF](#3-check-connectivity-between-ue-non3gpp-and-upf)
+  - [3) Check connectivity between UE and UPF](#3-check-connectivity-between-ue-and-upf)
     - [3.1) Ping to 60.60.0.101](#31-ping-to-60600101)
     - [3.2) Traceroute analysis](#32-traceroute-analysis)
-  - [4) Check conectivity between UE-non3GPP and Internet](#4-check-conectivity-between-ue-non3gpp-and-internet)
+  - [4) Check conectivity between UE and Internet](#4-check-conectivity-between-ue-and-internet)
     - [4.1) Ping to 8.8.8.8](#41-ping-to-8888)
     - [4.2) Traceroute analysis](#42-traceroute-analysis)
 - [E. Cleanning-up environment](#e-cleanning-up-environment)
@@ -81,9 +82,12 @@ The listed kernel version is required for the UPF element.
     - Hard drive: 160GB
     - NIC: Any 10Gbps Ethernet card supported in the Linux kernel
 
+## Convention
+In this tutorial, we reference my5G-non3GPP-acess for UE (User Equipment) only.
+
 ## Prerequisite
 
-This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and [UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP) are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
+This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and [UE](https://github.com/my5G/my5G-non3GPP-access) are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
 
 ## 1) Expected result
 
@@ -92,7 +96,7 @@ This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP I
 wpa\_supplicant tools. We also use an open-source implementation of the 
 SBA-based 5G core software ([my5G-core](https://github.com/my5G/my5G-core)), and 
 an open-source implementation to provide untrusted non-3GPP access do 5G core network
-([UE-non3GPP](https://github.com/my5G/UE-IoT-non3GPP)). Y1 interface is the connection between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF. The network architecture is shown in figure below. 
+([UE](https://github.com/my5G/my5G-non3GPP-access)). Y1 interface is the connection between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF. The network architecture is shown in figure below. 
 
 <p align="center">
     <img src="figs/proposal.png" width="100%"/> 
@@ -215,7 +219,7 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
             <td>veth3</td>
         </tr>
         <tr>
-            <td rowspan=3>UE-non3GPP</td>
+            <td rowspan=3>UE</td>
             <td rowspan=1>60.60.0.1/24</td>
             <td>lo</td>
             <td rowspan=1>default</td>
@@ -234,7 +238,7 @@ an open-source implementation to provide untrusted non-3GPP access do 5G core ne
 
 
 
-## A. Y1 Interface - Conection between UE-non3GPP and AP
+## A. Y1 Interface - Conection between UE and AP
 
 ### 1) Setting-up environment
 On your host, install the necessary packages:
@@ -368,12 +372,12 @@ sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B
 sudo ip netns exec UEns dhclient wlan1
 ```
 
-To remove the default route from UE-non3GPP, do:
+To remove the default route from UE, do:
 
 ```bash
 sudo ip netns exec UEns route del -net 0.0.0.0 gw 192.168.1.10 netmask 0.0.0.0 dev wlan1
 ```
-### 2) Check connection between UE-non3GPP and AP
+### 2) Check connection between UE and AP
 
 At this point, the virtual interface wlan1 (ip address 192.168.1.1/24) is connected to wlan0 (ip address 192.168.1.10/24) which acts as a WiFi access point. 
 
@@ -403,7 +407,7 @@ The ip add address of the wlan1 interface must be 192.168.1.1/24.
 
 ## B. Y2 Interface - Conection between AP and N3IWF
 
-The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE-non3GPP and N3IWF. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
+The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE and N3IWF. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
 <p align="center">
     <img src="figs/interface-y2.png"/> 
@@ -433,7 +437,7 @@ mv -f src/upf/build/config/upfcfg.yaml src/upf/build/config/upfcfg.yaml.orig
 # New configuration for upf
 cp src/upf/config/upfcfg.sample1.yaml src/upf/build/config/upfcfg.yaml
 
-# set UE-non3GPP http bind address 
+# set UE http bind address 
 sed -i 's/HttpIPv4Address: .*/HttpIPv4Address: 192.168.1.1/' config/uecfg.conf
 
 # Remove database due to previews tests
@@ -443,7 +447,7 @@ mongo free5gc --eval "db.dropDatabase()"
 go build -o bin/webconsole -x webconsole/server.go
 ./bin/webconsole &
 
-# Add the UE-non3GPP that will be used in the test
+# Add the UE that will be used in the test
 ~/my5G-core/sample/sample1/utils/add_test_ue.sh
 ```
 
@@ -489,12 +493,12 @@ cd ~/my5G-core
 sudo ./bin/n3iwf 
 ```
 
-### 6) Starting UE-non3GPP
+### 6) Starting UE
 ```bash
 # Use a new terminal or split
 cd ~/my5G-core/
 
-# Starting UE-non3GPP
+# Starting UE
 sudo ip netns exec UEns ./bin/ue
 ```
 
@@ -512,11 +516,11 @@ sudo ip netns exec UEns ~/my5G-core/src/ue/trigger_initial_registration.sh --ue_
 
 At this point, we created 2 (two) wireless network interfaces with the mac80211_hwsim module. The interface wlan0 was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". Dnsmasq was used to provide ip addressing service to hosts connected to the "my5gcore", emulated by the wlan0 interface with hostapd.
 
-In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE-non3GPP first needs to be configured with a local IP address from the untrusted non-3GPP access network. With the wpa_supplicant tool, we connected the wlan1 interface to the IEEE 802.11 network (WiFi).
+In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE first needs to be configured with a local IP address from the untrusted non-3GPP access network. With the wpa_supplicant tool, we connected the wlan1 interface to the IEEE 802.11 network (WiFi).
 
-After instantiating the customized scenario (addressing each Network Function (NF), registering the UE-non3GPP to the core and setting up the scenario with namespaces, virtual interfaces and routes), we started all 5G core NFs and the UE-non3GPP. Finally, we started the initial registration process to UE-non3GPP proceeds with the registration, authentication and authorization procedures to access the 5GCN.
+After instantiating the customized scenario (addressing each Network Function (NF), registering the UE to the core and setting up the scenario with namespaces, virtual interfaces and routes), we started all 5G core NFs and the UE. Finally, we started the initial registration process to UE proceeds with the registration, authentication and authorization procedures to access the 5GCN.
 
-A UE-non3GPP accessing the 5GCN through an untrusted IEEE 802.11 network (my5gcore) shall support NAS signalling and shall initially register and authenticate with the 5GCN using the N3IWF and N1 interface. The component of core - AMF (Access and Mobility Management Function) - is used to register the UE-non3GPP and the AUSF (Authentication Server Function) is used to authenticate the UE-non3GPP. The UE-non3GPP shall establish PDU sessions using the IPsec signalling SA and NAS session management messages with the SMF (Session Management Function) via AMF. The transfer of data packets between the UE-non3GPP and Data Network (DN) uses the secure IPsec tunnel between UE-non3GPP and N3IWF and the GTP-U tunnel between N3IWF and UPF (User Plane Function).
+A UE accessing the 5GCN through an untrusted IEEE 802.11 network (my5gcore) shall support NAS signalling and shall initially register and authenticate with the 5GCN using the N3IWF and N1 interface. The component of core - AMF (Access and Mobility Management Function) - is used to register the UE and the AUSF (Authentication Server Function) is used to authenticate. The UE shall establish PDU sessions using the IPsec signalling SA and NAS session management messages with the SMF (Session Management Function) via AMF. The transfer of data packets between the UE and Data Network (DN) uses the secure IPsec tunnel between UE and N3IWF and the GTP-U tunnel between N3IWF and UPF (User Plane Function).
 
 
 ### 1) Registration, authentication and authorization
@@ -527,9 +531,9 @@ The registration, authentication and authorization procedures are show in figure
     <img src="figs/registration.png"/> 
 </p>
 
-**1)** UE-non3GPP initiates the IKEv2/ISAKMP initial exchange with the N3IWF for the establishment of an IKE SA. 
+**1)** UE initiates the IKEv2/ISAKMP initial exchange with the N3IWF for the establishment of an IKE SA. 
 
-**2)** UE-non3GPP sends to N3IWF the IKE_AUTH Request without the AUTH payload indicating use of EAP-5G. 
+**2)** UE sends to N3IWF the IKE_AUTH Request without the AUTH payload indicating use of EAP-5G. 
 
 **3)** N3IWF responds with an IKE_AUTH Response, including EAP-Request/5G-Start packet informing UE to start sending NAS messages. 
 
@@ -539,35 +543,35 @@ The registration, authentication and authorization procedures are show in figure
 
 **6)** When AMF receives the Registration Request, it sends an Authentication Request to N3IWF.
 
-**7)** N3IWF forwards the Authentication Request to UE-non3GPP.
+**7)** N3IWF forwards the Authentication Request to UE.
 
 **8)** AMF may request the SUCI from the UE with a NAS Identity request that is received back in a NAS Identity Response from the UE (Authentication Request message) to N3IWF
 
-**9)** N3IWF forwards this NAS Authentication Response from UE-non3GPP to AMF.
+**9)** N3IWF forwards this NAS Authentication Response from UE to AMF.
 
-**10)** AMF selects an AUSF to authenticate the UE-non3GPP based on SUCI or SUPI. The AUSF further selects a Unified Data Management (UDM) to obtain authentication data and executes the EAP-AKA/5G-AKA authentication with the UE-non3GPP. After successful authentication, the AUSF sends the EAP Success Security Anchor key (SEAF key) to AMF which derives two keys: the NAS security keys and N3IWF security key. AMF encapsulates the EAP-Success received from AUSF within the NAS Security Mode Command message and sends it to the UE to activate NAS security.
+**10)** AMF selects an AUSF to authenticate the UE based on SUCI or SUPI. The AUSF further selects a Unified Data Management (UDM) to obtain authentication data and executes the EAP-AKA/5G-AKA authentication with the UE. After successful authentication, the AUSF sends the EAP Success Security Anchor key (SEAF key) to AMF which derives two keys: the NAS security keys and N3IWF security key. AMF encapsulates the EAP-Success received from AUSF within the NAS Security Mode Command message and sends it to the UE to activate NAS security.
 
-**11)** N3IWF forwards this Security Mode Command message to UE-non3GPP.
+**11)** N3IWF forwards this Security Mode Command message to UE.
 
 **12)** UE also derives the SEAF key, NAS security keys and N3IWF key and sends a NAS Security Mode Complete message to the AMF.
 
 **13)** N3IWF forwards this NAS Security Mode Complete message to AMF.
 
-**14)** AMF further sends an NGAP Initial Context Setup Request message including the N3IWF key to the N3IWF which triggers the N3IWF to send an EAP-Success to UE-non3GPP, which completes the EAP-5G session.
+**14)** AMF further sends an NGAP Initial Context Setup Request message including the N3IWF key to the N3IWF which triggers the N3IWF to send an EAP-Success to UE, which completes the EAP-5G session.
 
-**15)** N3IWF sends an IKE_AUTH Response to UE-non3GPP which contains an EAP-Success message 
+**15)** N3IWF sends an IKE_AUTH Response to UE which contains an EAP-Success message 
 
-**16)** UE-non3GPP sends a IKE_AUTH Request to establishment of the IPsec tunnel using the common N3IWF key.
+**16)** UE sends a IKE_AUTH Request to establishment of the IPsec tunnel using the common N3IWF key.
 
-**17)** IPsec SA is established between the UE-non3GPP and N3IWF. All subsequent NAS messages between UE-non3GPP and N3IWF are encapsulated within the established Signalling IPsec SA.
+**17)** IPsec SA is established between the UE and N3IWF. All subsequent NAS messages between UE and N3IWF are encapsulated within the established Signalling IPsec SA.
 
 **18)** N3IWF notifies the AMF that the UE context is created by sending a NGAP Initial Context Setup Response.
 
-**19)** AMF sends the NAS Registration Accept message including the Allowed NSSAI for the access type for the UE-non3GPP to the N3IWF. 
+**19)** AMF sends the NAS Registration Accept message including the Allowed NSSAI for the access type for the UE to the N3IWF. 
 
-**20)** N3IWF forwards NAS Registration Accept message to the UE-non3GPP through the signalling IPsec SA.
+**20)** N3IWF forwards NAS Registration Accept message to the UE through the signalling IPsec SA.
 
-After registration procedures, the UE-non3GPP shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point. All communication entities, protocols and messages and their contents are summarized in the table below. 
+After registration procedures, the UE shall support NAS signalling with 5GCN for mobility and session management functions using the N1 reference point. All communication entities, protocols and messages and their contents are summarized in the table below. 
 
 | ID | Src | Dst | Protocol | Message {payload/intention} | 
 | :---: | :---: | :---: | :---: | :---: | 
@@ -601,7 +605,7 @@ The PDU session establishment procedure involves the following steps:
     <img src="figs/pdu-session.png"/> 
 </p>
 
-**1)** UE-non3GPP sends a PDU Session Establishment Request to the N3IWF.
+**1)** UE sends a PDU Session Establishment Request to the N3IWF.
 
 **2)** N3IWF transparently forwards PDU Session Establishment Request to the AMF.
 
@@ -617,9 +621,9 @@ The PDU session establishment procedure involves the following steps:
 
 **8)**  N3IWF determines the number of IPsec Child SAs to establish and the QoS profiles associated with each IPsec Child SA based on its own policies, configuration and QoS profiles received. Also, N3IWF sends an IKE Create Child SA Request to establish the first IPsec Child SA for the PDU session. 
 
-**9)** UE-non3GPP sends an IKE Create Child SA Response to N3IWF.
+**9)** UE sends an IKE Create Child SA Response to N3IWF.
 
-**10)** N3IWF establishes additional IPsec Child SAs and forwards the PDU Session Establishment Accept message to the UE-non3GPP via the signalling IPsec SA which enables start of UL data.The N3IWF also sends a PDU Session Resource Setup Response to AMF including DL GTPU Tunnel and enables start of DL data.
+**10)** N3IWF establishes additional IPsec Child SAs and forwards the PDU Session Establishment Accept message to the UE via the signalling IPsec SA which enables start of UL data.The N3IWF also sends a PDU Session Resource Setup Response to AMF including DL GTPU Tunnel and enables start of DL data.
 
 The table below shows the messages exchanged between UE and 5G core to PDU session establishment.
 
@@ -657,7 +661,7 @@ sudo ip netns exec UPFns ~/libgtp5gnl/tools/gtp5g-tunnel list far
     <img src="figs/far.png"/> 
 </p>
 
-### 2) Check associations between UE-non3GPP and N3IWF
+### 2) Check associations between UE and N3IWF
 
 #### 2.1) XFRM policy
 
@@ -679,7 +683,7 @@ sudo ip netns exec UEns ip xfrm state
     <img src="figs/state.png"/> 
 </p>
 
-### 3) Check connectivity between UE-non3GPP and UPF
+### 3) Check connectivity between UE and UPF
 
 #### 3.1) Ping to 60.60.0.101
 
@@ -724,7 +728,7 @@ sudo ip netns exec UEns traceroute 60.60.0.101
 
 UE and UPF are one hop of distance due to the GRE (Generic Routing Encapsulation) tunnel.
 
-### 4) Check conectivity between UE-non3GPP and Internet
+### 4) Check conectivity between UE and Internet
 
 #### 4.1) Ping to 8.8.8.8
 
@@ -768,7 +772,7 @@ sudo ip netns exec UPFns killall -9 wireshark
 # Kill webconsole
 killall -9 webconsole
 
-# Kill UE-non3GPP
+# Kill UE
 sudo ip netns exec UEns killall -9 ./bin/ue
 
 # Kill all NFs in my5G-core
