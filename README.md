@@ -83,20 +83,18 @@ The listed kernel version is required for the UPF element.
     - NIC: Any 10Gbps Ethernet card supported in the Linux kernel
 
 ## Convention
-In this tutorial, we reference my5G-non3GPP-acess for UE (User Equipment) only.
+In this tutorial, we reference [my5G-non3GPP-access](https://github.com/my5G/my5G-non3GPP-access) for UE (User Equipment).
 
 ## Prerequisite
 
-This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and [UE](https://github.com/my5G/my5G-non3GPP-access) are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
+This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and UE are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
 
 ## 1) Expected result
 
 ### 1.1) Architecture
 This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a IEEE 802.11 network implemented by mac80211_hwsim and using hostapd and 
 wpa\_supplicant tools. We also use an open-source implementation of the 
-SBA-based 5G core software ([my5G-core](https://github.com/my5G/my5G-core)), and 
-an open-source implementation to provide untrusted non-3GPP access do 5G core network
-([UE](https://github.com/my5G/my5G-non3GPP-access)). Y1 interface is the connection between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF. The network architecture is shown in figure below. 
+SBA-based 5G core software and an open-source implementation to provide untrusted non-3GPP access to 5G core network. Y1 interface is the connection between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF. The network architecture is shown in figure below. 
 
 <p align="center">
     <img src="figs/proposal.png" width="100%"/> 
