@@ -228,6 +228,13 @@ SBA-based 5G core software and an open-source implementation to provide untruste
             <td align=center>10.0.0.X/24</td>
             <td align=center>ipsec0</td>
         </tr>
+ 	<tr>
+            <td align=center rowspan=1>Data Network</td>
+            <td align=center rowspan=1>10.1.2.1/24</td>
+            <td align=center>veth4</td>
+            <td align=center rowspan=1>default</td>
+        </tr>
+
     </tbody>
 </table>
 
