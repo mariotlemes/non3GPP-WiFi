@@ -64,7 +64,7 @@ Non-3GPP-Wi-Fi use-case  has been tested against the following environment:
     - OS: Ubuntu 18.04
     - kernel version 5.0.0-23-generic
     - my5G-core v3.0.4
-    - UE-non3GPP v0.0.1
+    - my5G-non3GPP-access v0.0.1
     - gtp5g v0.2.0
     
 
@@ -113,128 +113,126 @@ SBA-based 5G core software and an open-source implementation to provide untruste
     </thead>
     <tbody>
         <tr>
-            <td rowspan=2>AMF</td>
-            <td rowspan=1>10.1.1.2/24</td>
-            <td>br-5gc</td>
-            <td rowspan=2>default</td>
+            <td align=center rowspan=2>AMF</td>
+            <td align=center rowspan=1>10.1.1.2/24</td>
+            <td align=center>br-5gc</td>
+            <td align=center rowspan=2>default</td>
         </tr>
         <tr>
-            <td>172.16.0.1/24</td>
-            <td>br-n2</td>   
+            <td align=center>172.16.0.1/24</td>
+            <td align=center>br-n2</td>   
         </tr>
            <tr>
-            <td rowspan=2>SMF</td>
-            <td rowspan=1>10.1.1.3/24</td>
-            <td>br-5gc</td>
-            <td rowspan=2>default</td>
+            <td align=center rowspan=2>SMF</td>
+            <td align=center rowspan=1>10.1.1.3/24</td>
+            <td align=center>br-5gc</td>
+            <td align=center rowspan=2>default</td>
         </tr>
         <tr>
-            <td>10.200.200.1/24</td>
-            <td>veth0</td>
+            <td align=center>10.200.200.1/24</td>
+            <td align=center>veth0</td>
         </tr>
         <tr>
-            <td rowspan=1>AUSF</td>
-            <td rowspan=1>10.1.1.4/24</td>
-            <td rowspan=1>br-5gc</td>
-            <td>default</td>
+            <td align=center rowspan=1>AUSF</td>
+            <td align=center rowspan=1>10.1.1.4/24</td>
+            <td align=center rowspan=1>br-5gc</td>
+            <td align=center>default</td>
         </tr>
         <tr>
-            <td rowspan=1>NSSF</td>
-            <td rowspan=1>10.1.1.5/24</td>
-            <td rowspan=1>br-5gc</td>
-           <td>default</td>
+            <td align=center rowspan=1>NSSF</td>
+            <td align=center rowspan=1>10.1.1.5/24</td>
+            <td align=center rowspan=1>br-5gc</td>
+           <td align=center >default</td>
         </tr>
         <tr>
-            <td rowspan=1>PCF</td>
-            <td rowspan=1>10.1.1.6/24</td>
-            <td rowspan=1>br-5gc</td>
-            <td>default</td>
+            <td align=center rowspan=1>PCF</td>
+            <td align=center rowspan=1>10.1.1.6/24</td>
+            <td align=center rowspan=1>br-5gc</td>
+            <td align=center>default</td>
         </tr>
         <tr>
-            <td rowspan=1>UDM</td>
-            <td rowspan=1>10.1.1.7/24</td>
-            <td rowspan=1>br-5gc</td>
-            <td>default</td>
+            <td align=center rowspan=1>UDM</td>
+            <td align=center rowspan=1>10.1.1.7/24</td>
+            <td align=center rowspan=1>br-5gc</td>
+            <td align=center>default</td>
         </tr>
         <tr>
-            <td rowspan=1>UDR</td>
-            <td rowspan=1>10.1.1.8/24</td>
-            <td rowspan=1>br-5gc</td>
-            <td>default</td>
+            <td align=center rowspan=1>UDR</td>
+            <td align=center rowspan=1>10.1.1.8/24</td>
+            <td align=center rowspan=1>br-5gc</td>
+            <td align=center>default</td>
         </tr>
         <tr>
-            <td rowspan=1>UDSF</td>
-            <td rowspan=1>10.1.1.9/24</td>
-            <td rowspan=1>br-5gc</td>
-            <td>default</td>
+            <td align=center rowspan=1>UDSF</td>
+            <td align=center rowspan=1>10.1.1.9/24</td>
+            <td align=center rowspan=1>br-5gc</td>
+            <td align=center>default</td>
         </tr>
         <tr>
-            <td rowspan=1>NFR</td>
-            <td rowspan=1>10.1.1.10/24</td>
-            <td rowspan=1>br-5gc</td>
-            <td>default</td>
+            <td align=center rowspan=1>NFR</td>
+            <td align=center rowspan=1>10.1.1.10/24</td>
+            <td align=center rowspan=1>br-5gc</td>
+            <td align=center>default</td>
         </tr>
         <tr>
-            <td rowspan=4>UPF</td>
-            <td rowspan=1>10.200.200.101/24</td>
-            <td>veth1</td>
-            <td rowspan=4>UPFns</td>
+            <td align=center rowspan=4>UPF</td>
+            <td align=center rowspan=1>10.200.200.101/24</td>
+            <td align=center>veth1</td>
+            <td align=center rowspan=4>UPFns</td>
         </tr>
         <tr>
-            <td>10.200.200.102/24</td>
-            <td>veth1</td>
+            <td align=center>10.200.200.102/24</td>
+            <td align=center>veth1</td>
         </tr>
         <tr>
-            <td>60.60.0.101</td>
-            <td>lo</td>
+            <td align=center>60.60.0.101</td>
+            <td align=center>lo</td>
         </tr>
         <tr>
-            <td>10.1.2.2/24</td>
-            <td>veth5</td>
+            <td align=center>10.1.2.2/24</td>
+            <td align=center>veth5</td>
         </tr>
         <tr>
-            <td rowspan=3>N3IWF</td>
-            <td rowspan=1>172.16.0.2*/24</td>
-            <td>br-n2</td>
-            <td rowspan=3>default</td>
+            <td align=center rowspan=3>N3IWF</td>
+            <td align=center rowspan=1>172.16.0.2/24</td>
+            <td align=center>br-n2</td>
+            <td align=center rowspan=3>default</td>
         </tr>
         <tr>
-            <td>192.168.127.1</td>
-            <td>veth2</td>
+            <td align=center>192.168.127.1</td>
+            <td align=center>veth2</td>
         </tr>
         <tr>
-            <td>10.200.200.2</td>
-            <td>veth0</td>
+            <td align=center>10.200.200.2</td>
+            <td align=center>veth0</td>
         </tr>
         <tr>
-            <td rowspan=2>Access Point</td>
-            <td rowspan=1>192.168.1.10/24</td>
-            <td>wlan0</td>
-            <td rowspan=2>APns</td>
+            <td align=center rowspan=2>Access Point</td>
+            <td align=center rowspan=1>192.168.1.10/24</td>
+            <td align=center>wlan0</td>
+            <td align=center rowspan=2>APns</td>
         </tr>
         <tr>
-            <td>192.168.127.2/24</td>
-            <td>veth3</td>
+            <td align=center>192.168.127.2/24</td>
+            <td align=center>veth3</td>
         </tr>
         <tr>
-            <td rowspan=3>UE</td>
-            <td rowspan=1>60.60.0.1/24</td>
-            <td>lo</td>
-            <td rowspan=1>default</td>
+            <td align=center rowspan=3>UE</td>
+            <td align=center rowspan=1>60.60.0.1/24</td>
+            <td align=center>lo</td>
+            <td align=center rowspan=1>default</td>
         </tr>
         <tr>
-            <td>192.168.1.1/24</td>
-            <td>wlan1</td>
-            <td rowspan=2>UEns</td>
+            <td align=center>192.168.1.1/24</td>
+            <td align=center>wlan1</td>
+            <td align=center rowspan=2>UEns</td>
         </tr>
         <tr>
-            <td>10.0.0.X/24</td>
-            <td>ipsec0</td>
+            <td align=center>10.0.0.X/24</td>
+            <td align=center>ipsec0</td>
         </tr>
     </tbody>
 </table>
-
-
 
 ## A. Y1 Interface - Conection between UE and AP
 
