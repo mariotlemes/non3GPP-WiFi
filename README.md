@@ -757,15 +757,12 @@ killall -9 webconsole
 # Kill UE-non3GPP
 sudo ip netns exec UEns killall -9 ./bin/ue
 
-# Kill UPF
-sudo ip netns exec UPFns killall -9 free5gc-upfd
+# Kill all NFs in my5G-core
+sudo ~/my5G-core/force_kill.sh
 
 # Kill hostapd and wpa_supplicant
 sudo killall hostapd
 sudo killall wpa_supplicant
-
-# Stopping my5G-core
-sudo ~/my5G-core/force_kill.sh
 
 # Removing network interfaces, namespaces and addresses
 ~/my5G-core/sample/sample1/utils/env_manager.sh down $(ip route | grep default | cut -d' ' -f5)
