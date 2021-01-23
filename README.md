@@ -758,8 +758,11 @@ Note that you can see that the path to Internet through the UPF.
 ## E. Cleanning-up environment
 
 ```bash
-# Kill wireshark
+# Kill all wireshark instances
 killall -9 wireshark
+sudo ip netns exec UEns killall -9 wireshark
+sudo ip netns exec APns killall -9 wireshark
+sudo ip netns exec UPFns killall -9 wireshark
 
 # Kill webconsole
 killall -9 webconsole
