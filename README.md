@@ -58,27 +58,27 @@ Non-3GPP-WiFi use-case aims to demonstrate the untrusted non-3GPP access to the 
 
 Non-3GPP-Wi-Fi use-case  has been tested against the following environment:
 
-- Software
-    - OS: Ubuntu 18.04
-    - kernel version 5.0.0-23-generic
-    - [my5G-core v3.0.4](https://github.com/my5G/my5G-core)
-    - [my5G-non3GPP-access v0.0.1](https://github.com/my5G/my5G-non3GPP-access)
-    - [gtp5g v0.2.0](https://github.com/PrinzOwO/gtp5g)
+- Software:
+    - OS: Ubuntu 18.04.
+    - kernel version 5.0.0-23-generic.
+    - [my5G-core v3.0.4](https://github.com/my5G/my5G-core).
+    - [my5G-non3GPP-access v0.0.1](https://github.com/my5G/my5G-non3GPP-access).
+    - [gtp5g v0.2.0](https://github.com/PrinzOwO/gtp5g).
     
 
 The listed kernel version is required for the UPF element.
 
-- Minimum Hardware
-    - CPU: Intel i5 processor
-    - RAM: 4GB
-    - Hard drive: 30GB
-    - NIC: Any 1Gbps Ethernet card supported in the Linux kernel
+- Minimum Hardware:
+    - CPU: Intel i5 processor.
+    - RAM: 4GB.
+    - Hard drive: 30GB.
+    - NIC: Any 1Gbps Ethernet card supported in the Linux kernel.
 
-- Recommended Hardware
-    - CPU: Intel i7 processor
-    - RAM: 8GB
-    - Hard drive: 160GB
-    - NIC: Any 10Gbps Ethernet card supported in the Linux kernel
+- Recommended Hardware:
+    - CPU: Intel i7 processor.
+    - RAM: 8GB.
+    - Hard drive: 160GB.
+    - NIC: Any 10Gbps Ethernet card supported in the Linux kernel.
 
 ## Convention
 In this tutorial, we used UE (User Equipment) instead of my5G-non3GPP-access. Therefore, the terms mentioned refer to the same component.
