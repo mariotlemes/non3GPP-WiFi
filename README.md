@@ -35,10 +35,10 @@
   - [2) Check associations between UE-non3GPP and N3IWF](#2-check-associations-between-ue-non3gpp-and-n3iwf)
     - [2.1) XFRM policy](#21-xfrm-policy)
     - [2.2) XFRM state](#22-xfrm-state)
-  - [3) Check connectivity between UE-non3GPP and Data Plane (UPF)](#3-check-connectivity-between-ue-non3gpp-and-data-plane-upf)
+  - [3) Check connectivity between UE-non3GPP and UPF](#3-check-connectivity-between-ue-non3gpp-and-upf)
     - [3.1) Ping to 60.60.0.101](#31-ping-to-60600101)
     - [3.2) MTR analysis](#32-mtr-analysis)
-  - [4) Check conectivity between UE-non3GPP and Data Plane (Internet)](#4-check-conectivity-between-ue-non3gpp-and-data-plane-internet)
+  - [4) Check conectivity between UE-non3GPP and Internet](#4-check-conectivity-between-ue-non3gpp-and-internet)
     - [4.1) Ping to 8.8.8.8](#41-ping-to-8888)
     - [4.2) MTR analysis](#42-mtr-analysis)
 - [E. Cleanning-up environment](#e-cleanning-up-environment)
@@ -465,9 +465,6 @@ sudo cp ~/non-3gpp-iot-wifi/utils/env_manager.sh ~/my5G-core/sample/sample1/util
 ```bash
 # Wireshark for global namespace
 wireshark -kni any --display-filter "isakmp or nas-5gs or ngap or pfcp or gtp or esp or gre" &
-
-# Wireshark for UEns (wlan1)
-sudo ip netns exec UEns wireshark -kni wlan1 --display-filter "isakmp or esp" &
 ```
 
 ### 4) Starting UPF
@@ -682,21 +679,51 @@ sudo ip netns exec UEns ip xfrm state
     <img src="figs/state.png"/> 
 </p>
 
-### 3) Check connectivity between UE-non3GPP and Data Plane (UPF)
+### 3) Check connectivity between UE-non3GPP and UPF
 
 #### 3.1) Ping to 60.60.0.101
 
-TODO...
+```bash
+# Starting monitoring tools for each interface at path between UE and UPF
+sudo ip netns exec UEns wireshark -kni ipsec0 & 
+sudo ip netns exec UEns wireshark -kni gretun0 &
+sudo ip netns exec UEns wireshark -kni wlan1 &
+sudo ip netns exec APns wireshark -kni wlan0 &
+sudo ip netns exec UEns wireshark -kni veth3 &
+sudo wireshark -kni veth2 &
+sudo wireshark -kni veth0 &
+sudo ip netns exec UPFns wireshark -kni any &
+```
+
+Then, do a ping test:
+
+```bash
+sudo ip netns exec UEns ping -c 1 60.60.0.101
+```
+
+The output of ping test:
+
+<p align="center">
+    <img src="figs/ping-test-ue-upf.png"/> 
+</p>
+
+You can observe the icmp packet at all interfaces between UE and UPF. We provided the [pcap files]() for in-depth analysis. 
+
 
 #### 3.2) MTR analysis
 
-TODO...
+<p align="center">
+    <img src="figs/traceroute-ue-upf.png"/> 
+</p>
 
-### 4) Check conectivity between UE-non3GPP and Data Plane (Internet)
+
+### 4) Check conectivity between UE-non3GPP and Internet
 
 #### 4.1) Ping to 8.8.8.8
 
-TODO...
+```bash
+sudo ip netns exec UEns ping -c 1 8.8.8.8
+```
 
 #### 4.2) MTR analysis
 
