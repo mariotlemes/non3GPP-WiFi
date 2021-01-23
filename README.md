@@ -753,7 +753,7 @@ sudo ip netns exec UEns traceroute 8.8.8.8
     <img src="figs/traceroute-ue-internet.png"/> 
 </p>
 
-Note that you can see that the path to Internet through the UPF.
+From now, you can see that the traffic from UE to Internet goes through the UPF.
 
 ## E. Cleanning-up environment
 
