@@ -689,7 +689,7 @@ sudo ip netns exec UEns wireshark -kni ipsec0 &
 sudo ip netns exec UEns wireshark -kni gretun0 &
 sudo ip netns exec UEns wireshark -kni wlan1 &
 sudo ip netns exec APns wireshark -kni wlan0 &
-sudo ip netns exec UEns wireshark -kni veth3 &
+sudo ip netns exec APns wireshark -kni veth3 &
 sudo wireshark -kni veth2 &
 sudo wireshark -kni veth0 &
 sudo ip netns exec UPFns wireshark -kni any &
