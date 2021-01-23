@@ -819,7 +819,7 @@ sudo make && sudo make install
 
 ### 2) Pings tests failed
 
-Make sure you have version 0.2.0 or higher of the gtp5g module installed.
+Make sure that you have v0.2.0 version or higher of the gtp5g module installed in your system:
 
 ```bash
 cd ~
