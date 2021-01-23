@@ -103,7 +103,7 @@ SBA-based 5G core software and an open-source implementation to provide untruste
     <thead>
         <tr>
             <th>Component</th>
-            <th>IPv4/CIDR</th>
+            <th>IPv4/Netmask</th>
             <th>Bridge/Interface</th>
             <th>Namespace</th>
         </tr>
