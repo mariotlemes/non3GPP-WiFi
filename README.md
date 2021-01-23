@@ -37,10 +37,10 @@
     - [2.2) XFRM state](#22-xfrm-state)
   - [3) Check connectivity between UE-non3GPP and UPF](#3-check-connectivity-between-ue-non3gpp-and-upf)
     - [3.1) Ping to 60.60.0.101](#31-ping-to-60600101)
-    - [3.2) MTR analysis](#32-mtr-analysis)
+    - [3.2) Traceroute analysis](#32-traceroute-analysis)
   - [4) Check conectivity between UE-non3GPP and Internet](#4-check-conectivity-between-ue-non3gpp-and-internet)
     - [4.1) Ping to 8.8.8.8](#41-ping-to-8888)
-    - [4.2) MTR analysis](#42-mtr-analysis)
+    - [4.2) Traceroute analysis](#42-traceroute-analysis)
 - [E. Cleanning-up environment](#e-cleanning-up-environment)
 - [F. Troubleshooting](#f-troubleshooting)
   - [1) To create gtp5g module](#1-to-create-gtp5g-module)
@@ -710,7 +710,9 @@ The output of ping test:
 You can observe the icmp packet at all interfaces between UE and UPF. We provided the [pcap files]() for in-depth analysis. 
 
 
-#### 3.2) MTR analysis
+#### 3.2) Traceroute analysis
+
+UE and UPF are one hop of distance due to the GRE (Generic Routing Encapsulation) tunnel.
 
 <p align="center">
     <img src="figs/traceroute-ue-upf.png"/> 
@@ -721,20 +723,31 @@ You can observe the icmp packet at all interfaces between UE and UPF. We provide
 
 #### 4.1) Ping to 8.8.8.8
 
+You also can ping the Internet (8.8.8.8):
+
 ```bash
 sudo ip netns exec UEns ping -c 1 8.8.8.8
 ```
 
-#### 4.2) MTR analysis
+The output of ping test:
 
-TODO...
+<p align="center">
+    <img src="figs/ping-ue-internet.png"/> 
+</p>
+
+
+#### 4.2) Traceroute analysis
+
+You can see that the path to Internet through the UPF:
+
+<p align="center">
+    <img src="figs/traceroute-ue-internet.png"/> 
+</p>
+
 
 ## E. Cleanning-up environment
 
 ```bash
-# Kill XFRM policy and state
-sudo kill -9 $(ps aux | grep "watch -d -n 2 sudo ip netns exec UEns ip xfrm" | awk '{ print $2}')
-
 # Kill wireshark
 killall -9 wireshark
 
