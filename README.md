@@ -234,7 +234,6 @@ SBA-based 5G core software and an open-source implementation to provide untruste
             <td align=center>veth4</td>
             <td align=center rowspan=1>default</td>
         </tr>
-
     </tbody>
 </table>
 
