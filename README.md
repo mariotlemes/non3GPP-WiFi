@@ -695,7 +695,7 @@ sudo wireshark -kni veth0 &
 sudo ip netns exec UPFns wireshark -kni any &
 ```
 
-Then, do a ping test:
+Then, to do a ping test:
 
 ```bash
 sudo ip netns exec UEns ping -c 1 60.60.0.101
