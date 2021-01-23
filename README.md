@@ -639,6 +639,7 @@ The table below shows the messages exchanged between UE and 5G core to PDU sessi
 |9| UE | N3IWF | IKEv2/ISAKMP | Create Child SA Response {Child SA response}
 |10| N3IWF | AMF | NGAP | PDU Session Resource Setup Response {PDU session response} | 
 
+Obs: Alternatively, you can [download](https://github.com/mariotlemes/non-3GPP-WiFi/blob/master/captures/wireshark-all-traffic.pcapng) the pcapng file and identify registration, authentication and authorization procedures and the PDU session establishment. 
 
 ## E. Tests
 
@@ -710,7 +711,7 @@ The output of ping test:
     <img src="figs/ping-test-ue-upf.png"/> 
 </p>
 
-You can observe the icmp packet at all interfaces between UE and UPF. We provided the [pcap files]() for in-depth analysis. 
+You can observe the icmp packet at all interfaces between UE and UPF. We provided the [pcap files](https://github.com/mariotlemes/non-3GPP-WiFi/blob/master/captures/ping-test-ue-upf.zip) for in-depth analysis. 
 
 
 #### 3.2) Traceroute analysis
