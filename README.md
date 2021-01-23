@@ -759,6 +759,7 @@ From now, you can see that the traffic from UE to Internet goes through the UPF.
 
 ```bash
 # Kill all wireshark instances
+cd ~/my5G-core
 killall -9 wireshark
 sudo ip netns exec UEns killall -9 wireshark
 sudo ip netns exec APns killall -9 wireshark
@@ -774,6 +775,7 @@ sudo ip netns exec UEns killall -9 ./bin/ue
 sudo ~/my5G-core/force_kill.sh
 
 # Kill hostapd and wpa_supplicant
+sudo killall dnsmasq
 sudo killall hostapd
 sudo killall wpa_supplicant
 
