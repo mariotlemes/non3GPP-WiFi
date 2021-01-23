@@ -61,9 +61,9 @@ Non-3GPP-Wi-Fi use-case  has been tested against the following environment:
 - Software
     - OS: Ubuntu 18.04
     - kernel version 5.0.0-23-generic
-    - my5G-core v3.0.4
-    - my5G-non3GPP-access v0.0.1
-    - gtp5g v0.2.0
+    - [my5G-core v3.0.4](https://github.com/my5G/my5G-core)
+    - [my5G-non3GPP-access v0.0.1](https://github.com/my5G/my5G-non3GPP-access)
+    - [gtp5g v0.2.0](https://github.com/PrinzOwO/gtp5g)
     
 
 The listed kernel version is required for the UPF element.
@@ -81,17 +81,16 @@ The listed kernel version is required for the UPF element.
     - NIC: Any 10Gbps Ethernet card supported in the Linux kernel
 
 ## Convention
-In this tutorial, we reference [my5G-non3GPP-access](https://github.com/my5G/my5G-non3GPP-access) for UE (User Equipment).
+In this tutorial, we used UE (User Equipment) instead of my5G-non3GPP-access. Therefore, the terms mentioned refer to the same component.
 
 ## Prerequisite
 
-This guide assumes that you will run all 5GC elements on a single machine and that [my5G-core](https://github.com/my5G/my5G-core) and UE are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
+This guide assumes that you will run all 5GC elements on a single machine and that my5G-core and UE are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
 
 ## 1) Expected result
 
 ### 1.1) Architecture
-This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a IEEE 802.11 network implemented by mac80211_hwsim and using hostapd and 
-wpa\_supplicant tools. We also use an open-source implementation of the 
+This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a IEEE 802.11 network implemented by mac80211_hwsim and using dnsmasq, hostapd and wpa\_supplicant tools. We also use an open-source implementation of the 
 SBA-based 5G core software and an open-source implementation to provide untrusted non-3GPP access to 5G core network. Y1 interface is the connection between User Equipment (UE-non3GPP) and Access Point (AP) and Y2 establishes connection between AP and N3IWF. The network architecture is shown in figure below. 
 
 <p align="center">
@@ -508,11 +507,11 @@ sudo ip netns exec UEns ~/my5G-core/src/ue/trigger_initial_registration.sh --ue_
 
 ## C. Discussion
 
-At this point, we created 2 (two) wireless network interfaces with the mac80211_hwsim module. The interface wlan0 was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". Dnsmasq was used to provide ip addressing service to hosts connected to the "my5gcore", emulated by the wlan0 interface with hostapd.
+At this point, we created 2 (two) wireless network interfaces with mac80211_hwsim. The wlan0 interface  was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". Dnsmasq was used to provide ip addressing service to hosts connected to the "my5gcore", emulated by the wlan0 interface with the hostapd tool.
 
-In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE first needs to be configured with a local IP address from the untrusted non-3GPP access network. With the wpa_supplicant tool, we connected the wlan1 interface to the IEEE 802.11 network (WiFi).
+In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP access, the UE first needs to be configured with a local IP address. With the wpa_supplicant tool, we connected the wlan1 interface to the IEEE 802.11 network (WiFi).
 
-After instantiating the customized scenario (addressing each Network Function (NF), registering the UE to the core and setting up the scenario with namespaces, virtual interfaces and routes), we started all 5G core NFs and the UE. Finally, we started the initial registration process to UE proceeds with the registration, authentication and authorization procedures to access the 5GCN.
+After instantiating the customized scenario (ip addressing for each Network Function (NF), registering the UE to the core and setting up the scenario with namespaces, virtual interfaces and routes), we started all 5G core NFs and the UE. Finally, we started the initial registration process to UE proceeds with the registration, authentication and authorization procedures to access the 5GCN.
 
 A UE accessing the 5GCN through an untrusted IEEE 802.11 network (my5gcore) shall support NAS signalling and shall initially register and authenticate with the 5GCN using the N3IWF and N1 interface. The component of core - AMF (Access and Mobility Management Function) - is used to register the UE and the AUSF (Authentication Server Function) is used to authenticate. The UE shall establish PDU sessions using the IPsec signalling SA and NAS session management messages with the SMF (Session Management Function) via AMF. The transfer of data packets between the UE and Data Network (DN) uses the secure IPsec tunnel between UE and N3IWF and the GTP-U tunnel between N3IWF and UPF (User Plane Function).
 
@@ -531,9 +530,9 @@ The registration, authentication and authorization procedures are show in figure
 
 **3)** N3IWF responds with an IKE_AUTH Response, including EAP-Request/5G-Start packet informing UE to start sending NAS messages. 
 
-**4)** UE sends the IKE AUTH request including EAP-Response/5G-NAS with NAS registration request and AN parameters.
+**4)** UE sends the IKE AUTH request including EAP-Response/5G-NAS with NAS registration request and AN (Acess Network) parameters.
 
-**5)** N3IWF selects an AMF based on the received AN parameters and local policy and forwards the registration request received from the UE to the selected AMF within an N2 Initial UE message. 
+**5)** N3IWF selects an AMF based on the received AN parameters and local policy and forwards the registration request received from the UE to the selected AMF within an Initial UE message. 
 
 **6)** When AMF receives the Registration Request, it sends an Authentication Request to N3IWF.
 
@@ -551,7 +550,7 @@ The registration, authentication and authorization procedures are show in figure
 
 **13)** N3IWF forwards this NAS Security Mode Complete message to AMF.
 
-**14)** AMF further sends an NGAP Initial Context Setup Request message including the N3IWF key to the N3IWF which triggers the N3IWF to send an EAP-Success to UE, which completes the EAP-5G session.
+**14)** AMF further sends an Initial Context Setup Request message including the N3IWF key to the N3IWF which triggers the N3IWF to send an EAP-Success to UE, which completes the EAP-5G session.
 
 **15)** N3IWF sends an IKE_AUTH Response to UE which contains an EAP-Success message 
 
@@ -710,7 +709,7 @@ You can observe the icmp packet at all interfaces between UE and UPF. We provide
 
 #### 3.2) Traceroute analysis
 
-To do an traceroute between UE and UPF, do:
+To do a traceroute between UE and UPF:
 
 ```bash
 sudo ip netns exec UEns traceroute 60.60.0.101
@@ -741,7 +740,7 @@ The output of ping test:
 
 #### 4.2) Traceroute analysis
 
-To do an traceroute between UE and Internet, do:
+To do a traceroute between UE and Internet:
 
 ```bash
 sudo ip netns exec UEns traceroute 8.8.8.8
