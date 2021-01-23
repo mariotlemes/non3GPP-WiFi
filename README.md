@@ -712,12 +712,17 @@ You can observe the icmp packet at all interfaces between UE and UPF. We provide
 
 #### 3.2) Traceroute analysis
 
-UE and UPF are one hop of distance due to the GRE (Generic Routing Encapsulation) tunnel.
+To do an traceroute between UE and UPF, do:
+
+```bash
+sudo ip netns exec UEns traceroute 60.60.0.101
+```
 
 <p align="center">
     <img src="figs/traceroute-ue-upf.png"/> 
 </p>
 
+UE and UPF are one hop of distance due to the GRE (Generic Routing Encapsulation) tunnel.
 
 ### 4) Check conectivity between UE-non3GPP and Internet
 
@@ -738,12 +743,17 @@ The output of ping test:
 
 #### 4.2) Traceroute analysis
 
-You can see that the path to Internet through the UPF:
+To do an traceroute between UE and Internet, do:
+
+```bash
+sudo ip netns exec UEns traceroute 8.8.8.8
+```
 
 <p align="center">
     <img src="figs/traceroute-ue-internet.png"/> 
 </p>
 
+Note that you can see that the path to Internet through the UPF.
 
 ## E. Cleanning-up environment
 
