@@ -10,13 +10,13 @@
 - [Recommended environment](#recommended-environment)
 - [Convention](#convention)
 - [Prerequisite](#prerequisite)
-- [1) Expected result](#1-expected-result)
+- [A. Expected result](#a-expected-result)
   - [1.1) Architecture](#11-architecture)
   - [1.2) Network addressing scheme](#12-network-addressing-scheme)
-- [A. Y1 Interface - Conection between UE and AP](#a-y1-interface---conection-between-ue-and-ap)
+- [B. Y1 Interface - Conection between UE and AP](#b-y1-interface---conection-between-ue-and-ap)
   - [1) Setting-up environment](#1-setting-up-environment)
   - [2) Check connection between UE and AP](#2-check-connection-between-ue-and-ap)
-- [B. Y2 Interface - Conection between AP and N3IWF](#b-y2-interface---conection-between-ap-and-n3iwf)
+- [C. Y2 Interface - Conection between AP and N3IWF](#c-y2-interface---conection-between-ap-and-n3iwf)
   - [1) Setting-up environment](#1-setting-up-environment-1)
   - [2) Setting namespaces, interfaces and routes for the scenario](#2-setting-namespaces-interfaces-and-routes-for-the-scenario)
   - [3) Starting monitoring tools](#3-starting-monitoring-tools)
@@ -24,10 +24,10 @@
   - [5) Running the other NFs in my5G-core network](#5-running-the-other-nfs-in-my5g-core-network)
   - [6) Starting UE](#6-starting-ue)
   - [7) Triggering initial registration procedure](#7-triggering-initial-registration-procedure)
-- [C. Discussion](#c-discussion)
+- [D. Discussion](#d-discussion)
   - [1) Registration, authentication and authorization](#1-registration-authentication-and-authorization)
   - [2) PDU session establishment](#2-pdu-session-establishment)
-- [D. Tests](#d-tests)
+- [E. Tests](#e-tests)
   - [1) Check creation of the rules in UPF](#1-check-creation-of-the-rules-in-upf)
     - [1.1) PDR](#11-pdr)
     - [1.2) FAR](#12-far)
@@ -40,8 +40,8 @@
   - [4) Check conectivity between UE and Internet](#4-check-conectivity-between-ue-and-internet)
     - [4.1) Ping to 8.8.8.8](#41-ping-to-8888)
     - [4.2) Traceroute analysis](#42-traceroute-analysis)
-- [E. Cleanning-up environment](#e-cleanning-up-environment)
-- [F. Troubleshooting](#f-troubleshooting)
+- [F. Cleanning-up environment](#f-cleanning-up-environment)
+- [G. Troubleshooting](#g-troubleshooting)
   - [1) To create gtp5g module](#1-to-create-gtp5g-module)
   - [2) Pings tests failed](#2-pings-tests-failed)
 
@@ -87,7 +87,7 @@ In this tutorial, we used UE (User Equipment) instead of my5G-non3GPP-access. Th
 
 This guide assumes that you will run all 5GC elements on a single machine and that my5G-core and UE are already installed in ~/my5G-core and ~/my5G-core/src/ue, respectivaly.
 
-## 1) Expected result
+## A. Expected result
 
 ### 1.1) Architecture
 This experiment aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a IEEE 802.11 network implemented by mac80211_hwsim and using dnsmasq, hostapd and wpa\_supplicant tools. We also use an open-source implementation of the 
@@ -231,7 +231,7 @@ SBA-based 5G core software and an open-source implementation to provide untruste
     </tbody>
 </table>
 
-## A. Y1 Interface - Conection between UE and AP
+## B. Y1 Interface - Conection between UE and AP
 
 ### 1) Setting-up environment
 On your host, install the necessary packages:
@@ -398,7 +398,7 @@ The ip add address of the wlan1 interface must be 192.168.1.1/24.
 </p>
 
 
-## B. Y2 Interface - Conection between AP and N3IWF
+## C. Y2 Interface - Conection between AP and N3IWF
 
 The connection between AP and N3IWF will be made by veth (virtual ethernet) and the AP will be able to able to route messages between UE and N3IWF. The ip addressing for the logical interface Y2 and the virtual interfaces are shown in the figure below:
 
@@ -505,7 +505,7 @@ sudo ip netns exec UEns ~/my5G-core/src/ue/trigger_initial_registration.sh --ue_
 ```
 <br>
 
-## C. Discussion
+## D. Discussion
 
 At this point, we created 2 (two) wireless network interfaces with mac80211_hwsim. The wlan0 interface  was instantiated in a namespace "APns" and wlan1 in the namespace "UEns". Dnsmasq was used to provide ip addressing service to hosts connected to the "my5gcore", emulated by the wlan0 interface with the hostapd tool.
 
@@ -634,7 +634,7 @@ The table below shows the messages exchanged between UE and 5G core to PDU sessi
 |10| N3IWF | AMF | NGAP | PDU Session Resource Setup Response {PDU session response} | 
 
 
-## D. Tests
+## E. Tests
 
 ### 1) Check creation of the rules in UPF
 
@@ -752,7 +752,7 @@ sudo ip netns exec UEns traceroute 8.8.8.8
 
 From now, you can see that the traffic from UE to Internet goes through the UPF.
 
-## E. Cleanning-up environment
+## F. Cleanning-up environment
 
 ```bash
 # Kill all wireshark instances
@@ -797,7 +797,7 @@ sed -i 's/ike_bind_addr=.*/ike_bind_addr=${ike_bind_addr:-"192.168.127.2"}/' src
 ```
 <br>
 
-## F. Troubleshooting
+## G. Troubleshooting
 
 ### 1) To create gtp5g module
 
