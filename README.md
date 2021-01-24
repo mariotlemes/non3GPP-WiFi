@@ -519,7 +519,7 @@ In order to register to the 5G Core Network (5GCN) via untrusted non-3GPP IP acc
 
 After instantiating the customized scenario (ip addressing for each Network Function (NF), registering the UE to the core and setting up the scenario with namespaces, virtual interfaces and routes), we started all 5G core NFs and the UE. Finally, we started the initial registration process to UE proceeds with the registration, authentication and authorization procedures to access the 5GCN.
 
-A UE accessing the 5GCN through an untrusted IEEE 802.11 network (my5gcore) shall support NAS signalling and shall initially register and authenticate with the 5GCN using the N3IWF and N1 interface. The component of core - AMF (Access and Mobility Management Function) - is used to register the UE and the AUSF (Authentication Server Function) is used to authenticate. The UE shall establish PDU sessions using the IPsec signalling SA and NAS session management messages with the SMF (Session Management Function) via AMF. The transfer of data packets between the UE and Data Network (DN) uses the secure IPsec tunnel between UE and N3IWF and the GTP-U tunnel between N3IWF and UPF (User Plane Function).
+A UE accessing the 5GCN through an untrusted IEEE 802.11 network (my5gcore) shall support NAS signalling and shall initially register and authenticate with the 5GCN using the N3IWF and N1 interface. The component of core - AMF (Access and Mobility Management Function) - is used to register the UE and the AUSF (Authentication Server Function) is used to authenticate. The UE shall establish PDU sessions using the IPsec signalling SA and NAS (Non Access Stratum) session management messages with the SMF (Session Management Function) via AMF. The transfer of data packets between the UE and Data Network (DN) uses the secure IPsec tunnel between UE and N3IWF and the GTP-U tunnel between N3IWF and UPF (User Plane Function).
 
 
 ### 1) Registration, authentication and authorization
@@ -622,22 +622,22 @@ The PDU session establishment procedure involves the following steps:
 
 **9)** UE sends an IKE Create Child SA Response to N3IWF.
 
-**10)** N3IWF establishes additional IPsec Child SAs and forwards the PDU Session Establishment Accept message to the UE via the signalling IPsec SA which enables start of UL data.The N3IWF also sends a PDU Session Resource Setup Response to AMF including DL GTPU Tunnel and enables start of DL data.
+**10)** N3IWF establishes additional IPsec Child SAs and forwards the PDU Session Establishment Accept message to the UE via the signalling IPsec SA. The N3IWF also sends a PDU Session Resource Setup Response to AMF including GTP-U Tunnel.
 
 The table below shows the messages exchanged between UE and 5G core to PDU session establishment.
 
 | ID | Src | Dst | Protocol | Message {payload/intention} 
 | :---: | :---: | :---: | :---: | :---: | 
 |1| UE | N3IWF | ESP | PDU Session Establishment Request {PDU session} |
-|2| N3IWF| AMF | NGAP/NAS-5G/ PDU Session | Establishment Request {PDU session} |
+|2| N3IWF| AMF | NGAP/NAS-5G/ PDU Session | UplinkNASTransport/Establishment Request {PDU session} |
 |3| SMF | UPF | PFCP | PFCP Session Establishment Request {PDR/FAR}
 |4| UPF | SMF | PFCP | PFCP Session Establishment Response {Request accepted (success)}
-|5| AMF | N3IWF | NGAP/NAS-5G |PDU Session Resource Setup Request {PDU session request}
+|5| AMF | N3IWF | NGAP/NAS-5G |PDUSessionResourceSetupRequest {PDU session request}
 |6| N3IWF | UPF | GTP | Echo Request {Is still alived?}
 |7| UPF | N3IWF | GTP | Echo Response {Activity confirmation}
 |8| N3IWF | UE | IKEv2/ISAKMP | Create Child SA Request {Child SA request} |
 |9| UE | N3IWF | IKEv2/ISAKMP | Create Child SA Response {Child SA response}
-|10| N3IWF | AMF | NGAP | PDU Session Resource Setup Response {PDU session response} | 
+|10| N3IWF | AMF | NGAP | PDU Session Resource Setup Response {PDU session response/GTP-U tunnel} | 
 
 Obs: Alternatively, you can [download](https://github.com/mariotlemes/non-3GPP-WiFi/blob/master/captures/wireshark-all-traffic.pcapng) the pcapng file and identify registration, authentication and authorization procedures and the PDU session establishment. 
 
