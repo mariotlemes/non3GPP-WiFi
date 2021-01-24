@@ -329,7 +329,6 @@ echo -e "interface=wlan0\ndhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h
 Initializing dnsmasq.conf:
 
 ```bash
-cd ~
 sudo ip netns exec APns dnsmasq -C ~/dnsmasq.conf -D
 ```
 
@@ -344,8 +343,7 @@ echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nw
 Initializing hostapd.conf to wlan0. At the end of this process, wlan0 will become an access point:
 
 ```bash
-cd ~
-sudo ip netns exec APns hostapd hostapd.conf -B
+sudo ip netns exec APns hostapd ~/hostapd.conf -B
 ```
 The expected result is like below:
 
@@ -356,7 +354,6 @@ The expected result is like below:
 To create the wpa_supplicant.conf file:
 
 ```bash
-  cd ~
   sudo touch ~/wpa_supplicant.conf && sudo chmod 666 ~/wpa_supplicant.conf
   echo -e 'network={\nssid="my5gcore"\nkey_mgmt=WPA-PSK\npsk="my5gcore"\n}' > ~/wpa_supplicant.conf
 ```
@@ -365,9 +362,8 @@ To create the wpa_supplicant.conf file:
 Apply the settings for wlan1:
 
 ```bash
-cd ~
 sudo killall wpa_supplicant
-sudo ip netns exec UEns wpa_supplicant -i wlan1 -c wpa_supplicant.conf -B 
+sudo ip netns exec UEns wpa_supplicant -i wlan1 -c ~/wpa_supplicant.conf -B 
 sudo ip netns exec UEns dhclient wlan1
 ```
 
