@@ -711,7 +711,7 @@ The output of ping test:
     <img src="figs/ping-test-ue-upf.png"/> 
 </p>
 
-You can observe the icmp packet at all interfaces between UE and UPF. We provided the [pcap files](https://github.com/mariotlemes/non-3GPP-WiFi/blob/master/captures/ping-test-ue-upf.zip) for in-depth analysis. 
+You can observe the ICMP packets at all interfaces between UE and UPF. We provided the [pcapng files](https://github.com/mariotlemes/non-3GPP-WiFi/blob/master/captures/ping-test-ue-upf.zip) for in-depth analysis. 
 
 
 #### 3.2) Traceroute analysis
@@ -764,7 +764,7 @@ From now, you can see that the traffic from UE to Internet goes through the UPF.
 ```bash
 # Kill all wireshark instances
 cd ~/my5G-core
-killall -9 wireshark
+sudo killall -9 wireshark
 sudo ip netns exec UEns killall -9 wireshark
 sudo ip netns exec APns killall -9 wireshark
 sudo ip netns exec UPFns killall -9 wireshark
@@ -778,7 +778,7 @@ sudo ip netns exec UEns killall -9 ./bin/ue
 # Kill all NFs in my5G-core
 sudo ~/my5G-core/force_kill.sh
 
-# Kill hostapd and wpa_supplicant
+# Kill dnsmasq, hostapd and wpa_supplicant
 sudo killall dnsmasq
 sudo killall hostapd
 sudo killall wpa_supplicant
