@@ -759,7 +759,6 @@ From now, you can see that the traffic from UE to Internet goes through the UPF.
 
 ```bash
 # Kill all wireshark instances
-cd ~/my5G-core
 sudo killall -9 wireshark
 sudo ip netns exec UEns killall -9 wireshark
 sudo ip netns exec APns killall -9 wireshark
@@ -769,10 +768,11 @@ sudo ip netns exec UPFns killall -9 wireshark
 killall -9 webconsole
 
 # Kill UE
+cd ~/my5G-core
 sudo ip netns exec UEns killall -9 ./bin/ue
 
 # Kill all NFs in my5G-core
-sudo ~/my5G-core/force_kill.sh
+sudo ./force_kill.sh
 
 # Kill dnsmasq, hostapd and wpa_supplicant
 sudo killall dnsmasq
@@ -825,8 +825,11 @@ sudo make && sudo make install
 Make sure that you have v0.2.0 version or higher of the gtp5g module installed in your system:
 
 ```bash
+# Clone gtp5g v0.2.0
 cd ~
 sudo git clone -b v0.2.0 https://github.com/PrinzOwO/gtp5g.git
+
+# Install gtp5g module
 cd ~/gtp5g
 sudo make && sudo make install
 
