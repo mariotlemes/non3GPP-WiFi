@@ -320,8 +320,8 @@ sudo ip netns exec APns ip addr add 192.168.1.10/24 dev wlan0
 To create the dnsmasq.conf file:
 ```bash
 sudo killall dnsmasq
-sudo touch $HOME/dnsmasq.conf && sudo chmod 666 $HOME/dnsmasq.conf
-echo -e "interface=wlan0\ndhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h\nserver=8.8.8.8\nlog-queries\nlog-dhcp\nlisten-address=127.0.0.1\ndhcp-host=02:00:00:00:01:00,192.168.1.1" > $HOME/dnsmasq.conf
+sudo touch ~/dnsmasq.conf && sudo chmod 666 ~/dnsmasq.conf
+echo -e "interface=wlan0\ndhcp-range=192.168.1.2,192.168.1.254,255.255.255.0,12h\nserver=8.8.8.8\nlog-queries\nlog-dhcp\nlisten-address=127.0.0.1\ndhcp-host=02:00:00:00:01:00,192.168.1.1" > ~/dnsmasq.conf
 
 ```
 <br>
@@ -330,14 +330,14 @@ Initializing dnsmasq.conf:
 
 ```bash
 cd ~
-sudo ip netns exec APns dnsmasq -C $HOME/dnsmasq.conf -D
+sudo ip netns exec APns dnsmasq -C ~/dnsmasq.conf -D
 ```
 
 To create the hostapd.conf file:
 
 ```bash
-sudo touch $HOME/hostapd.conf && sudo chmod 666 $HOME/hostapd.conf
-echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > $HOME/hostapd.conf
+sudo touch ~/hostapd.conf && sudo chmod 666 ~/hostapd.conf
+echo -e "interface=wlan0\ndriver=nl80211\nssid=my5gcore\nchannel=0\nhw_mode=b\nwpa=3\nwpa_key_mgmt=WPA-PSK\nwpa_pairwise=TKIP CCMP\nwpa_passphrase=my5gcore\nauth_algs=3\nbeacon_int=100" > ~/hostapd.conf
 ```
 <br>
 
@@ -357,8 +357,8 @@ To create the wpa_supplicant.conf file:
 
 ```bash
   cd ~
-  sudo touch wpa_supplicant.conf && sudo chmod 666 wpa_supplicant.conf
-  echo -e 'network={\nssid="my5gcore"\nkey_mgmt=WPA-PSK\npsk="my5gcore"\n}' > wpa_supplicant.conf
+  sudo touch ~/wpa_supplicant.conf && sudo chmod 666 ~/wpa_supplicant.conf
+  echo -e 'network={\nssid="my5gcore"\nkey_mgmt=WPA-PSK\npsk="my5gcore"\n}' > ~/wpa_supplicant.conf
 ```
 <br>
 
