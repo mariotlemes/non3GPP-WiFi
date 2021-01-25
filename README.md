@@ -1,4 +1,4 @@
-<img width="20%" src="docs/media/img/my5g-logo.png" alt="my5g-core"/>
+<img width="20%" src="figs/my5g-logo.png" alt="my5g-core"/>
 
 # non3GPP-WiFi
 
