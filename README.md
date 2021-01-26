@@ -11,18 +11,6 @@
 
 non3GPP-WiFi aims to demonstrate a non-3GPP access based on N3IWF (Non-3GPP Interworking Function) with integrated a IEEE 802.11 network implemented by mac80211_hwsim and using dnsmasq, hostapd and wpa_supplicant tools. We also use an open-source implementation of the SBA-based 5G core software ([my5G-core](https://github.com/my5G/my5G-core)) and an open-source implementation to provide untrusted non-3GPP access ([my5G-non3GPP-access)](https://github.com/my5G/my5G-non3GPP-access) to 5G core network.
 
-
-If you want to cite this tool, please use the following information:
-```
-@misc{???,
-    title={???},
-    author={???},
-    year={2020},
-    eprint={???},
-    archivePrefix={arXiv},
-    primaryClass={cs.NI}
-}
-```
 If you have questions or comments, please email us: [my5G team](mailto:my5G.initiative@gmail.com). 
 
 ## Documentation
