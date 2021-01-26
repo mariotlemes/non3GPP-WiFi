@@ -80,8 +80,7 @@ if [[ $1 == "up" ]]; then
   sudo ip netns exec APns ip addr add 192.168.127.2/24 dev veth3
   sudo ip netns exec APns ip link set veth3 up
   
-  # default route for wlan1
- #sudo ip netns exec UEns route add default gw 192.168.1.10 wlan1 #wlan 1 - interface cliente
+  # static route for wlan1
   sudo ip netns exec UEns route add -net 192.168.127.0/24 gw 192.168.1.10 dev wlan1
 
   # static route 
