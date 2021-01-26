@@ -35,4 +35,4 @@ If you have questions or comments, please email us: [my5G team](mailto:my5G.init
 
 ## License
 
-Apache 2.0
+[Apache 2.0](https://github.com/mariotlemes/non3GPP-WiFi/blob/master/LICENSE)
