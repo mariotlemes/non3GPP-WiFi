@@ -1,3 +1,3 @@
 module non3GPP-WiFi
 
-go 1.4.4
+go 1.14.4
