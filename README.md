@@ -3,7 +3,7 @@
 # non3GPP-WiFi
 
 ![GitHub](https://img.shields.io/github/license/my5G/my5G-RANTester?color=blue) 
-![GitHub commit activity](https://img.shields.io/github/commit-activity/m/mariotlemes/non3GPP-WiFi) 
+![GitHub commit activity](https://img.shields.io/github/commit-activity/y/mariotlemes/non3GPP-WiFi) 
 ![GitHub last commit](https://img.shields.io/github/last-commit/mariotlemes/non3GPP-WiFi)
 ![GitHub contributors](https://img.shields.io/github/contributors/mariotlemes/non3GPP-WiFi)
 
