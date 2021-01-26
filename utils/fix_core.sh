@@ -3,7 +3,7 @@
 # enable forwarding
 sudo sysctl -w net.ipv4.ip_forward=1
 
-# stoppig ufw service
+# stopping ufw service
 sudo /etc/init.d/ufw stop
 
 # compiling gtp5g module
